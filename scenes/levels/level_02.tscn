@@ -1,0 +1,205 @@
+[gd_scene load_steps=12 format=3]
+
+[ext_resource type="Script" path="res://scripts/level.gd" id="1"]
+[ext_resource type="Texture2D" path="res://assets/bg_hw_sky.png" id="2"]
+[ext_resource type="Texture2D" path="res://assets/bg_hw_far.png" id="3"]
+[ext_resource type="Texture2D" path="res://assets/bg_hw_mid.png" id="4"]
+[ext_resource type="Texture2D" path="res://assets/bg_hw_dunes.png" id="5"]
+[ext_resource type="Texture2D" path="res://assets/hw_ground.png" id="6"]
+[ext_resource type="PackedScene" path="res://scenes/warden.tscn" id="7"]
+[ext_resource type="PackedScene" path="res://scenes/drone.tscn" id="8"]
+[ext_resource type="PackedScene" path="res://scenes/cargo.tscn" id="9"]
+[ext_resource type="PackedScene" path="res://scenes/warden_shield.tscn" id="10"]
+
+[node name="Level02" type="Node2D"]
+script = ExtResource("1")
+length = 3900.0
+title = "1-2 HIGHWAY RUN"
+next_level = "res://scenes/levels/level_03.tscn"
+
+[node name="Sky" type="CanvasLayer" parent="."]
+layer = -10
+
+[node name="Sprite" type="Sprite2D" parent="Sky"]
+texture = ExtResource("2")
+centered = false
+
+[node name="Far" type="Parallax2D" parent="."]
+scroll_scale = Vector2(0.15, 0)
+repeat_size = Vector2(480, 0)
+repeat_times = 12
+z_index = -30
+
+[node name="Sprite" type="Sprite2D" parent="Far"]
+texture = ExtResource("3")
+centered = false
+
+[node name="Mid" type="Parallax2D" parent="."]
+scroll_scale = Vector2(0.35, 0)
+repeat_size = Vector2(480, 0)
+repeat_times = 12
+z_index = -20
+
+[node name="Sprite" type="Sprite2D" parent="Mid"]
+texture = ExtResource("4")
+centered = false
+
+[node name="Dunes" type="Parallax2D" parent="."]
+scroll_scale = Vector2(0.6, 0)
+repeat_size = Vector2(480, 0)
+repeat_times = 12
+z_index = -10
+
+[node name="Sprite" type="Sprite2D" parent="Dunes"]
+texture = ExtResource("5")
+centered = false
+
+[node name="Ground" type="Parallax2D" parent="."]
+scroll_scale = Vector2(1.0, 0)
+repeat_size = Vector2(480, 0)
+repeat_times = 12
+z_index = -5
+
+[node name="Sprite" type="Sprite2D" parent="Ground"]
+texture = ExtResource("6")
+centered = false
+
+[node name="PlayerStart" type="Marker2D" parent="."]
+position = Vector2(100, 222)
+
+[node name="Exit" type="Marker2D" parent="."]
+position = Vector2(3750, 222)
+
+[node name="Checkpoints" type="Node2D" parent="."]
+
+[node name="Checkpoint1" type="Marker2D" parent="Checkpoints" groups=["checkpoint"]]
+position = Vector2(1000, 222)
+
+[node name="Checkpoint2" type="Marker2D" parent="Checkpoints" groups=["checkpoint"]]
+position = Vector2(2050, 222)
+
+[node name="Checkpoint3" type="Marker2D" parent="Checkpoints" groups=["checkpoint"]]
+position = Vector2(2800, 222)
+
+[node name="Props" type="Node2D" parent="."]
+
+[node name="Crate1" parent="Props" instance=ExtResource("9")]
+position = Vector2(300, 223)
+
+[node name="Crate2" parent="Props" instance=ExtResource("9")]
+position = Vector2(560, 223)
+stack = 2
+
+[node name="Crate3" parent="Props" instance=ExtResource("9")]
+position = Vector2(640, 223)
+
+[node name="Crate4" parent="Props" instance=ExtResource("9")]
+position = Vector2(1040, 223)
+stack = 2
+
+[node name="Crate5" parent="Props" instance=ExtResource("9")]
+position = Vector2(1110, 223)
+
+[node name="Crate6" parent="Props" instance=ExtResource("9")]
+position = Vector2(1480, 223)
+
+[node name="Crate7" parent="Props" instance=ExtResource("9")]
+position = Vector2(1560, 223)
+stack = 2
+
+[node name="Crate8" parent="Props" instance=ExtResource("9")]
+position = Vector2(1780, 223)
+
+[node name="Crate9" parent="Props" instance=ExtResource("9")]
+position = Vector2(1990, 223)
+stack = 2
+
+[node name="Crate10" parent="Props" instance=ExtResource("9")]
+position = Vector2(2200, 223)
+
+[node name="Crate11" parent="Props" instance=ExtResource("9")]
+position = Vector2(2440, 223)
+stack = 2
+
+[node name="Crate12" parent="Props" instance=ExtResource("9")]
+position = Vector2(2640, 223)
+
+[node name="Crate13" parent="Props" instance=ExtResource("9")]
+position = Vector2(2860, 223)
+
+[node name="Crate14" parent="Props" instance=ExtResource("9")]
+position = Vector2(2920, 223)
+stack = 2
+
+[node name="Crate15" parent="Props" instance=ExtResource("9")]
+position = Vector2(3120, 223)
+stack = 2
+
+[node name="Crate16" parent="Props" instance=ExtResource("9")]
+position = Vector2(3300, 223)
+
+[node name="Crate17" parent="Props" instance=ExtResource("9")]
+position = Vector2(3380, 223)
+stack = 2
+
+[node name="Enemies" type="Node2D" parent="."]
+
+[node name="Warden1" parent="Enemies" instance=ExtResource("7")]
+position = Vector2(760, 222)
+patrol_range = 50.0
+start_facing = -1
+
+[node name="Warden2" parent="Enemies" instance=ExtResource("7")]
+position = Vector2(1150, 222)
+patrol_range = 40.0
+start_facing = -1
+
+[node name="Warden3" parent="Enemies" instance=ExtResource("7")]
+position = Vector2(1500, 222)
+patrol_range = 60.0
+start_facing = -1
+
+[node name="ShieldWarden4" parent="Enemies" instance=ExtResource("10")]
+position = Vector2(1840, 222)
+patrol_range = 40.0
+start_facing = -1
+
+[node name="Warden5" parent="Enemies" instance=ExtResource("7")]
+position = Vector2(2250, 222)
+patrol_range = 50.0
+start_facing = -1
+
+[node name="ShieldWarden6" parent="Enemies" instance=ExtResource("10")]
+position = Vector2(2560, 222)
+patrol_range = 40.0
+start_facing = -1
+
+[node name="Warden7" parent="Enemies" instance=ExtResource("7")]
+position = Vector2(2980, 222)
+patrol_range = 60.0
+start_facing = -1
+
+[node name="ShieldWarden8" parent="Enemies" instance=ExtResource("10")]
+position = Vector2(3200, 222)
+patrol_range = 30.0
+start_facing = 1
+
+[node name="ShieldWarden9" parent="Enemies" instance=ExtResource("10")]
+position = Vector2(3430, 222)
+patrol_range = 40.0
+start_facing = -1
+
+[node name="Drone1" parent="Enemies" instance=ExtResource("8")]
+position = Vector2(480, 150)
+
+[node name="Drone2" parent="Enemies" instance=ExtResource("8")]
+position = Vector2(1400, 140)
+
+[node name="Drone3" parent="Enemies" instance=ExtResource("8")]
+position = Vector2(2100, 150)
+
+[node name="Drone4" parent="Enemies" instance=ExtResource("8")]
+position = Vector2(2720, 135)
+
+[node name="Drone5" parent="Enemies" instance=ExtResource("8")]
+position = Vector2(3330, 145)

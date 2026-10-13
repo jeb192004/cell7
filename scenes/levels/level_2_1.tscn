@@ -1,0 +1,181 @@
+[gd_scene load_steps=12 format=3]
+
+[ext_resource type="Script" path="res://scripts/level.gd" id="1"]
+[ext_resource type="Texture2D" path="res://assets/bg_ship_sky.png" id="2"]
+[ext_resource type="Texture2D" path="res://assets/bg_ship_far.png" id="3"]
+[ext_resource type="Texture2D" path="res://assets/bg_ship_mid.png" id="4"]
+[ext_resource type="Texture2D" path="res://assets/ship_ground.png" id="5"]
+[ext_resource type="PackedScene" path="res://scenes/warden.tscn" id="7"]
+[ext_resource type="PackedScene" path="res://scenes/drone.tscn" id="8"]
+[ext_resource type="PackedScene" path="res://scenes/cargo.tscn" id="9"]
+[ext_resource type="PackedScene" path="res://scenes/warden_shield.tscn" id="10"]
+[ext_resource type="PackedScene" path="res://scenes/cage.tscn" id="11"]
+[ext_resource type="PackedScene" path="res://scenes/corvane.tscn" id="12"]
+
+[node name="Level2_1" type="Node2D"]
+script = ExtResource("1")
+length = 3600.0
+title = "2-1 THE MERIDIAN"
+next_level = "res://scenes/levels/level_2_2.tscn"
+
+[node name="Sky" type="CanvasLayer" parent="."]
+layer = -10
+
+[node name="Sprite" type="Sprite2D" parent="Sky"]
+texture = ExtResource("2")
+centered = false
+
+[node name="Far" type="Parallax2D" parent="."]
+scroll_scale = Vector2(0.15, 0)
+repeat_size = Vector2(480, 0)
+repeat_times = 12
+z_index = -30
+
+[node name="Sprite" type="Sprite2D" parent="Far"]
+texture = ExtResource("3")
+centered = false
+
+[node name="Mid" type="Parallax2D" parent="."]
+scroll_scale = Vector2(0.4, 0)
+repeat_size = Vector2(480, 0)
+repeat_times = 12
+z_index = -20
+
+[node name="Sprite" type="Sprite2D" parent="Mid"]
+texture = ExtResource("4")
+centered = false
+
+[node name="Ground" type="Parallax2D" parent="."]
+scroll_scale = Vector2(1.0, 0)
+repeat_size = Vector2(480, 0)
+repeat_times = 12
+z_index = -5
+
+[node name="Sprite" type="Sprite2D" parent="Ground"]
+texture = ExtResource("5")
+centered = false
+
+[node name="PlayerStart" type="Marker2D" parent="."]
+position = Vector2(100, 222)
+
+[node name="Exit" type="Marker2D" parent="."]
+position = Vector2(3480, 222)
+
+[node name="Checkpoints" type="Node2D" parent="."]
+
+[node name="Checkpoint1" type="Marker2D" parent="Checkpoints" groups=["checkpoint"]]
+position = Vector2(1000, 222)
+
+[node name="Checkpoint2" type="Marker2D" parent="Checkpoints" groups=["checkpoint"]]
+position = Vector2(2050, 222)
+
+[node name="Checkpoint3" type="Marker2D" parent="Checkpoints" groups=["checkpoint"]]
+position = Vector2(2800, 222)
+
+[node name="Props" type="Node2D" parent="."]
+
+[node name="Crate1" parent="Props" instance=ExtResource("9")]
+position = Vector2(320, 223)
+
+[node name="Crate2" parent="Props" instance=ExtResource("9")]
+position = Vector2(600, 223)
+stack = 2
+
+[node name="Crate3" parent="Props" instance=ExtResource("9")]
+position = Vector2(680, 223)
+
+[node name="Crate4" parent="Props" instance=ExtResource("9")]
+position = Vector2(1040, 223)
+stack = 2
+
+[node name="Crate5" parent="Props" instance=ExtResource("9")]
+position = Vector2(1110, 223)
+
+[node name="Crate6" parent="Props" instance=ExtResource("9")]
+position = Vector2(1460, 223)
+
+[node name="Crate7" parent="Props" instance=ExtResource("9")]
+position = Vector2(1650, 223)
+stack = 2
+
+[node name="Crate8" parent="Props" instance=ExtResource("9")]
+position = Vector2(1800, 223)
+
+[node name="Crate9" parent="Props" instance=ExtResource("9")]
+position = Vector2(2090, 223)
+stack = 2
+
+[node name="Crate10" parent="Props" instance=ExtResource("9")]
+position = Vector2(2200, 223)
+
+[node name="Crate11" parent="Props" instance=ExtResource("9")]
+position = Vector2(2480, 223)
+stack = 2
+
+[node name="Crate12" parent="Props" instance=ExtResource("9")]
+position = Vector2(2700, 223)
+
+[node name="Crate13" parent="Props" instance=ExtResource("9")]
+position = Vector2(2880, 223)
+stack = 2
+
+[node name="Crate14" parent="Props" instance=ExtResource("9")]
+position = Vector2(3120, 223)
+
+[node name="Crate15" parent="Props" instance=ExtResource("9")]
+position = Vector2(3330, 223)
+stack = 2
+
+[node name="Enemies" type="Node2D" parent="."]
+
+[node name="Warden1" parent="Enemies" instance=ExtResource("7")]
+position = Vector2(780, 222)
+patrol_range = 50.0
+start_facing = -1
+
+[node name="Warden2" parent="Enemies" instance=ExtResource("7")]
+position = Vector2(1150, 222)
+patrol_range = 40.0
+start_facing = -1
+
+[node name="Warden3" parent="Enemies" instance=ExtResource("7")]
+position = Vector2(1560, 222)
+patrol_range = 60.0
+start_facing = -1
+
+[node name="ShieldWarden4" parent="Enemies" instance=ExtResource("10")]
+position = Vector2(1900, 222)
+patrol_range = 40.0
+start_facing = -1
+
+[node name="Warden5" parent="Enemies" instance=ExtResource("7")]
+position = Vector2(2260, 222)
+patrol_range = 50.0
+start_facing = -1
+
+[node name="Warden6" parent="Enemies" instance=ExtResource("7")]
+position = Vector2(2600, 222)
+patrol_range = 40.0
+start_facing = -1
+
+[node name="ShieldWarden7" parent="Enemies" instance=ExtResource("10")]
+position = Vector2(2980, 222)
+patrol_range = 40.0
+start_facing = -1
+
+[node name="Warden8" parent="Enemies" instance=ExtResource("7")]
+position = Vector2(3250, 222)
+patrol_range = 50.0
+start_facing = -1
+
+[node name="Drone1" parent="Enemies" instance=ExtResource("8")]
+position = Vector2(520, 150)
+
+[node name="Drone2" parent="Enemies" instance=ExtResource("8")]
+position = Vector2(1400, 140)
+
+[node name="Drone3" parent="Enemies" instance=ExtResource("8")]
+position = Vector2(2140, 150)
+
+[node name="Drone4" parent="Enemies" instance=ExtResource("8")]
+position = Vector2(2800, 135)

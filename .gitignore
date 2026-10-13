@@ -1,0 +1,35 @@
+# Godot 4 editor cache (regenerated on open)
+.godot/
+.import/
+*.translation
+
+# Exports / builds
+*.apk
+*.aab
+*.idsig
+*.exe
+*.pck
+*.dmg
+*.app
+build/
+builds/
+export/
+android/build/
+
+# OS / editor junk
+.DS_Store
+Thumbs.db
+.vscode/
+.idea/
+*.tmp
+*.bak
+
+# Python (tools/)
+__pycache__/
+*.pyc
+.venv/
+
+# Never commit signing keys or credentials
+*.keystore
+*.jks
+export_credentials.cfg

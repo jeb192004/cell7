@@ -1,0 +1,13 @@
+[gd_scene load_steps=3 format=3]
+
+[ext_resource type="Script" path="res://scripts/enemy.gd" id="1"]
+[ext_resource type="Texture2D" path="res://assets/warden_ready.png" id="2"]
+
+[node name="Warden" type="Node2D"]
+script = ExtResource("1")
+kind = "warden"
+
+[node name="Sprite" type="Sprite2D" parent="."]
+texture = ExtResource("2")
+centered = false
+position = Vector2(-18, -56)
