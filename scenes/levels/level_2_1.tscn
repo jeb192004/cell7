@@ -1,181 +1,187 @@
-[gd_scene load_steps=12 format=3]
+[gd_scene format=3 uid="uid://by7drayp3s1ci"]
 
-[ext_resource type="Script" path="res://scripts/level.gd" id="1"]
-[ext_resource type="Texture2D" path="res://assets/bg_ship_sky.png" id="2"]
-[ext_resource type="Texture2D" path="res://assets/bg_ship_far.png" id="3"]
-[ext_resource type="Texture2D" path="res://assets/bg_ship_mid.png" id="4"]
-[ext_resource type="Texture2D" path="res://assets/ship_ground.png" id="5"]
+[ext_resource type="Script" uid="uid://bmxaw2w0f42jh" path="res://scripts/level.gd" id="1"]
+[ext_resource type="Texture2D" uid="uid://dwoibj80kuwoa" path="res://assets/bg_ship_sky.png" id="2"]
+[ext_resource type="Texture2D" uid="uid://bhkmfcquomfc5" path="res://assets/bg_ship_far.png" id="3"]
+[ext_resource type="Texture2D" uid="uid://ceg7sy2u8ywy4" path="res://assets/bg_ship_mid.png" id="4"]
+[ext_resource type="Texture2D" uid="uid://clvd7spyawq7p" path="res://assets/ship_ground.png" id="5"]
+[ext_resource type="Script" uid="uid://b7hcqame8x3n6" path="res://scripts/deck.gd" id="6_l6f0b"]
 [ext_resource type="PackedScene" path="res://scenes/warden.tscn" id="7"]
+[ext_resource type="Script" uid="uid://gdpqy0o1cqor" path="res://scripts/barrier.gd" id="7_u3emu"]
 [ext_resource type="PackedScene" path="res://scenes/drone.tscn" id="8"]
 [ext_resource type="PackedScene" path="res://scenes/cargo.tscn" id="9"]
 [ext_resource type="PackedScene" path="res://scenes/warden_shield.tscn" id="10"]
-[ext_resource type="PackedScene" path="res://scenes/cage.tscn" id="11"]
-[ext_resource type="PackedScene" path="res://scenes/corvane.tscn" id="12"]
 
-[node name="Level2_1" type="Node2D"]
+[node name="Level2_1" type="Node2D" unique_id=1642795024]
 script = ExtResource("1")
-length = 3600.0
 title = "2-1 THE MERIDIAN"
 next_level = "res://scenes/levels/level_2_2.tscn"
 
-[node name="Sky" type="CanvasLayer" parent="."]
+[node name="Sky" type="CanvasLayer" parent="." unique_id=607031097]
 layer = -10
 
-[node name="Sprite" type="Sprite2D" parent="Sky"]
+[node name="Sprite" type="Sprite2D" parent="Sky" unique_id=95493470]
 texture = ExtResource("2")
 centered = false
 
-[node name="Far" type="Parallax2D" parent="."]
+[node name="Far" type="Parallax2D" parent="." unique_id=295301498]
+z_index = -30
 scroll_scale = Vector2(0.15, 0)
 repeat_size = Vector2(480, 0)
 repeat_times = 12
-z_index = -30
 
-[node name="Sprite" type="Sprite2D" parent="Far"]
+[node name="Sprite" type="Sprite2D" parent="Far" unique_id=1361301583]
 texture = ExtResource("3")
 centered = false
 
-[node name="Mid" type="Parallax2D" parent="."]
+[node name="Mid" type="Parallax2D" parent="." unique_id=890890602]
+z_index = -20
 scroll_scale = Vector2(0.4, 0)
 repeat_size = Vector2(480, 0)
 repeat_times = 12
-z_index = -20
 
-[node name="Sprite" type="Sprite2D" parent="Mid"]
+[node name="Sprite" type="Sprite2D" parent="Mid" unique_id=1713518748]
 texture = ExtResource("4")
 centered = false
 
-[node name="Ground" type="Parallax2D" parent="."]
-scroll_scale = Vector2(1.0, 0)
+[node name="Ground" type="Parallax2D" parent="." unique_id=465126406]
+z_index = -5
+scroll_scale = Vector2(1, 0)
 repeat_size = Vector2(480, 0)
 repeat_times = 12
-z_index = -5
 
-[node name="Sprite" type="Sprite2D" parent="Ground"]
+[node name="Sprite" type="Sprite2D" parent="Ground" unique_id=632540394]
 texture = ExtResource("5")
 centered = false
 
-[node name="PlayerStart" type="Marker2D" parent="."]
+[node name="Deck" type="Node2D" parent="Ground" unique_id=21044926]
+z_index = -1
+position = Vector2(0, 100)
+script = ExtResource("6_l6f0b")
+metadata/_custom_type_script = "uid://b7hcqame8x3n6"
+
+[node name="Barrier" type="Node2D" parent="Ground" unique_id=545098966]
+position = Vector2(205, 197)
+script = ExtResource("7_u3emu")
+metadata/_custom_type_script = "uid://gdpqy0o1cqor"
+
+[node name="PlayerStart" type="Marker2D" parent="." unique_id=337833278]
 position = Vector2(100, 222)
 
-[node name="Exit" type="Marker2D" parent="."]
+[node name="Exit" type="Marker2D" parent="." unique_id=1667874329]
 position = Vector2(3480, 222)
 
-[node name="Checkpoints" type="Node2D" parent="."]
+[node name="Checkpoints" type="Node2D" parent="." unique_id=2055888174]
 
-[node name="Checkpoint1" type="Marker2D" parent="Checkpoints" groups=["checkpoint"]]
+[node name="Checkpoint1" type="Marker2D" parent="Checkpoints" unique_id=1406638265 groups=["checkpoint"]]
 position = Vector2(1000, 222)
 
-[node name="Checkpoint2" type="Marker2D" parent="Checkpoints" groups=["checkpoint"]]
+[node name="Checkpoint2" type="Marker2D" parent="Checkpoints" unique_id=128541310 groups=["checkpoint"]]
 position = Vector2(2050, 222)
 
-[node name="Checkpoint3" type="Marker2D" parent="Checkpoints" groups=["checkpoint"]]
+[node name="Checkpoint3" type="Marker2D" parent="Checkpoints" unique_id=132627819 groups=["checkpoint"]]
 position = Vector2(2800, 222)
 
-[node name="Props" type="Node2D" parent="."]
+[node name="Props" type="Node2D" parent="." unique_id=1127189197]
 
-[node name="Crate1" parent="Props" instance=ExtResource("9")]
+[node name="Crate1" parent="Props" unique_id=1626149607 instance=ExtResource("9")]
 position = Vector2(320, 223)
 
-[node name="Crate2" parent="Props" instance=ExtResource("9")]
+[node name="Crate2" parent="Props" unique_id=1029362754 instance=ExtResource("9")]
 position = Vector2(600, 223)
 stack = 2
 
-[node name="Crate3" parent="Props" instance=ExtResource("9")]
+[node name="Crate3" parent="Props" unique_id=271053672 instance=ExtResource("9")]
 position = Vector2(680, 223)
 
-[node name="Crate4" parent="Props" instance=ExtResource("9")]
+[node name="Crate4" parent="Props" unique_id=1447545806 instance=ExtResource("9")]
 position = Vector2(1040, 223)
 stack = 2
 
-[node name="Crate5" parent="Props" instance=ExtResource("9")]
+[node name="Crate5" parent="Props" unique_id=934972055 instance=ExtResource("9")]
 position = Vector2(1110, 223)
 
-[node name="Crate6" parent="Props" instance=ExtResource("9")]
+[node name="Crate6" parent="Props" unique_id=510500338 instance=ExtResource("9")]
 position = Vector2(1460, 223)
 
-[node name="Crate7" parent="Props" instance=ExtResource("9")]
+[node name="Crate7" parent="Props" unique_id=82725277 instance=ExtResource("9")]
 position = Vector2(1650, 223)
 stack = 2
 
-[node name="Crate8" parent="Props" instance=ExtResource("9")]
+[node name="Crate8" parent="Props" unique_id=705087388 instance=ExtResource("9")]
 position = Vector2(1800, 223)
 
-[node name="Crate9" parent="Props" instance=ExtResource("9")]
+[node name="Crate9" parent="Props" unique_id=1414287758 instance=ExtResource("9")]
 position = Vector2(2090, 223)
 stack = 2
 
-[node name="Crate10" parent="Props" instance=ExtResource("9")]
+[node name="Crate10" parent="Props" unique_id=317340974 instance=ExtResource("9")]
 position = Vector2(2200, 223)
 
-[node name="Crate11" parent="Props" instance=ExtResource("9")]
+[node name="Crate11" parent="Props" unique_id=724764887 instance=ExtResource("9")]
 position = Vector2(2480, 223)
 stack = 2
 
-[node name="Crate12" parent="Props" instance=ExtResource("9")]
+[node name="Crate12" parent="Props" unique_id=77486589 instance=ExtResource("9")]
 position = Vector2(2700, 223)
 
-[node name="Crate13" parent="Props" instance=ExtResource("9")]
+[node name="Crate13" parent="Props" unique_id=1469950502 instance=ExtResource("9")]
 position = Vector2(2880, 223)
 stack = 2
 
-[node name="Crate14" parent="Props" instance=ExtResource("9")]
+[node name="Crate14" parent="Props" unique_id=1837978188 instance=ExtResource("9")]
 position = Vector2(3120, 223)
 
-[node name="Crate15" parent="Props" instance=ExtResource("9")]
+[node name="Crate15" parent="Props" unique_id=504300060 instance=ExtResource("9")]
 position = Vector2(3330, 223)
 stack = 2
 
-[node name="Enemies" type="Node2D" parent="."]
+[node name="Enemies" type="Node2D" parent="." unique_id=237236914]
 
-[node name="Warden1" parent="Enemies" instance=ExtResource("7")]
+[node name="Warden1" parent="Enemies" unique_id=386302763 instance=ExtResource("7")]
 position = Vector2(780, 222)
 patrol_range = 50.0
-start_facing = -1
 
-[node name="Warden2" parent="Enemies" instance=ExtResource("7")]
+[node name="Warden4" parent="Enemies" unique_id=9148982 instance=ExtResource("7")]
+position = Vector2(956, 224)
+patrol_range = 50.0
+
+[node name="Warden2" parent="Enemies" unique_id=311146425 instance=ExtResource("7")]
 position = Vector2(1150, 222)
 patrol_range = 40.0
-start_facing = -1
 
-[node name="Warden3" parent="Enemies" instance=ExtResource("7")]
+[node name="Warden3" parent="Enemies" unique_id=49254801 instance=ExtResource("7")]
 position = Vector2(1560, 222)
 patrol_range = 60.0
-start_facing = -1
 
-[node name="ShieldWarden4" parent="Enemies" instance=ExtResource("10")]
+[node name="ShieldWarden4" parent="Enemies" unique_id=1913803419 instance=ExtResource("10")]
 position = Vector2(1900, 222)
 patrol_range = 40.0
-start_facing = -1
 
-[node name="Warden5" parent="Enemies" instance=ExtResource("7")]
+[node name="Warden5" parent="Enemies" unique_id=1102458927 instance=ExtResource("7")]
 position = Vector2(2260, 222)
 patrol_range = 50.0
-start_facing = -1
 
-[node name="Warden6" parent="Enemies" instance=ExtResource("7")]
+[node name="Warden6" parent="Enemies" unique_id=552681266 instance=ExtResource("7")]
 position = Vector2(2600, 222)
 patrol_range = 40.0
-start_facing = -1
 
-[node name="ShieldWarden7" parent="Enemies" instance=ExtResource("10")]
+[node name="ShieldWarden7" parent="Enemies" unique_id=1715129168 instance=ExtResource("10")]
 position = Vector2(2980, 222)
 patrol_range = 40.0
-start_facing = -1
 
-[node name="Warden8" parent="Enemies" instance=ExtResource("7")]
+[node name="Warden8" parent="Enemies" unique_id=456646859 instance=ExtResource("7")]
 position = Vector2(3250, 222)
 patrol_range = 50.0
-start_facing = -1
 
-[node name="Drone1" parent="Enemies" instance=ExtResource("8")]
+[node name="Drone1" parent="Enemies" unique_id=1713024687 instance=ExtResource("8")]
 position = Vector2(520, 150)
 
-[node name="Drone2" parent="Enemies" instance=ExtResource("8")]
+[node name="Drone2" parent="Enemies" unique_id=1609841078 instance=ExtResource("8")]
 position = Vector2(1400, 140)
 
-[node name="Drone3" parent="Enemies" instance=ExtResource("8")]
+[node name="Drone3" parent="Enemies" unique_id=1013022840 instance=ExtResource("8")]
 position = Vector2(2140, 150)
 
-[node name="Drone4" parent="Enemies" instance=ExtResource("8")]
+[node name="Drone4" parent="Enemies" unique_id=1201654990 instance=ExtResource("8")]
 position = Vector2(2800, 135)

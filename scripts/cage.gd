@@ -1,3 +1,4 @@
+@tool
 class_name Cage
 extends Node2D
 ## A cage with an Ursk inside. Stand at it and press Up to open it. Placeholder art is drawn in code until real sprites exist.
@@ -8,14 +9,21 @@ var t := 0.0
 var run := 0.0
 var player: Player
 
+var spr: UrskAnim
+
 func _ready() -> void:
-	add_to_group("cages")
 	z_index = -1
+	if Engine.is_editor_hint():
+		queue_redraw(); return   # shows the bars in the editor so you can see where it is
+	add_to_group("cages")
+	spr = UrskAnim.new(); spr.show_behind_parent = true; spr.position.y = -3.0; add_child(spr)
 
 func _process(d: float) -> void:
+	if Engine.is_editor_hint(): return
 	t += d
 	if freed:
 		run += d; queue_redraw()
+		spr.moving = true; spr.face = 1; spr.position.x = 0.0 + run * 90.0
 		if run > 2.0: queue_free()
 		return
 	if player == null: player = get_tree().get_first_node_in_group("player") as Player
@@ -36,18 +44,11 @@ func _free() -> void:
 
 func _draw() -> void:
 	var fur := Color(0.46, 0.31, 0.2); var dark := Color(0.28, 0.18, 0.12)
-	if not freed or run < 0.6:
-		var ox := 0.0 if not freed else run * 90.0
-		draw_rect(Rect2(-9 + ox, -50, 18, 30), fur)               # body
-		draw_rect(Rect2(-7 + ox, -62, 14, 14), fur)               # head
-		draw_rect(Rect2(-5 + ox, -22, 4, 22), dark); draw_rect(Rect2(1 + ox, -22, 4, 22), dark)   # legs
-		draw_rect(Rect2(1 + ox, -58, 3, 3), Color(0.95, 0.9, 0.6))   # eye
-		draw_rect(Rect2(-13 + ox, -48, 4, 22), dark); draw_rect(Rect2(9 + ox, -48, 4, 22), dark)   # arms
-	var bar := Color(0.55, 0.57, 0.62) if not freed else Color(0.35, 0.36, 0.4)
+	var bar := Color(0.55, 0.57, 0.62, 0.85) if not freed else Color(0.35, 0.36, 0.4)
 	draw_rect(Rect2(-18, -3, 36, 3), Color(0.3, 0.3, 0.34))
 	draw_rect(Rect2(-18, -66, 36, 3), Color(0.3, 0.3, 0.34))
 	if not freed:
-		for i in 6: draw_rect(Rect2(-17 + i * 6.6, -64, 3, 62), bar)
+		for i in 6: draw_rect(Rect2(-17 + i * 6.6, -64, 2, 62), bar)
 		draw_rect(Rect2(-18, -34, 36, 3), Color(0.4, 0.4, 0.45))
 	else:
 		draw_rect(Rect2(-18, -64, 3, 62), bar); draw_rect(Rect2(15, -64, 3, 62), bar)

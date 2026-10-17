@@ -15,9 +15,10 @@
 [node name="Level2_2" type="Node2D" unique_id=162818566]
 script = ExtResource("1")
 length = 4200.0
-title = "2-2 THE VENTS"
+title = "2-4 THE VENTS"
 next_level = "res://scenes/levels/level_2_3.tscn"
 stealth_only = true
+blast_cutscene = true
 
 [node name="Sky" type="CanvasLayer" parent="." unique_id=1898195363]
 layer = -10

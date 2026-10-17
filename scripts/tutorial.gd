@@ -4,7 +4,7 @@ extends CanvasLayer
 ## and is remembered in Prefs so it never repeats.
 const TIPS := {
 	"cover": ["HIDE BEHIND CRATES", ["PRESS UP AT A CRATE TO STEP BEHIND IT.", "YOU CAN ALSO CROUCH BY HOLDING DOWN.", "WALK OUT FROM BEHIND OR JUMP TO LEAVE."]],
-	"shoot": ["SHOOTING", ["PRESS Y OR R1 TO SHOOT.", "YOUR AMMO BARS REFILL", "WHEN YOU STOP FIRING.", "B JUMPS, L1 SPRINTS."]],
+	"shoot": ["SHOOTING", ["PRESS Y OR R1 TO SHOOT.", "YOUR AMMO BARS REFILL", "WHEN YOU STOP FIRING.", "B JUMPS. L1 TOGGLES SPRINT."]],
 	"cone": ["WATCH THE CONE", ["YELLOW CONE: HE IS PATROLLING.", "RED CONE: HE SPOTTED YOU.", "STAY OUT OF THE CONE, OR HIDE", "BEHIND COVER TO LOSE HIM."]],
 	"shield": ["SHIELD WARDEN", ["SHOTS FROM THE FRONT BOUNCE OFF.", "HIT HIM 6 TIMES TO BREAK THE SHIELD,", "OR GET BEHIND HIM. AFTER IT BREAKS", "HE FIGHTS LIKE A NORMAL WARDEN."]],
 }
@@ -36,12 +36,17 @@ func _process(d: float) -> void:
 	if level == null or level.player == null: return
 	if active != "":
 		arm_t -= d
-		if arm_t <= 0.0 and (Input.is_action_just_pressed("jump") or Input.is_action_just_pressed("shoot") or Input.is_action_just_pressed("slide")):
+		if arm_t <= 0.0 and (Input.is_action_just_pressed("jump") or Input.is_action_just_pressed("shoot")):
 			_close()
 		return
 	if level.player.hp <= 0 or level.overlay.mode != "" or get_tree().paused: return
 	var cand := _check()
 	if cand != "": _open(cand)
+
+func _input(event: InputEvent) -> void:
+	if active != "" and arm_t <= 0.0 and event is InputEventMouseButton and event.pressed and event.button_index == MOUSE_BUTTON_LEFT:
+		get_viewport().set_input_as_handled()
+		_close()
 
 func _on_screen(n: Node2D) -> bool:
 	var dx := n.global_position.x - level.player.global_position.x
@@ -68,6 +73,7 @@ func _check() -> String:
 
 func _open(tip: String) -> void:
 	active = tip; arm_t = 0.45
+	hint.text = "TAP TO CONTINUE" if Touch.active else "PRESS B TO CONTINUE"
 	var t: Array = TIPS[tip]
 	title_l.text = t[0]
 	for i in 4: lines[i].text = t[1][i] if i < t[1].size() else ""

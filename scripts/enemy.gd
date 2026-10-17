@@ -1,6 +1,6 @@
 class_name Enemy
 extends Node2D
-## Warden: patrols, sees in a cone in front of him. Spotted -> "!" then he fires slugs (high = duck/slide, low = jump
+## Warden: patrols, sees in a cone in front of him. Spotted -> "!" then he fires slugs (high = duck, low = jump
 ## or take cover). Lose him behind a crate for a few seconds and he goes back to patrolling.
 ## Drone: hovers, shakes, then dives at where Kesh was. Can't see a concealed Kesh.
 signal defeated
@@ -8,8 +8,8 @@ const GROUND_Y := 222.0
 const SIGHT := 230.0   # how far a Warden sees (the cone). Kesh's shots reach less than this, so you have to step into his sight to hit him
 const LOSE_TIME := 2.5
 const SHIELD_HITS := 6   # shots the shield soaks before it breaks
-const TURN_TIME := 0.3   # shield Warden needs this long to turn around
-const SPOT_TIME := 0.3   # how long he has to see you before he reacts
+const TURN_TIME := 0.2   # shield Warden needs this long to turn around
+const SPOT_TIME := 0.2   # how long he has to see you before he reacts
 @export var kind := "warden"               # "warden" or "drone" (set by the scene)
 @export var shield := false               # riot shield: blocks bolts from the front, turns slowly -- get behind him
 @export var patrol_range := 70.0           # how far a Warden walks either side of where you placed him
@@ -148,6 +148,7 @@ func _sees(dx: float) -> bool:
 	if player.concealed: return false
 	if absf(dx) > SIGHT: return false
 	if (1 if dx >= 0.0 else -1) != facing: return false
+	if Barrier.blocks_line(get_tree(), global_position - Vector2(0, 20), player.global_position - Vector2(0, 20)): return false
 	return absf(player.global_position.y - global_position.y) < 70.0
 
 func _find_roof() -> void:
@@ -214,7 +215,7 @@ func _warden(delta: float, dx: float) -> void:
 			alert_t -= delta
 		elif wind < 0.0 and lost_t == 0.0:
 			if not shield: facing = 1 if dx >= 0.0 else -1
-			if d < 230.0 and d > (95.0 if shield else 150.0):
+			if d < 230.0 and d > (95.0 if shield else 150.0) and not _barrier_ahead(facing):
 				position.x += facing * 24.0 * delta
 	else:
 		_patrol(delta)
@@ -256,9 +257,18 @@ func _warden(delta: float, dx: float) -> void:
 		if cooldown <= 0.0:
 			wind = 0.0
 
+func _barrier_ahead(dir: int) -> bool:
+	var pt := Vector2(global_position.x + dir * 14.0, global_position.y - 8.0)
+	for c in get_tree().get_nodes_in_group("barriers"):
+		if c.rect().has_point(pt): return true
+	return false
+
 func _patrol(delta: float) -> void:
 	if pause_t > 0.0:
 		pause_t -= delta
+		return
+	if _barrier_ahead(patrol_dir):
+		patrol_dir = -patrol_dir; pause_t = 0.9   # a solid crate in the way: turn around
 		return
 	position.x += patrol_dir * 22.0 * delta
 	facing = patrol_dir

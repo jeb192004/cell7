@@ -22,6 +22,7 @@ var shots := 0
 var shootable := true
 var spr: Sprite2D
 var leaving := false
+var ready_to_fight := true   # the ace can't be hit (or fire) until he is fully on screen and in position
 
 func _ready() -> void:
 	add_to_group("sfoes")
@@ -53,6 +54,7 @@ func _ready() -> void:
 			"strafe": vel = Vector2(-200, 0); cooldown = 1.0
 	elif kind == "ace":
 		vel = Vector2(-90, 0); cooldown = 2.0
+		shootable = false; ready_to_fight = false
 
 func hurt(d: int) -> void:
 	hp -= d; flash = 0.1
@@ -112,6 +114,11 @@ func _shrike(d: float, p: SpacePlayer) -> void:
 func _ace(d: float, p: SpacePlayer) -> void:
 	if position.x > 360.0 and not leaving:
 		position.x += vel.x * d
+	if not ready_to_fight:
+		if position.x <= 366.0:    # fully in view and in position: now he can be hit, and he starts the fight
+			ready_to_fight = true; shootable = true; flash = 0.3; cooldown = 1.0
+		else:
+			return
 	position.y = move_toward(position.y, clampf(p.position.y, 50.0, 220.0), 42.0 * d)
 	cooldown -= d
 	if tele > 0.0:
@@ -122,7 +129,7 @@ func _ace(d: float, p: SpacePlayer) -> void:
 			if shots % 3 == 0:   # aimed burst
 				for a in [-0.12, 0.0, 0.12]: _fire(base.rotated(a) * 250.0, Vector2(-68, 0))
 			else:                # fan
-				for a in [-0.35, -0.17, 0.0, 0.17, 0.35]: _fire(Vector2(-1, 0).rotated(a) * 215.0, Vector2(-68, 0))
+				for a in [-0.60, -0.30, 0.0, 0.30, 0.60]: _fire(Vector2(-1, 0).rotated(a) * 215.0, Vector2(-68, 0))
 	elif cooldown <= 0.0 and position.x < 400.0:
 		tele = 0.45; cooldown = 2.0
 

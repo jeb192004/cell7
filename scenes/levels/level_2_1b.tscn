@@ -1,0 +1,321 @@
+[gd_scene format=3 uid="uid://c4axd6isy56sm"]
+
+[ext_resource type="Script" uid="uid://bmxaw2w0f42jh" path="res://scripts/level.gd" id="1"]
+[ext_resource type="Texture2D" uid="uid://dwoibj80kuwoa" path="res://assets/bg_ship_sky.png" id="2"]
+[ext_resource type="Texture2D" uid="uid://bhkmfcquomfc5" path="res://assets/bg_ship_far.png" id="3"]
+[ext_resource type="Texture2D" uid="uid://ceg7sy2u8ywy4" path="res://assets/bg_ship_mid.png" id="4"]
+[ext_resource type="Texture2D" uid="uid://clvd7spyawq7p" path="res://assets/ship_ground.png" id="5"]
+[ext_resource type="PackedScene" path="res://scenes/warden.tscn" id="7"]
+[ext_resource type="PackedScene" path="res://scenes/cargo.tscn" id="9"]
+[ext_resource type="Script" uid="uid://cvt4svq7tskve" path="res://scripts/data_terminal.gd" id="20"]
+[ext_resource type="Script" uid="uid://ey7h54jaso3y" path="res://scripts/catwalk.gd" id="30"]
+[ext_resource type="Script" uid="uid://8t2uclskljqx" path="res://scripts/gantry.gd" id="31"]
+[ext_resource type="Script" uid="uid://d0lyd2nw4h8ob" path="res://scripts/pipe.gd" id="32"]
+
+[node name="Level2_1b" type="Node2D" unique_id=1620149898]
+script = ExtResource("1")
+length = 3500.0
+title = "2-3 THE DATA RUN"
+next_level = "res://scenes/levels/level_2_2.tscn"
+stealth_only = true
+free_required = 1
+ambush_cutscene = true
+goal_word = "DATA"
+goal_block = "STEAL THE DATA FIRST"
+
+[node name="Sky" type="CanvasLayer" parent="." unique_id=418355525]
+layer = -10
+
+[node name="Sprite" type="Sprite2D" parent="Sky" unique_id=1460945515]
+texture = ExtResource("2")
+centered = false
+
+[node name="Far" type="Parallax2D" parent="." unique_id=1713198176]
+z_index = -30
+scroll_scale = Vector2(0.15, 0)
+repeat_size = Vector2(480, 0)
+repeat_times = 12
+
+[node name="Sprite" type="Sprite2D" parent="Far" unique_id=692593989]
+texture = ExtResource("3")
+centered = false
+
+[node name="Mid" type="Parallax2D" parent="." unique_id=839233064]
+z_index = -20
+scroll_scale = Vector2(0.4, 0)
+repeat_size = Vector2(480, 0)
+repeat_times = 12
+
+[node name="Sprite" type="Sprite2D" parent="Mid" unique_id=296024887]
+texture = ExtResource("4")
+centered = false
+
+[node name="Ground" type="Parallax2D" parent="." unique_id=68101317]
+z_index = -5
+scroll_scale = Vector2(1, 0)
+repeat_size = Vector2(480, 0)
+repeat_times = 12
+
+[node name="Sprite" type="Sprite2D" parent="Ground" unique_id=166010932]
+texture = ExtResource("5")
+centered = false
+
+[node name="PlayerStart" type="Marker2D" parent="." unique_id=2145291233]
+position = Vector2(100, 222)
+
+[node name="Exit" type="Marker2D" parent="." unique_id=1316432208]
+position = Vector2(3300, 222)
+
+[node name="Terminal" type="Node2D" parent="." unique_id=861807186]
+z_index = -1
+position = Vector2(3300, 222)
+script = ExtResource("20")
+
+[node name="Checkpoints" type="Node2D" parent="." unique_id=1151753543]
+
+[node name="Checkpoint1" type="Marker2D" parent="Checkpoints" unique_id=649172064 groups=["checkpoint"]]
+position = Vector2(1062, 219)
+
+[node name="Checkpoint2" type="Marker2D" parent="Checkpoints" unique_id=384666928 groups=["checkpoint"]]
+position = Vector2(2288, 118)
+
+[node name="Checkpoint3" type="Marker2D" parent="Checkpoints" unique_id=1497221729 groups=["checkpoint"]]
+position = Vector2(2674, 126)
+
+[node name="Props" type="Node2D" parent="." unique_id=808254105]
+
+[node name="Cargo1" parent="Props" unique_id=1257633836 instance=ExtResource("9")]
+position = Vector2(300, 223)
+
+[node name="Cargo2" parent="Props" unique_id=134084576 instance=ExtResource("9")]
+position = Vector2(334, 223)
+stack = 2
+
+[node name="Cargo3" parent="Props" unique_id=542061537 instance=ExtResource("9")]
+position = Vector2(368, 223)
+stack = 3
+
+[node name="Cargo4" parent="Props" unique_id=852727227 instance=ExtResource("9")]
+position = Vector2(440, 223)
+stack = 3
+
+[node name="Cargo11" parent="Props" unique_id=346436901 instance=ExtResource("9")]
+position = Vector2(964, 223)
+stack = 2
+
+[node name="Cargo12" parent="Props" unique_id=2122559218 instance=ExtResource("9")]
+position = Vector2(998, 223)
+
+[node name="Cargo39" parent="Props" unique_id=1117086236 instance=ExtResource("9")]
+position = Vector2(1237, 130)
+
+[node name="Cargo13" parent="Props" unique_id=245603738 instance=ExtResource("9")]
+position = Vector2(1110, 222)
+stack = 2
+
+[node name="Cargo40" parent="Props" unique_id=127456316 instance=ExtResource("9")]
+position = Vector2(1271, 130)
+stack = 2
+
+[node name="Cargo14" parent="Props" unique_id=1946317989 instance=ExtResource("9")]
+position = Vector2(1380, 223)
+
+[node name="Cargo15" parent="Props" unique_id=98197646 instance=ExtResource("9")]
+position = Vector2(1414, 223)
+stack = 2
+
+[node name="Cargo16" parent="Props" unique_id=368163306 instance=ExtResource("9")]
+position = Vector2(1448, 223)
+stack = 3
+
+[node name="Cargo17" parent="Props" unique_id=2101534299 instance=ExtResource("9")]
+position = Vector2(1543, 222)
+stack = 3
+
+[node name="Cargo18" parent="Props" unique_id=1755007417 instance=ExtResource("9")]
+position = Vector2(1600, 223)
+stack = 3
+
+[node name="Cargo19" parent="Props" unique_id=1875985836 instance=ExtResource("9")]
+position = Vector2(1712, 222)
+stack = 3
+
+[node name="Cargo20" parent="Props" unique_id=1684873471 instance=ExtResource("9")]
+position = Vector2(1772, 223)
+stack = 3
+
+[node name="Cargo21" parent="Props" unique_id=470538903 instance=ExtResource("9")]
+position = Vector2(1870, 223)
+stack = 3
+
+[node name="Cargo22" parent="Props" unique_id=872052462 instance=ExtResource("9")]
+position = Vector2(1997, 223)
+stack = 3
+
+[node name="Cargo23" parent="Props" unique_id=2089789385 instance=ExtResource("9")]
+position = Vector2(2074, 223)
+stack = 3
+
+[node name="Cargo24" parent="Props" unique_id=1042267091 instance=ExtResource("9")]
+position = Vector2(2160, 223)
+stack = 3
+
+[node name="Cargo25" parent="Props" unique_id=917923337 instance=ExtResource("9")]
+position = Vector2(2194, 223)
+stack = 2
+
+[node name="Cargo26" parent="Props" unique_id=92484877 instance=ExtResource("9")]
+position = Vector2(2228, 223)
+
+[node name="Cargo28" parent="Props" unique_id=1132214748 instance=ExtResource("9")]
+position = Vector2(2490, 223)
+stack = 2
+
+[node name="Cargo29" parent="Props" unique_id=1163517396 instance=ExtResource("9")]
+position = Vector2(2610, 223)
+
+[node name="Cargo30" parent="Props" unique_id=1551108180 instance=ExtResource("9")]
+position = Vector2(2700, 223)
+
+[node name="Cargo31" parent="Props" unique_id=1532884534 instance=ExtResource("9")]
+position = Vector2(2734, 223)
+stack = 2
+
+[node name="Cargo32" parent="Props" unique_id=1276691565 instance=ExtResource("9")]
+position = Vector2(2768, 223)
+stack = 3
+
+[node name="Cargo33" parent="Props" unique_id=1675497003 instance=ExtResource("9")]
+position = Vector2(2840, 223)
+stack = 3
+
+[node name="Cargo34" parent="Props" unique_id=425564494 instance=ExtResource("9")]
+position = Vector2(2896, 223)
+stack = 3
+
+[node name="Cargo35" parent="Props" unique_id=2019115262 instance=ExtResource("9")]
+position = Vector2(3030, 223)
+stack = 3
+
+[node name="Cargo36" parent="Props" unique_id=1628239777 instance=ExtResource("9")]
+position = Vector2(3140, 223)
+stack = 3
+
+[node name="Cargo37" parent="Props" unique_id=1309059727 instance=ExtResource("9")]
+position = Vector2(3174, 223)
+stack = 2
+
+[node name="Cargo38" parent="Props" unique_id=723553158 instance=ExtResource("9")]
+position = Vector2(3208, 223)
+
+[node name="Structures" type="Node2D" parent="." unique_id=1941716089]
+
+[node name="Catwalk1" type="Node2D" parent="Structures" unique_id=177638746]
+z_index = -1
+position = Vector2(1190, 128)
+script = ExtResource("30")
+width = 360
+legs = false
+skirt = 4
+
+[node name="Catwalk3" type="Node2D" parent="Structures" unique_id=300201419]
+z_index = -1
+position = Vector2(705, 119)
+script = ExtResource("30")
+width = 360
+legs = false
+skirt = 4
+
+[node name="Gantry1" type="Node2D" parent="Structures" unique_id=326057617]
+z_index = -1
+position = Vector2(2322, 128)
+script = ExtResource("31")
+width = 150
+skirt = 10
+
+[node name="Pipe1" type="Node2D" parent="Structures" unique_id=1084688080]
+z_index = -1
+position = Vector2(2286, 18)
+script = ExtResource("32")
+solid = false
+steam = true
+width = 172
+legs = false
+skirt = 0
+
+[node name="Catwalk2" type="Node2D" parent="Structures" unique_id=1388076745]
+z_index = -1
+position = Vector2(2643, 128)
+script = ExtResource("30")
+width = 164
+legs = false
+skirt = 4
+
+[node name="CeilingPipe1" type="Node2D" parent="Structures" unique_id=2124822597]
+z_index = -1
+position = Vector2(700, 15)
+script = ExtResource("32")
+solid = false
+width = 500
+legs = false
+skirt = 0
+
+[node name="CeilingPipe2" type="Node2D" parent="Structures" unique_id=174464381]
+z_index = -1
+position = Vector2(1650, 26)
+script = ExtResource("32")
+solid = false
+steam = true
+width = 700
+legs = false
+skirt = 0
+
+[node name="CeilingPipe3" type="Node2D" parent="Structures" unique_id=149592197]
+z_index = -1
+position = Vector2(2800, 18)
+script = ExtResource("32")
+solid = false
+width = 600
+legs = false
+skirt = 0
+
+[node name="Enemies" type="Node2D" parent="." unique_id=2000518855]
+
+[node name="Warden1" parent="Enemies" unique_id=2084202349 instance=ExtResource("7")]
+position = Vector2(520, 222)
+patrol_range = 120.0
+
+[node name="Warden2" parent="Enemies" unique_id=2060504848 instance=ExtResource("7")]
+position = Vector2(800, 222)
+patrol_range = 150.0
+
+[node name="Warden3" parent="Enemies" unique_id=1180739056 instance=ExtResource("7")]
+position = Vector2(1149, 126)
+patrol_range = 110.0
+
+[node name="Warden4" parent="Enemies" unique_id=4543436 instance=ExtResource("7")]
+position = Vector2(1560, 222)
+patrol_range = 120.0
+start_facing = 1
+
+[node name="Warden5" parent="Enemies" unique_id=1612488509 instance=ExtResource("7")]
+position = Vector2(1900, 222)
+patrol_range = 150.0
+
+[node name="Warden6" parent="Enemies" unique_id=809966040 instance=ExtResource("7")]
+position = Vector2(2400, 222)
+patrol_range = 120.0
+
+[node name="Warden7" parent="Enemies" unique_id=1845324869 instance=ExtResource("7")]
+position = Vector2(2640, 222)
+patrol_range = 90.0
+start_facing = 1
+
+[node name="Warden8" parent="Enemies" unique_id=1255493891 instance=ExtResource("7")]
+position = Vector2(2967, 223)
+patrol_range = 130.0
+
+[node name="Warden9" parent="Enemies" unique_id=972447686 instance=ExtResource("7")]
+position = Vector2(3100, 222)
+patrol_range = 100.0
+start_facing = 1

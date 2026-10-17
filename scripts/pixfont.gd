@@ -1,3 +1,4 @@
+@tool
 class_name PixFont
 ## 5x7 pixel font drawn straight onto a CanvasItem (menus, banners). Uppercase only; anything else maps to uppercase / blank.
 const GLYPHS := {

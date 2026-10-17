@@ -40,7 +40,7 @@ func _ready() -> void:
 			position = Vector2(520, lane_y - 18)
 		"bike":
 			spr.texture = load("res://assets/warden_bike.png"); spr.position = Vector2(-42, -64); hw = 30.0
-			position = Vector2(520, lane_y); vx = -90.0; target_x = 300.0 + randf() * 110.0; hp = 3
+			position = Vector2(520, lane_y); vx = -170.0; target_x = 300.0 + randf() * 110.0; hp = 3; cooldown = 0.3
 			add_to_group("foes")
 		"ram":
 			spr.texture = load("res://assets/warden_bike.png"); spr.flip_h = true; spr.position = Vector2(-60, -64); hw = 30.0
@@ -57,6 +57,7 @@ func _ready() -> void:
 
 func accepts(bx: float, by: float) -> bool:
 	if not is_in_group("foes") or hp <= 0: return false
+	if kind == "boss" and state == "enter": return false   # not a target until he's fully in view and ready
 	return absf(position.y - by) < 12.0 and absf(position.x - bx) < hw + 6.0 and bx > 0.0
 
 func hurt(dmg: int) -> void:
@@ -121,8 +122,8 @@ func _bike(d: float, p: BikePlayer) -> void:
 					wind = 0.0
 			else:
 				wind += d
-				if wind >= 0.55:
-					wind = -1.0; cooldown = 1.9 + randf() * 0.8
+				if wind >= 0.45:
+					wind = -1.0; cooldown = 1.5 + randf() * 0.6
 					_shoot("slug", lane_y)
 			if st > 11.0 and wind < 0.0:
 				state = "leave"

@@ -15,13 +15,14 @@ Status: work in progress (working title). Chapter 1 is playable (on foot, a spee
 | Move | stick / d-pad | arrows / WASD |
 | Jump | B | Space / K |
 | Shoot | Y or R1 | J / X |
-| Slide | A | L / C |
 | Sprint | hold L1 or L2 | Shift |
 | Crouch | hold Down | hold Down |
 | Hide at a crate | Up at a crate | Up at a crate |
 | Pause | Start | P / Esc |
 
 Bindings live in `scripts/controls.gd`.
+
+**Touch:** on phones/tablets an on-screen pad (d-pad, RUN on/off toggle above it, JUMP, FIRE, pause) appears automatically and hides when a gamepad is used. The pad hides on the title and on any paused screen (pause menu, story cards, tips); taps work there instead, and card prompts change to NEXT / TAP TO CONTINUE. Title > Settings > TOUCH PAD cycles AUTO / ON / OFF (F2 toggles it on PC for testing).
 
 ## Project layout
 - `scenes/` and `scenes/levels/`: scenes and levels (chapter 1: `level_01`-`level_05`, chapter 2: `level_2_1`-`level_2_4`).
@@ -46,12 +47,12 @@ No license yet. All rights reserved by Serpent Scripts until one is chosen.
 
 ## Dev notes
 Godot 4.4, 480x270 internal, integer-scaled to 1920x1080 (Retroid Pocket 5).
-RP5 (Retroid labels): stick/d-pad move, B jump, Y or R1 shoot, A slide, hold L1 or L2 sprint, Start pause.
+RP5 (Retroid labels): stick/d-pad move, B jump, Y or R1 shoot, hold L1 or L2 sprint, Start pause.
   Hold Down to crouch (duck high shots), jump low shots. Hold Up while shooting to tilt the shot.
-Keyboard: arrows/WASD move, Space/K jump, J/X shoot, Shift sprint, L/C slide, P/Esc pause.
+Keyboard: arrows/WASD move, Space/K jump, J/X shoot, Shift sprint, P/Esc pause.
 Bindings: scripts/controls.gd
 Test: godot --headless --path . -s tests/smoke.gd
-Art is generated (see assets/); jump/slide/hit poses are rough placeholders.
+Art is generated (see assets/); jump/hit poses are rough placeholders.
 Stealth: crates sit in the back lane. Press Up at a crate to step behind it, walk off the end or jump to come back out front.
   Behind a 2-high stack you can stand; behind a single crate crouch (Down). You can't shoot from behind a crate, and
   slugs can't hit you there. Wardens patrol and see in a cone (shown on screen); it takes ~0.3s of seeing you before

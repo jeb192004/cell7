@@ -1,6 +1,1533 @@
-[gd_scene load_steps=2 format=3]
+[gd_scene format=3 uid="uid://bv4dwt7gp3xgm"]
 
-[ext_resource type="Script" path="res://scripts/title.gd" id="1"]
+[ext_resource type="Script" uid="uid://bl1vst0naf6x0" path="res://scripts/title.gd" id="1"]
+[ext_resource type="Script" uid="uid://50im2rppy0xh" path="res://scripts/pix_label.gd" id="2"]
+[ext_resource type="Script" uid="uid://do7eiapthdvgo" path="res://scripts/pix_menu.gd" id="3"]
+[ext_resource type="Texture2D" uid="uid://dbsedtjidtofv" path="res://assets/kesh_run_0.png" id="4"]
+[ext_resource type="Texture2D" uid="uid://cjn6xlg5oe4c4" path="res://assets/kesh_run_1.png" id="5"]
+[ext_resource type="Texture2D" uid="uid://d4ehtcsda2lf0" path="res://assets/kesh_run_2.png" id="6"]
+[ext_resource type="Texture2D" uid="uid://dus6wqcib4tjo" path="res://assets/kesh_run_3.png" id="7"]
+[ext_resource type="Texture2D" uid="uid://dv74exlc08gnc" path="res://assets/kesh_run_4.png" id="8"]
+[ext_resource type="Texture2D" uid="uid://dwedmlwqnj3y8" path="res://assets/kesh_run_5.png" id="9"]
+[ext_resource type="Texture2D" uid="uid://pgrw24d1i2la" path="res://assets/kesh_run_6.png" id="10"]
+[ext_resource type="Texture2D" uid="uid://df54ru1lxcpt1" path="res://assets/kesh_run_7.png" id="11"]
+[ext_resource type="Texture2D" uid="uid://bb73xlc4843wq" path="res://assets/kesh_run_8.png" id="12"]
+[ext_resource type="Texture2D" uid="uid://cbgm0ekb15bet" path="res://assets/kesh_run_9.png" id="13"]
+[ext_resource type="Texture2D" uid="uid://dr48sa7sdgtls" path="res://assets/kesh_run_10.png" id="14"]
+[ext_resource type="Texture2D" uid="uid://dbkjfl6eegmlp" path="res://assets/kesh_run_11.png" id="15"]
+[ext_resource type="Texture2D" uid="uid://dl572uvd7hbn7" path="res://assets/kesh_run_12.png" id="16"]
+[ext_resource type="Texture2D" uid="uid://ulj5o3f1c45h" path="res://assets/kesh_run_13.png" id="17"]
+[ext_resource type="Texture2D" uid="uid://dkpj2heetsxm1" path="res://assets/bg_sky.png" id="18"]
+[ext_resource type="Texture2D" uid="uid://fh6pxoqj33q5" path="res://assets/bg_far.png" id="19"]
+[ext_resource type="Texture2D" uid="uid://ccftg0x44ji7e" path="res://assets/bg_mid.png" id="20"]
+[ext_resource type="Texture2D" uid="uid://4clrswy5d4r0" path="res://assets/bg_dunes.png" id="21"]
+[ext_resource type="Texture2D" uid="uid://c3gpwwcc1wwee" path="res://assets/ground.png" id="22"]
+[ext_resource type="Script" uid="uid://cctrgyk8lu5kx" path="res://scripts/level_row.gd" id="level_row_script"]
 
-[node name="Title" type="Node2D"]
+[sub_resource type="SpriteFrames" id="frames"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("4")
+}, {
+"duration": 1.0,
+"texture": ExtResource("5")
+}, {
+"duration": 1.0,
+"texture": ExtResource("6")
+}, {
+"duration": 1.0,
+"texture": ExtResource("7")
+}, {
+"duration": 1.0,
+"texture": ExtResource("8")
+}, {
+"duration": 1.0,
+"texture": ExtResource("9")
+}, {
+"duration": 1.0,
+"texture": ExtResource("10")
+}, {
+"duration": 1.0,
+"texture": ExtResource("11")
+}, {
+"duration": 1.0,
+"texture": ExtResource("12")
+}, {
+"duration": 1.0,
+"texture": ExtResource("13")
+}, {
+"duration": 1.0,
+"texture": ExtResource("14")
+}, {
+"duration": 1.0,
+"texture": ExtResource("15")
+}, {
+"duration": 1.0,
+"texture": ExtResource("16")
+}, {
+"duration": 1.0,
+"texture": ExtResource("17")
+}],
+"loop": 1,
+"name": &"run",
+"speed": 8.0
+}]
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_e75f2"]
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_wtvjo"]
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_t8o15"]
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_opmo2"]
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_owywo"]
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_a4fnx"]
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_75bkb"]
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_cgg5c"]
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_k1qkb"]
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_2as01"]
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_iq6fq"]
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_mg5ff"]
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_52c44"]
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_pqt7r"]
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_pv6bm"]
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_6qeuo"]
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_hxnlc"]
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_hgdh2"]
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_3xwc1"]
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_gd8d8"]
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_ebn1w"]
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_okl65"]
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_o1xik"]
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_on84s"]
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_ukwka"]
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_6k5c1"]
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_na7tb"]
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_qj531"]
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_dahfb"]
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_py6q0"]
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_713p3"]
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_bakwr"]
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_kals2"]
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_xdt82"]
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_q6ny3"]
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_gt4vo"]
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_6wg5s"]
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_j5tjf"]
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_sgdb2"]
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_tb3pe"]
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_gcu0l"]
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_cwlm7"]
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_p4x2f"]
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_iqrnn"]
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_u5gv8"]
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_7ax60"]
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_r116a"]
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_2m0be"]
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_pyfxh"]
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_xo3lv"]
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_xq84c"]
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_656pf"]
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_eeqih"]
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_dkcje"]
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_jgqhe"]
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_l4wq0"]
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_w5u1h"]
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_7jw7h"]
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_8j1xe"]
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_365sm"]
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_ved0o"]
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_06ncr"]
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_k5cyl"]
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_awrf7"]
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_iojlp"]
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_qs74m"]
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_cv0fo"]
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_e4cxk"]
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_nun57"]
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_a2o8i"]
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_2sp0g"]
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_ykp7t"]
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_wq6qh"]
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_oygwf"]
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_iv3r8"]
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_s55mk"]
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_1fxmq"]
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_5kli2"]
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_gys78"]
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_6nrqm"]
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_i182e"]
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_slvok"]
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_j414r"]
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_tiemj"]
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_cnxdx"]
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_dmvot"]
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_sppj3"]
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_15qml"]
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_4d8bw"]
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_l51dm"]
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_jnedc"]
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_gmxmf"]
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_w52a2"]
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_b345p"]
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_mpg14"]
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_3dcqt"]
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_d75f5"]
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_68dmy"]
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_4pluh"]
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_3vsua"]
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_lgajp"]
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_v3bgd"]
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_4dici"]
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_mxree"]
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_8qo04"]
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_xh6uq"]
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_ml83r"]
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_3y8cs"]
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_we858"]
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_t25hb"]
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_k8yh3"]
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_p863d"]
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_6o33g"]
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_fggi3"]
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_fn8cl"]
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_eg3ha"]
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_gflup"]
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_2aoqd"]
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_2jl6p"]
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_ebydm"]
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_fkesg"]
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_wtbgo"]
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_glr2q"]
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_61b5d"]
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_wifbm"]
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_gjo0y"]
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_53guf"]
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_2sol0"]
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_plfrh"]
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_jfwym"]
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_tg1ls"]
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_cqns4"]
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_gdrtj"]
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_3rl4i"]
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_qtseq"]
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_lqpaw"]
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_4hbb7"]
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_r8mgy"]
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_udbhm"]
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_a0n8w"]
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_x78me"]
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_00yp4"]
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_36oqn"]
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_jhl7j"]
+
+[node name="Title" type="Node2D" unique_id=316432622]
 script = ExtResource("1")
+
+[node name="Sky" type="Sprite2D" parent="." unique_id=400664713]
+z_index = -50
+texture = ExtResource("18")
+centered = false
+
+[node name="Far" type="Parallax2D" parent="." unique_id=738652804]
+z_index = -30
+repeat_size = Vector2(480, 0)
+autoscroll = Vector2(-5, 0)
+repeat_times = 4
+
+[node name="Sprite" type="Sprite2D" parent="Far" unique_id=1703466821]
+texture = ExtResource("19")
+centered = false
+
+[node name="Mid" type="Parallax2D" parent="." unique_id=413097838]
+z_index = -20
+repeat_size = Vector2(480, 0)
+autoscroll = Vector2(-13, 0)
+repeat_times = 4
+
+[node name="Sprite" type="Sprite2D" parent="Mid" unique_id=847889984]
+texture = ExtResource("20")
+centered = false
+
+[node name="Dunes" type="Parallax2D" parent="." unique_id=2122893073]
+z_index = -10
+repeat_size = Vector2(480, 0)
+autoscroll = Vector2(-26, 0)
+repeat_times = 4
+
+[node name="Sprite" type="Sprite2D" parent="Dunes" unique_id=102559236]
+texture = ExtResource("21")
+centered = false
+
+[node name="Ground" type="Parallax2D" parent="." unique_id=1735942633]
+z_index = -5
+repeat_size = Vector2(480, 0)
+autoscroll = Vector2(-105, 0)
+repeat_times = 4
+
+[node name="Sprite" type="Sprite2D" parent="Ground" unique_id=90464797]
+texture = ExtResource("22")
+centered = false
+
+[node name="Shade" type="ColorRect" parent="." unique_id=25790692]
+z_index = -2
+offset_right = 480.0
+offset_bottom = 270.0
+mouse_filter = 2
+color = Color(0.05, 0.03, 0.1, 0.35)
+
+[node name="Kesh" type="AnimatedSprite2D" parent="." unique_id=1827639707]
+unique_name_in_owner = true
+position = Vector2(115, 199)
+sprite_frames = SubResource("frames")
+animation = &"run"
+autoplay = "run"
+
+[node name="UI" type="CanvasLayer" parent="." unique_id=707779500]
+layer = 5
+
+[node name="TitleGroup" type="Node2D" parent="UI" unique_id=2020215864]
+unique_name_in_owner = true
+
+[node name="Logo" type="Control" parent="UI/TitleGroup" unique_id=1059567204]
+layout_mode = 3
+anchors_preset = 0
+offset_top = 30.0
+offset_right = 480.0
+offset_bottom = 88.0
+mouse_filter = 2
+script = ExtResource("2")
+text = "CELL 7"
+px = 7
+color = Color(1, 0.82, 0.35, 1)
+boxed = true
+
+[node name="Rule" type="ColorRect" parent="UI/TitleGroup" unique_id=944639455]
+offset_left = 150.0
+offset_top = 88.0
+offset_right = 330.0
+offset_bottom = 90.0
+mouse_filter = 2
+color = Color(0.8, 0.26, 0.2, 1)
+
+[node name="Subtitle" type="Control" parent="UI/TitleGroup" unique_id=1637669670]
+layout_mode = 3
+anchors_preset = 0
+offset_top = 98.0
+offset_right = 480.0
+offset_bottom = 128.0
+mouse_filter = 2
+script = ExtResource("2")
+text = "UPRISING"
+px = 4
+color = Color(0.96, 0.9, 0.75, 1)
+boxed = true
+
+[node name="Menu" type="VBoxContainer" parent="UI/TitleGroup" unique_id=1182809702]
+unique_name_in_owner = true
+offset_left = 200.0
+offset_top = 138.0
+offset_right = 400.0
+offset_bottom = 261.0
+theme_override_constants/separation = 1
+
+[node name="Start" type="Button" parent="UI/TitleGroup/Menu" unique_id=1581268818]
+custom_minimum_size = Vector2(0, 18)
+layout_mode = 2
+mouse_filter = 1
+theme_override_styles/normal = SubResource("StyleBoxEmpty_e75f2")
+theme_override_styles/pressed = SubResource("StyleBoxEmpty_wtvjo")
+theme_override_styles/hover = SubResource("StyleBoxEmpty_t8o15")
+theme_override_styles/hover_pressed = SubResource("StyleBoxEmpty_opmo2")
+theme_override_styles/disabled = SubResource("StyleBoxEmpty_owywo")
+theme_override_styles/focus = SubResource("StyleBoxEmpty_a4fnx")
+script = ExtResource("level_row_script")
+title = "START"
+action = "START"
+centered = true
+
+[node name="Controls" type="Button" parent="UI/TitleGroup/Menu" unique_id=1267501386]
+custom_minimum_size = Vector2(0, 18)
+layout_mode = 2
+mouse_filter = 1
+theme_override_styles/normal = SubResource("StyleBoxEmpty_75bkb")
+theme_override_styles/pressed = SubResource("StyleBoxEmpty_cgg5c")
+theme_override_styles/hover = SubResource("StyleBoxEmpty_k1qkb")
+theme_override_styles/hover_pressed = SubResource("StyleBoxEmpty_2as01")
+theme_override_styles/disabled = SubResource("StyleBoxEmpty_iq6fq")
+theme_override_styles/focus = SubResource("StyleBoxEmpty_mg5ff")
+script = ExtResource("level_row_script")
+title = "CONTROLS"
+action = "CONTROLS"
+centered = true
+
+[node name="Settings" type="Button" parent="UI/TitleGroup/Menu" unique_id=1185049975]
+custom_minimum_size = Vector2(0, 18)
+layout_mode = 2
+mouse_filter = 1
+theme_override_styles/normal = SubResource("StyleBoxEmpty_52c44")
+theme_override_styles/pressed = SubResource("StyleBoxEmpty_pqt7r")
+theme_override_styles/hover = SubResource("StyleBoxEmpty_pv6bm")
+theme_override_styles/hover_pressed = SubResource("StyleBoxEmpty_6qeuo")
+theme_override_styles/disabled = SubResource("StyleBoxEmpty_hxnlc")
+theme_override_styles/focus = SubResource("StyleBoxEmpty_hgdh2")
+script = ExtResource("level_row_script")
+title = "SETTINGS"
+action = "SETTINGS"
+centered = true
+
+[node name="Crew" type="Button" parent="UI/TitleGroup/Menu" unique_id=203720936]
+custom_minimum_size = Vector2(0, 18)
+layout_mode = 2
+mouse_filter = 1
+theme_override_styles/normal = SubResource("StyleBoxEmpty_3xwc1")
+theme_override_styles/pressed = SubResource("StyleBoxEmpty_gd8d8")
+theme_override_styles/hover = SubResource("StyleBoxEmpty_ebn1w")
+theme_override_styles/hover_pressed = SubResource("StyleBoxEmpty_okl65")
+theme_override_styles/disabled = SubResource("StyleBoxEmpty_o1xik")
+theme_override_styles/focus = SubResource("StyleBoxEmpty_on84s")
+script = ExtResource("level_row_script")
+title = "CREW"
+action = "CREW"
+centered = true
+
+[node name="LevelSelect" type="Button" parent="UI/TitleGroup/Menu" unique_id=183730392]
+custom_minimum_size = Vector2(0, 18)
+layout_mode = 2
+mouse_filter = 1
+theme_override_styles/normal = SubResource("StyleBoxEmpty_ukwka")
+theme_override_styles/pressed = SubResource("StyleBoxEmpty_6k5c1")
+theme_override_styles/hover = SubResource("StyleBoxEmpty_na7tb")
+theme_override_styles/hover_pressed = SubResource("StyleBoxEmpty_qj531")
+theme_override_styles/disabled = SubResource("StyleBoxEmpty_dahfb")
+theme_override_styles/focus = SubResource("StyleBoxEmpty_py6q0")
+script = ExtResource("level_row_script")
+title = "LEVEL SELECT"
+action = "LEVEL SELECT"
+centered = true
+
+[node name="Cutscenes" type="Button" parent="UI/TitleGroup/Menu"]
+custom_minimum_size = Vector2(0, 18)
+layout_mode = 2
+script = ExtResource("level_row_script")
+title = "CUTSCENES"
+action = "CUTSCENES"
+centered = true
+
+[node name="Quit" type="Button" parent="UI/TitleGroup/Menu" unique_id=1375619256]
+visible = false
+custom_minimum_size = Vector2(0, 18)
+layout_mode = 2
+mouse_filter = 1
+theme_override_styles/normal = SubResource("StyleBoxEmpty_713p3")
+theme_override_styles/pressed = SubResource("StyleBoxEmpty_bakwr")
+theme_override_styles/hover = SubResource("StyleBoxEmpty_kals2")
+theme_override_styles/hover_pressed = SubResource("StyleBoxEmpty_xdt82")
+theme_override_styles/disabled = SubResource("StyleBoxEmpty_q6ny3")
+theme_override_styles/focus = SubResource("StyleBoxEmpty_gt4vo")
+script = ExtResource("level_row_script")
+title = "QUIT"
+action = "QUIT"
+centered = true
+
+[node name="By" type="Control" parent="UI/TitleGroup" unique_id=1991503321]
+layout_mode = 3
+anchors_preset = 0
+offset_top = 260.0
+offset_right = 480.0
+offset_bottom = 268.0
+mouse_filter = 2
+script = ExtResource("2")
+text = "SERPENT SCRIPTS"
+color = Color(0.75, 0.68, 0.6, 1)
+boxed = true
+
+[node name="ControlsGroup" type="Node2D" parent="UI" unique_id=630704136]
+unique_name_in_owner = true
+visible = false
+
+[node name="Dim" type="ColorRect" parent="UI/ControlsGroup" unique_id=1185727142]
+offset_right = 480.0
+offset_bottom = 270.0
+mouse_filter = 2
+color = Color(0.05, 0.03, 0.1, 0.78)
+
+[node name="Heading" type="Control" parent="UI/ControlsGroup" unique_id=823411935]
+layout_mode = 3
+anchors_preset = 0
+offset_top = 18.0
+offset_right = 480.0
+offset_bottom = 42.0
+mouse_filter = 2
+script = ExtResource("2")
+text = "CONTROLS"
+px = 3
+color = Color(1, 0.82, 0.35, 1)
+boxed = true
+
+[node name="HeadRetroid" type="Control" parent="UI/ControlsGroup" unique_id=2073705757]
+layout_mode = 3
+anchors_preset = 0
+offset_left = 170.0
+offset_top = 58.0
+offset_right = 290.0
+offset_bottom = 66.0
+mouse_filter = 2
+script = ExtResource("2")
+text = "RETROID"
+color = Color(1, 0.82, 0.35, 1)
+centered = false
+
+[node name="HeadKeyboard" type="Control" parent="UI/ControlsGroup" unique_id=1339324103]
+layout_mode = 3
+anchors_preset = 0
+offset_left = 310.0
+offset_top = 58.0
+offset_right = 430.0
+offset_bottom = 66.0
+mouse_filter = 2
+script = ExtResource("2")
+text = "KEYBOARD"
+color = Color(1, 0.82, 0.35, 1)
+centered = false
+
+[node name="Row1Action" type="Control" parent="UI/ControlsGroup" unique_id=682617952]
+layout_mode = 3
+anchors_preset = 0
+offset_left = 40.0
+offset_top = 78.0
+offset_right = 170.0
+offset_bottom = 86.0
+mouse_filter = 2
+script = ExtResource("2")
+text = "MOVE"
+color = Color(0.62, 0.58, 0.52, 1)
+centered = false
+
+[node name="Row1Retroid" type="Control" parent="UI/ControlsGroup" unique_id=1549546587]
+layout_mode = 3
+anchors_preset = 0
+offset_left = 170.0
+offset_top = 78.0
+offset_right = 300.0
+offset_bottom = 86.0
+mouse_filter = 2
+script = ExtResource("2")
+text = "STICK OR D-PAD"
+color = Color(0.93, 0.88, 0.76, 1)
+centered = false
+
+[node name="Row1Keys" type="Control" parent="UI/ControlsGroup" unique_id=59684132]
+layout_mode = 3
+anchors_preset = 0
+offset_left = 310.0
+offset_top = 78.0
+offset_right = 440.0
+offset_bottom = 86.0
+mouse_filter = 2
+script = ExtResource("2")
+text = "ARROWS OR WASD"
+color = Color(0.93, 0.88, 0.76, 1)
+centered = false
+
+[node name="Row2Action" type="Control" parent="UI/ControlsGroup" unique_id=1012808289]
+layout_mode = 3
+anchors_preset = 0
+offset_left = 40.0
+offset_top = 93.0
+offset_right = 170.0
+offset_bottom = 101.0
+mouse_filter = 2
+script = ExtResource("2")
+text = "JUMP"
+color = Color(0.62, 0.58, 0.52, 1)
+centered = false
+
+[node name="Row2Retroid" type="Control" parent="UI/ControlsGroup" unique_id=1063422922]
+layout_mode = 3
+anchors_preset = 0
+offset_left = 170.0
+offset_top = 93.0
+offset_right = 300.0
+offset_bottom = 101.0
+mouse_filter = 2
+script = ExtResource("2")
+text = "B"
+color = Color(0.93, 0.88, 0.76, 1)
+centered = false
+
+[node name="Row2Keys" type="Control" parent="UI/ControlsGroup" unique_id=374210480]
+layout_mode = 3
+anchors_preset = 0
+offset_left = 310.0
+offset_top = 93.0
+offset_right = 440.0
+offset_bottom = 101.0
+mouse_filter = 2
+script = ExtResource("2")
+text = "SPACE OR K"
+color = Color(0.93, 0.88, 0.76, 1)
+centered = false
+
+[node name="Row3Action" type="Control" parent="UI/ControlsGroup" unique_id=1731945488]
+layout_mode = 3
+anchors_preset = 0
+offset_left = 40.0
+offset_top = 108.0
+offset_right = 170.0
+offset_bottom = 116.0
+mouse_filter = 2
+script = ExtResource("2")
+text = "SHOOT"
+color = Color(0.62, 0.58, 0.52, 1)
+centered = false
+
+[node name="Row3Retroid" type="Control" parent="UI/ControlsGroup" unique_id=162355114]
+layout_mode = 3
+anchors_preset = 0
+offset_left = 170.0
+offset_top = 108.0
+offset_right = 300.0
+offset_bottom = 116.0
+mouse_filter = 2
+script = ExtResource("2")
+text = "Y OR R1"
+color = Color(0.93, 0.88, 0.76, 1)
+centered = false
+
+[node name="Row3Keys" type="Control" parent="UI/ControlsGroup" unique_id=1766820365]
+layout_mode = 3
+anchors_preset = 0
+offset_left = 310.0
+offset_top = 108.0
+offset_right = 440.0
+offset_bottom = 116.0
+mouse_filter = 2
+script = ExtResource("2")
+text = "J OR X"
+color = Color(0.93, 0.88, 0.76, 1)
+centered = false
+
+[node name="Row4Action" type="Control" parent="UI/ControlsGroup" unique_id=1168387645]
+layout_mode = 3
+anchors_preset = 0
+offset_left = 40.0
+offset_top = 123.0
+offset_right = 170.0
+offset_bottom = 131.0
+mouse_filter = 2
+script = ExtResource("2")
+text = "SPRINT"
+color = Color(0.62, 0.58, 0.52, 1)
+centered = false
+
+[node name="Row4Retroid" type="Control" parent="UI/ControlsGroup" unique_id=1513403863]
+layout_mode = 3
+anchors_preset = 0
+offset_left = 170.0
+offset_top = 123.0
+offset_right = 300.0
+offset_bottom = 131.0
+mouse_filter = 2
+script = ExtResource("2")
+text = "TAP L1 OR L2 (TOGGLE)"
+color = Color(0.93, 0.88, 0.76, 1)
+centered = false
+
+[node name="Row4Keys" type="Control" parent="UI/ControlsGroup" unique_id=798700421]
+layout_mode = 3
+anchors_preset = 0
+offset_left = 310.0
+offset_top = 123.0
+offset_right = 440.0
+offset_bottom = 131.0
+mouse_filter = 2
+script = ExtResource("2")
+text = "TAP SHIFT (TOGGLE)"
+color = Color(0.93, 0.88, 0.76, 1)
+centered = false
+
+[node name="Row5Action" type="Control" parent="UI/ControlsGroup" unique_id=1233271434]
+layout_mode = 3
+anchors_preset = 0
+offset_left = 40.0
+offset_top = 138.0
+offset_right = 170.0
+offset_bottom = 146.0
+mouse_filter = 2
+script = ExtResource("2")
+text = "CROUCH"
+color = Color(0.62, 0.58, 0.52, 1)
+centered = false
+
+[node name="Row5Retroid" type="Control" parent="UI/ControlsGroup" unique_id=1003118276]
+layout_mode = 3
+anchors_preset = 0
+offset_left = 170.0
+offset_top = 138.0
+offset_right = 300.0
+offset_bottom = 146.0
+mouse_filter = 2
+script = ExtResource("2")
+text = "HOLD DOWN"
+color = Color(0.93, 0.88, 0.76, 1)
+centered = false
+
+[node name="Row5Keys" type="Control" parent="UI/ControlsGroup" unique_id=1729846491]
+layout_mode = 3
+anchors_preset = 0
+offset_left = 310.0
+offset_top = 138.0
+offset_right = 440.0
+offset_bottom = 146.0
+mouse_filter = 2
+script = ExtResource("2")
+text = "HOLD DOWN OR S"
+color = Color(0.93, 0.88, 0.76, 1)
+centered = false
+
+[node name="Row6Action" type="Control" parent="UI/ControlsGroup" unique_id=1958948675]
+layout_mode = 3
+anchors_preset = 0
+offset_left = 40.0
+offset_top = 153.0
+offset_right = 170.0
+offset_bottom = 161.0
+mouse_filter = 2
+script = ExtResource("2")
+text = "HIDE"
+color = Color(0.62, 0.58, 0.52, 1)
+centered = false
+
+[node name="Row6Retroid" type="Control" parent="UI/ControlsGroup" unique_id=777433673]
+layout_mode = 3
+anchors_preset = 0
+offset_left = 170.0
+offset_top = 153.0
+offset_right = 300.0
+offset_bottom = 161.0
+mouse_filter = 2
+script = ExtResource("2")
+text = "UP AT A CRATE"
+color = Color(0.93, 0.88, 0.76, 1)
+centered = false
+
+[node name="Row6Keys" type="Control" parent="UI/ControlsGroup" unique_id=889948005]
+layout_mode = 3
+anchors_preset = 0
+offset_left = 310.0
+offset_top = 153.0
+offset_right = 440.0
+offset_bottom = 161.0
+mouse_filter = 2
+script = ExtResource("2")
+text = "UP OR W AT A CRATE"
+color = Color(0.93, 0.88, 0.76, 1)
+centered = false
+
+[node name="Row7Action" type="Control" parent="UI/ControlsGroup" unique_id=2006041165]
+layout_mode = 3
+anchors_preset = 0
+offset_left = 40.0
+offset_top = 168.0
+offset_right = 170.0
+offset_bottom = 176.0
+mouse_filter = 2
+script = ExtResource("2")
+text = "PAUSE"
+color = Color(0.62, 0.58, 0.52, 1)
+centered = false
+
+[node name="Row7Retroid" type="Control" parent="UI/ControlsGroup" unique_id=189753774]
+layout_mode = 3
+anchors_preset = 0
+offset_left = 170.0
+offset_top = 168.0
+offset_right = 300.0
+offset_bottom = 176.0
+mouse_filter = 2
+script = ExtResource("2")
+text = "START"
+color = Color(0.93, 0.88, 0.76, 1)
+centered = false
+
+[node name="Row7Keys" type="Control" parent="UI/ControlsGroup" unique_id=1002165799]
+layout_mode = 3
+anchors_preset = 0
+offset_left = 310.0
+offset_top = 168.0
+offset_right = 440.0
+offset_bottom = 176.0
+mouse_filter = 2
+script = ExtResource("2")
+text = "P OR ESC"
+color = Color(0.93, 0.88, 0.76, 1)
+centered = false
+
+[node name="Row8Action" type="Control" parent="UI/ControlsGroup"]
+layout_mode = 3
+anchors_preset = 0
+offset_left = 40.0
+offset_top = 183.0
+offset_right = 170.0
+offset_bottom = 191.0
+mouse_filter = 2
+script = ExtResource("2")
+text = "SWAP CREW"
+color = Color(0.62, 0.58, 0.52, 1)
+centered = false
+
+[node name="Row8Retroid" type="Control" parent="UI/ControlsGroup"]
+layout_mode = 3
+anchors_preset = 0
+offset_left = 170.0
+offset_top = 183.0
+offset_right = 300.0
+offset_bottom = 191.0
+mouse_filter = 2
+script = ExtResource("2")
+text = "X"
+color = Color(0.93, 0.88, 0.76, 1)
+centered = false
+
+[node name="Row8Keys" type="Control" parent="UI/ControlsGroup"]
+layout_mode = 3
+anchors_preset = 0
+offset_left = 310.0
+offset_top = 183.0
+offset_right = 440.0
+offset_bottom = 191.0
+mouse_filter = 2
+script = ExtResource("2")
+text = "TAB OR Q"
+color = Color(0.93, 0.88, 0.76, 1)
+centered = false
+
+[node name="Row9Action" type="Control" parent="UI/ControlsGroup"]
+layout_mode = 3
+anchors_preset = 0
+offset_left = 40.0
+offset_top = 198.0
+offset_right = 170.0
+offset_bottom = 206.0
+mouse_filter = 2
+script = ExtResource("2")
+text = "BLOCK (RENN)"
+color = Color(0.62, 0.58, 0.52, 1)
+centered = false
+
+[node name="Row9Retroid" type="Control" parent="UI/ControlsGroup"]
+layout_mode = 3
+anchors_preset = 0
+offset_left = 170.0
+offset_top = 198.0
+offset_right = 300.0
+offset_bottom = 206.0
+mouse_filter = 2
+script = ExtResource("2")
+text = "A"
+color = Color(0.93, 0.88, 0.76, 1)
+centered = false
+
+[node name="Row9Keys" type="Control" parent="UI/ControlsGroup"]
+layout_mode = 3
+anchors_preset = 0
+offset_left = 310.0
+offset_top = 198.0
+offset_right = 440.0
+offset_bottom = 206.0
+mouse_filter = 2
+script = ExtResource("2")
+text = "L OR C"
+color = Color(0.93, 0.88, 0.76, 1)
+centered = false
+
+[node name="Tip" type="Control" parent="UI/ControlsGroup" unique_id=143911555]
+layout_mode = 3
+anchors_preset = 0
+offset_top = 216.0
+offset_right = 480.0
+offset_bottom = 224.0
+mouse_filter = 2
+script = ExtResource("2")
+text = "HOLD DOWN ON A CRATE TO DROP BEHIND IT"
+color = Color(0.62, 0.58, 0.52, 1)
+boxed = true
+
+[node name="ControlsBack" type="Control" parent="UI/ControlsGroup" unique_id=65698566]
+unique_name_in_owner = true
+process_mode = 3
+layout_mode = 3
+anchors_preset = 0
+offset_left = 160.0
+offset_top = 238.0
+offset_right = 320.0
+offset_bottom = 238.0
+script = ExtResource("3")
+items = PackedStringArray("BACK")
+
+[node name="SelectGroup" type="Node2D" parent="UI" unique_id=1971506517]
+unique_name_in_owner = true
+visible = false
+
+[node name="Dim" type="ColorRect" parent="UI/SelectGroup" unique_id=2020902733]
+offset_right = 480.0
+offset_bottom = 270.0
+mouse_filter = 2
+color = Color(0.05, 0.03, 0.1, 0.82)
+
+[node name="Heading" type="Control" parent="UI/SelectGroup" unique_id=1896896820]
+layout_mode = 3
+anchors_preset = 0
+offset_top = 20.0
+offset_right = 480.0
+offset_bottom = 44.0
+mouse_filter = 2
+script = ExtResource("2")
+text = "LEVEL SELECT"
+px = 3
+color = Color(1, 0.82, 0.35, 1)
+boxed = true
+
+[node name="List" type="ScrollContainer" parent="UI/SelectGroup" unique_id=499103154]
+unique_name_in_owner = true
+offset_left = 90.0
+offset_top = 52.0
+offset_right = 390.0
+offset_bottom = 224.0
+follow_focus = true
+horizontal_scroll_mode = 0
+scroll_deadzone = 10
+
+[node name="Rows" type="VBoxContainer" parent="UI/SelectGroup/List" unique_id=447203667]
+unique_name_in_owner = true
+layout_mode = 2
+size_flags_horizontal = 3
+theme_override_constants/separation = 2
+
+[node name="Level1" type="Button" parent="UI/SelectGroup/List/Rows" unique_id=1356446365]
+custom_minimum_size = Vector2(0, 24)
+layout_mode = 2
+mouse_filter = 1
+theme_override_styles/normal = SubResource("StyleBoxEmpty_6wg5s")
+theme_override_styles/pressed = SubResource("StyleBoxEmpty_j5tjf")
+theme_override_styles/hover = SubResource("StyleBoxEmpty_sgdb2")
+theme_override_styles/hover_pressed = SubResource("StyleBoxEmpty_tb3pe")
+theme_override_styles/disabled = SubResource("StyleBoxEmpty_gcu0l")
+theme_override_styles/focus = SubResource("StyleBoxEmpty_cwlm7")
+script = ExtResource("level_row_script")
+title = "1-1 SALT FLATS"
+scene = "res://scenes/levels/level_01.tscn"
+
+[node name="Level2" type="Button" parent="UI/SelectGroup/List/Rows" unique_id=1724526584]
+custom_minimum_size = Vector2(0, 24)
+layout_mode = 2
+mouse_filter = 1
+theme_override_styles/normal = SubResource("StyleBoxEmpty_p4x2f")
+theme_override_styles/pressed = SubResource("StyleBoxEmpty_iqrnn")
+theme_override_styles/hover = SubResource("StyleBoxEmpty_u5gv8")
+theme_override_styles/hover_pressed = SubResource("StyleBoxEmpty_7ax60")
+theme_override_styles/disabled = SubResource("StyleBoxEmpty_r116a")
+theme_override_styles/focus = SubResource("StyleBoxEmpty_2m0be")
+script = ExtResource("level_row_script")
+title = "1-2 HIGHWAY RUN"
+scene = "res://scenes/levels/level_02.tscn"
+
+[node name="Level3" type="Button" parent="UI/SelectGroup/List/Rows" unique_id=432956565]
+custom_minimum_size = Vector2(0, 24)
+layout_mode = 2
+mouse_filter = 1
+theme_override_styles/normal = SubResource("StyleBoxEmpty_pyfxh")
+theme_override_styles/pressed = SubResource("StyleBoxEmpty_xo3lv")
+theme_override_styles/hover = SubResource("StyleBoxEmpty_xq84c")
+theme_override_styles/hover_pressed = SubResource("StyleBoxEmpty_656pf")
+theme_override_styles/disabled = SubResource("StyleBoxEmpty_eeqih")
+theme_override_styles/focus = SubResource("StyleBoxEmpty_dkcje")
+script = ExtResource("level_row_script")
+title = "1-3 TOWN ROOFTOPS"
+scene = "res://scenes/levels/level_03.tscn"
+
+[node name="Level4" type="Button" parent="UI/SelectGroup/List/Rows" unique_id=613465902]
+custom_minimum_size = Vector2(0, 24)
+layout_mode = 2
+mouse_filter = 1
+theme_override_styles/normal = SubResource("StyleBoxEmpty_jgqhe")
+theme_override_styles/pressed = SubResource("StyleBoxEmpty_l4wq0")
+theme_override_styles/hover = SubResource("StyleBoxEmpty_w5u1h")
+theme_override_styles/hover_pressed = SubResource("StyleBoxEmpty_7jw7h")
+theme_override_styles/disabled = SubResource("StyleBoxEmpty_8j1xe")
+theme_override_styles/focus = SubResource("StyleBoxEmpty_365sm")
+script = ExtResource("level_row_script")
+title = "1-4 HIGHWAY ESCAPE"
+scene = "res://scenes/levels/level_04.tscn"
+
+[node name="Level5" type="Button" parent="UI/SelectGroup/List/Rows" unique_id=235477012]
+custom_minimum_size = Vector2(0, 24)
+layout_mode = 2
+mouse_filter = 1
+theme_override_styles/normal = SubResource("StyleBoxEmpty_ved0o")
+theme_override_styles/pressed = SubResource("StyleBoxEmpty_06ncr")
+theme_override_styles/hover = SubResource("StyleBoxEmpty_k5cyl")
+theme_override_styles/hover_pressed = SubResource("StyleBoxEmpty_awrf7")
+theme_override_styles/disabled = SubResource("StyleBoxEmpty_iojlp")
+theme_override_styles/focus = SubResource("StyleBoxEmpty_qs74m")
+script = ExtResource("level_row_script")
+title = "1-5 THE BELT"
+scene = "res://scenes/levels/level_05.tscn"
+
+[node name="Level7" type="Button" parent="UI/SelectGroup/List/Rows" unique_id=963348398]
+custom_minimum_size = Vector2(0, 24)
+layout_mode = 2
+mouse_filter = 1
+theme_override_styles/normal = SubResource("StyleBoxEmpty_wq6qh")
+theme_override_styles/pressed = SubResource("StyleBoxEmpty_oygwf")
+theme_override_styles/hover = SubResource("StyleBoxEmpty_iv3r8")
+theme_override_styles/hover_pressed = SubResource("StyleBoxEmpty_s55mk")
+theme_override_styles/disabled = SubResource("StyleBoxEmpty_1fxmq")
+theme_override_styles/focus = SubResource("StyleBoxEmpty_5kli2")
+script = ExtResource("level_row_script")
+title = "2-1 THE DISTRACTION"
+scene = "res://scenes/levels/level_2_1a.tscn"
+
+[node name="Level8c" type="Button" parent="UI/SelectGroup/List/Rows"]
+custom_minimum_size = Vector2(0, 24)
+layout_mode = 2
+mouse_filter = 1
+theme_override_styles/normal = SubResource("StyleBoxEmpty_gys78")
+theme_override_styles/pressed = SubResource("StyleBoxEmpty_6nrqm")
+theme_override_styles/hover = SubResource("StyleBoxEmpty_i182e")
+theme_override_styles/hover_pressed = SubResource("StyleBoxEmpty_slvok")
+theme_override_styles/disabled = SubResource("StyleBoxEmpty_j414r")
+theme_override_styles/focus = SubResource("StyleBoxEmpty_tiemj")
+script = ExtResource("level_row_script")
+title = "2-2 THE DETONATORS"
+scene = "res://scenes/levels/level_2_1c.tscn"
+
+[node name="Level8" type="Button" parent="UI/SelectGroup/List/Rows" unique_id=1658305970]
+custom_minimum_size = Vector2(0, 24)
+layout_mode = 2
+mouse_filter = 1
+theme_override_styles/normal = SubResource("StyleBoxEmpty_gys78")
+theme_override_styles/pressed = SubResource("StyleBoxEmpty_6nrqm")
+theme_override_styles/hover = SubResource("StyleBoxEmpty_i182e")
+theme_override_styles/hover_pressed = SubResource("StyleBoxEmpty_slvok")
+theme_override_styles/disabled = SubResource("StyleBoxEmpty_j414r")
+theme_override_styles/focus = SubResource("StyleBoxEmpty_tiemj")
+script = ExtResource("level_row_script")
+title = "2-3 THE DATA RUN"
+scene = "res://scenes/levels/level_2_1b.tscn"
+
+[node name="Level9" type="Button" parent="UI/SelectGroup/List/Rows" unique_id=594684866]
+custom_minimum_size = Vector2(0, 24)
+layout_mode = 2
+mouse_filter = 1
+theme_override_styles/normal = SubResource("StyleBoxEmpty_cnxdx")
+theme_override_styles/pressed = SubResource("StyleBoxEmpty_dmvot")
+theme_override_styles/hover = SubResource("StyleBoxEmpty_sppj3")
+theme_override_styles/hover_pressed = SubResource("StyleBoxEmpty_15qml")
+theme_override_styles/disabled = SubResource("StyleBoxEmpty_4d8bw")
+theme_override_styles/focus = SubResource("StyleBoxEmpty_l51dm")
+script = ExtResource("level_row_script")
+title = "2-4 THE VENTS"
+scene = "res://scenes/levels/level_2_2.tscn"
+
+[node name="Level10" type="Button" parent="UI/SelectGroup/List/Rows" unique_id=1884148762]
+custom_minimum_size = Vector2(0, 24)
+layout_mode = 2
+mouse_filter = 1
+theme_override_styles/normal = SubResource("StyleBoxEmpty_jnedc")
+theme_override_styles/pressed = SubResource("StyleBoxEmpty_gmxmf")
+theme_override_styles/hover = SubResource("StyleBoxEmpty_w52a2")
+theme_override_styles/hover_pressed = SubResource("StyleBoxEmpty_b345p")
+theme_override_styles/disabled = SubResource("StyleBoxEmpty_mpg14")
+theme_override_styles/focus = SubResource("StyleBoxEmpty_3dcqt")
+script = ExtResource("level_row_script")
+title = "2-5 THE CINDER MINES"
+scene = "res://scenes/levels/level_2_3.tscn"
+
+[node name="Level11" type="Button" parent="UI/SelectGroup/List/Rows" unique_id=95197320]
+custom_minimum_size = Vector2(0, 24)
+layout_mode = 2
+mouse_filter = 1
+theme_override_styles/normal = SubResource("StyleBoxEmpty_d75f5")
+theme_override_styles/pressed = SubResource("StyleBoxEmpty_68dmy")
+theme_override_styles/hover = SubResource("StyleBoxEmpty_4pluh")
+theme_override_styles/hover_pressed = SubResource("StyleBoxEmpty_3vsua")
+theme_override_styles/disabled = SubResource("StyleBoxEmpty_lgajp")
+theme_override_styles/focus = SubResource("StyleBoxEmpty_v3bgd")
+script = ExtResource("level_row_script")
+title = "2-6 THE CATWALK"
+scene = "res://scenes/levels/level_2_4.tscn"
+
+[node name="SelectBack" type="Button" parent="UI/SelectGroup" unique_id=2086242319]
+unique_name_in_owner = true
+offset_left = 90.0
+offset_top = 232.0
+offset_right = 390.0
+offset_bottom = 258.0
+mouse_filter = 1
+theme_override_styles/normal = SubResource("StyleBoxEmpty_4dici")
+theme_override_styles/pressed = SubResource("StyleBoxEmpty_mxree")
+theme_override_styles/hover = SubResource("StyleBoxEmpty_8qo04")
+theme_override_styles/hover_pressed = SubResource("StyleBoxEmpty_xh6uq")
+theme_override_styles/disabled = SubResource("StyleBoxEmpty_ml83r")
+theme_override_styles/focus = SubResource("StyleBoxEmpty_3y8cs")
+script = ExtResource("level_row_script")
+title = "BACK"
+
+[node name="SettingsGroup" type="Node2D" parent="UI" unique_id=1992032622]
+unique_name_in_owner = true
+visible = false
+
+[node name="Dim" type="ColorRect" parent="UI/SettingsGroup" unique_id=1646156317]
+offset_right = 480.0
+offset_bottom = 270.0
+mouse_filter = 2
+color = Color(0.05, 0.03, 0.1, 0.82)
+
+[node name="Heading" type="Control" parent="UI/SettingsGroup" unique_id=1375708990]
+layout_mode = 3
+anchors_preset = 0
+offset_top = 20.0
+offset_right = 480.0
+offset_bottom = 44.0
+mouse_filter = 2
+script = ExtResource("2")
+text = "SETTINGS"
+px = 3
+color = Color(1, 0.82, 0.35, 1)
+boxed = true
+
+[node name="SettingsRows" type="VBoxContainer" parent="UI/SettingsGroup" unique_id=347309555]
+unique_name_in_owner = true
+offset_left = 90.0
+offset_top = 56.0
+offset_right = 390.0
+offset_bottom = 212.0
+theme_override_constants/separation = 2
+
+[node name="Music" type="Button" parent="UI/SettingsGroup/SettingsRows" unique_id=701692483]
+custom_minimum_size = Vector2(0, 24)
+layout_mode = 2
+mouse_filter = 1
+theme_override_styles/normal = SubResource("StyleBoxEmpty_we858")
+theme_override_styles/pressed = SubResource("StyleBoxEmpty_t25hb")
+theme_override_styles/hover = SubResource("StyleBoxEmpty_k8yh3")
+theme_override_styles/hover_pressed = SubResource("StyleBoxEmpty_p863d")
+theme_override_styles/disabled = SubResource("StyleBoxEmpty_6o33g")
+theme_override_styles/focus = SubResource("StyleBoxEmpty_fggi3")
+script = ExtResource("level_row_script")
+title = "MUSIC  < 7 >"
+action = "MUSIC"
+centered = true
+
+[node name="Sound" type="Button" parent="UI/SettingsGroup/SettingsRows" unique_id=745164473]
+custom_minimum_size = Vector2(0, 24)
+layout_mode = 2
+mouse_filter = 1
+theme_override_styles/normal = SubResource("StyleBoxEmpty_fn8cl")
+theme_override_styles/pressed = SubResource("StyleBoxEmpty_eg3ha")
+theme_override_styles/hover = SubResource("StyleBoxEmpty_gflup")
+theme_override_styles/hover_pressed = SubResource("StyleBoxEmpty_2aoqd")
+theme_override_styles/disabled = SubResource("StyleBoxEmpty_2jl6p")
+theme_override_styles/focus = SubResource("StyleBoxEmpty_ebydm")
+script = ExtResource("level_row_script")
+title = "SOUND  < 8 >"
+action = "SOUND"
+centered = true
+
+[node name="TouchPad" type="Button" parent="UI/SettingsGroup/SettingsRows" unique_id=133746891]
+custom_minimum_size = Vector2(0, 24)
+layout_mode = 2
+mouse_filter = 1
+theme_override_styles/normal = SubResource("StyleBoxEmpty_fkesg")
+theme_override_styles/pressed = SubResource("StyleBoxEmpty_wtbgo")
+theme_override_styles/hover = SubResource("StyleBoxEmpty_glr2q")
+theme_override_styles/hover_pressed = SubResource("StyleBoxEmpty_61b5d")
+theme_override_styles/disabled = SubResource("StyleBoxEmpty_wifbm")
+theme_override_styles/focus = SubResource("StyleBoxEmpty_gjo0y")
+script = ExtResource("level_row_script")
+title = "TOUCH PAD  < AUTO >"
+action = "TOUCH"
+centered = true
+
+[node name="ResetTips" type="Button" parent="UI/SettingsGroup/SettingsRows" unique_id=2138646754]
+custom_minimum_size = Vector2(0, 24)
+layout_mode = 2
+mouse_filter = 1
+theme_override_styles/normal = SubResource("StyleBoxEmpty_53guf")
+theme_override_styles/pressed = SubResource("StyleBoxEmpty_2sol0")
+theme_override_styles/hover = SubResource("StyleBoxEmpty_plfrh")
+theme_override_styles/hover_pressed = SubResource("StyleBoxEmpty_jfwym")
+theme_override_styles/disabled = SubResource("StyleBoxEmpty_tg1ls")
+theme_override_styles/focus = SubResource("StyleBoxEmpty_cqns4")
+script = ExtResource("level_row_script")
+title = "DEV: RESET TIPS"
+action = "RESET_TIPS"
+centered = true
+
+[node name="DeletePrefs" type="Button" parent="UI/SettingsGroup/SettingsRows" unique_id=931927978]
+custom_minimum_size = Vector2(0, 24)
+layout_mode = 2
+mouse_filter = 1
+theme_override_styles/normal = SubResource("StyleBoxEmpty_gdrtj")
+theme_override_styles/pressed = SubResource("StyleBoxEmpty_3rl4i")
+theme_override_styles/hover = SubResource("StyleBoxEmpty_qtseq")
+theme_override_styles/hover_pressed = SubResource("StyleBoxEmpty_lqpaw")
+theme_override_styles/disabled = SubResource("StyleBoxEmpty_4hbb7")
+theme_override_styles/focus = SubResource("StyleBoxEmpty_r8mgy")
+script = ExtResource("level_row_script")
+title = "DEV: DELETE ALL PREFS"
+action = "DELETE_PREFS"
+centered = true
+
+[node name="Back" type="Button" parent="UI/SettingsGroup/SettingsRows" unique_id=1661209946]
+custom_minimum_size = Vector2(0, 24)
+layout_mode = 2
+mouse_filter = 1
+theme_override_styles/normal = SubResource("StyleBoxEmpty_udbhm")
+theme_override_styles/pressed = SubResource("StyleBoxEmpty_a0n8w")
+theme_override_styles/hover = SubResource("StyleBoxEmpty_x78me")
+theme_override_styles/hover_pressed = SubResource("StyleBoxEmpty_00yp4")
+theme_override_styles/disabled = SubResource("StyleBoxEmpty_36oqn")
+theme_override_styles/focus = SubResource("StyleBoxEmpty_jhl7j")
+script = ExtResource("level_row_script")
+title = "BACK"
+action = "BACK"
+centered = true
+
+[node name="SettingsNote" type="Control" parent="UI/SettingsGroup" unique_id=1024429159]
+unique_name_in_owner = true
+layout_mode = 3
+anchors_preset = 0
+offset_top = 214.0
+offset_right = 480.0
+offset_bottom = 222.0
+mouse_filter = 2
+script = ExtResource("2")
+text = "LEFT / RIGHT CHANGES VOLUME AND TOUCH PAD"
+color = Color(0.62, 0.58, 0.52, 1)
+boxed = true
+
+[node name="CrewGroup" type="Node2D" parent="UI" unique_id=1382131766]
+unique_name_in_owner = true
+visible = false
+
+[node name="Dim" type="ColorRect" parent="UI/CrewGroup" unique_id=1023567552]
+offset_right = 480.0
+offset_bottom = 270.0
+mouse_filter = 2
+color = Color(0.05, 0.03, 0.1, 0.88)
+
+[node name="Heading" type="Control" parent="UI/CrewGroup" unique_id=872084604]
+layout_mode = 3
+anchors_preset = 0
+offset_top = 8.0
+offset_right = 480.0
+offset_bottom = 24.0
+mouse_filter = 2
+script = ExtResource("2")
+text = "THE CREW"
+px = 2
+color = Color(1, 0.82, 0.35, 1)
+boxed = true
+
+[node name="CrewCard" type="Sprite2D" parent="UI/CrewGroup" unique_id=666992042]
+unique_name_in_owner = true
+position = Vector2(240, 110)
+
+[node name="CrewName" type="Control" parent="UI/CrewGroup" unique_id=1865015227]
+unique_name_in_owner = true
+layout_mode = 3
+anchors_preset = 0
+offset_top = 200.0
+offset_right = 480.0
+offset_bottom = 224.0
+mouse_filter = 2
+script = ExtResource("2")
+text = "KESH"
+px = 3
+color = Color(0.96, 0.9, 0.75, 1)
+boxed = true
+
+[node name="CrewRole" type="Control" parent="UI/CrewGroup" unique_id=251627195]
+unique_name_in_owner = true
+layout_mode = 3
+anchors_preset = 0
+offset_top = 226.0
+offset_right = 480.0
+offset_bottom = 234.0
+mouse_filter = 2
+script = ExtResource("2")
+text = "SCAVENGER"
+color = Color(0.7, 0.66, 0.6, 1)
+boxed = true
+
+[node name="ArrowLeft" type="Control" parent="UI/CrewGroup" unique_id=1580669429]
+layout_mode = 3
+anchors_preset = 0
+offset_left = 2.0
+offset_top = 100.0
+offset_right = 42.0
+offset_bottom = 132.0
+mouse_filter = 2
+script = ExtResource("2")
+text = "<"
+px = 4
+color = Color(1, 0.82, 0.35, 1)
+boxed = true
+
+[node name="ArrowRight" type="Control" parent="UI/CrewGroup" unique_id=1321785024]
+layout_mode = 3
+anchors_preset = 0
+offset_left = 438.0
+offset_top = 100.0
+offset_right = 478.0
+offset_bottom = 132.0
+mouse_filter = 2
+script = ExtResource("2")
+text = ">"
+px = 4
+color = Color(1, 0.82, 0.35, 1)
+boxed = true
+
+[node name="CrewBack" type="Control" parent="UI/CrewGroup" unique_id=568644881]
+unique_name_in_owner = true
+process_mode = 3
+layout_mode = 3
+anchors_preset = 0
+offset_left = 160.0
+offset_top = 238.0
+offset_right = 320.0
+offset_bottom = 238.0
+script = ExtResource("3")
+items = PackedStringArray("BACK")
+
+[node name="CutsceneGroup" type="Node2D" parent="UI"]
+unique_name_in_owner = true
+visible = false
+
+[node name="Dim" type="ColorRect" parent="UI/CutsceneGroup"]
+offset_right = 480.0
+offset_bottom = 270.0
+mouse_filter = 2
+color = Color(0.05, 0.03, 0.1, 0.82)
+
+[node name="Heading" type="Control" parent="UI/CutsceneGroup"]
+layout_mode = 3
+anchors_preset = 0
+offset_top = 20.0
+offset_right = 480.0
+offset_bottom = 44.0
+mouse_filter = 2
+script = ExtResource("2")
+text = "CUTSCENES"
+px = 3
+color = Color(1, 0.82, 0.35, 1)
+boxed = true
+
+[node name="CutsceneRows" type="VBoxContainer" parent="UI/CutsceneGroup"]
+unique_name_in_owner = true
+offset_left = 90.0
+offset_top = 56.0
+offset_right = 390.0
+offset_bottom = 212.0
+theme_override_constants/separation = 2
+
+[node name="Ascent" type="Button" parent="UI/CutsceneGroup/CutsceneRows"]
+custom_minimum_size = Vector2(0, 24)
+layout_mode = 2
+script = ExtResource("level_row_script")
+title = "1-4  THE ASCENT"
+scene = "res://scenes/levels/level_04_ascent.tscn"
+action = "ascent"
+
+[node name="Approach" type="Button" parent="UI/CutsceneGroup/CutsceneRows"]
+custom_minimum_size = Vector2(0, 24)
+layout_mode = 2
+script = ExtResource("level_row_script")
+title = "2-1  THE MERIDIAN APPROACH"
+scene = "res://scenes/levels/level_2_1a.tscn"
+action = "approach"
+
+[node name="Ambush" type="Button" parent="UI/CutsceneGroup/CutsceneRows"]
+custom_minimum_size = Vector2(0, 24)
+layout_mode = 2
+script = ExtResource("level_row_script")
+title = "2-3  THE AMBUSH"
+scene = "res://scenes/levels/level_2_1b.tscn"
+action = "ambush"
+
+[node name="Blast" type="Button" parent="UI/CutsceneGroup/CutsceneRows"]
+custom_minimum_size = Vector2(0, 24)
+layout_mode = 2
+script = ExtResource("level_row_script")
+title = "2-4  THE MERIDIAN BLOWS"
+scene = "res://scenes/levels/level_2_2.tscn"
+action = "blast"
+
+[node name="Block" type="Button" parent="UI/CutsceneGroup/CutsceneRows"]
+custom_minimum_size = Vector2(0, 24)
+layout_mode = 2
+script = ExtResource("level_row_script")
+title = "2-5  RENN BLOCKS THE BOLTS"
+scene = "res://scenes/levels/level_2_3.tscn"
+action = "block"
+
+[node name="Pickup" type="Button" parent="UI/CutsceneGroup/CutsceneRows"]
+custom_minimum_size = Vector2(0, 24)
+layout_mode = 2
+script = ExtResource("level_row_script")
+title = "2-6  VAGABOND-9 PICKUP"
+scene = "res://scenes/levels/level_2_4.tscn"
+action = "pickup"
+
+[node name="CutsceneBack" type="Button" parent="UI/CutsceneGroup"]
+unique_name_in_owner = true
+offset_left = 90.0
+offset_top = 232.0
+offset_right = 390.0
+offset_bottom = 258.0
+script = ExtResource("level_row_script")
+title = "BACK"

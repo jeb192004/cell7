@@ -15,9 +15,10 @@
 [node name="Level2_3" type="Node2D"]
 script = ExtResource("1")
 length = 4600.0
-title = "2-3 THE CINDER MINES"
+title = "2-5 THE CINDER MINES"
 next_level = "res://scenes/levels/level_2_4.tscn"
 free_required = 4
+block_cutscene = true
 
 [node name="Sky" type="CanvasLayer" parent="."]
 layer = -10
@@ -83,7 +84,7 @@ position = Vector2(560, 223)
 stack = 2
 
 [node name="Crate3" parent="Props" instance=ExtResource("9")]
-position = Vector2(900, 223)
+position = Vector2(850, 223)
 
 [node name="Crate4" parent="Props" instance=ExtResource("9")]
 position = Vector2(1000, 223)
@@ -97,7 +98,7 @@ position = Vector2(1650, 223)
 stack = 2
 
 [node name="Crate7" parent="Props" instance=ExtResource("9")]
-position = Vector2(1750, 223)
+position = Vector2(1700, 223)
 
 [node name="Crate8" parent="Props" instance=ExtResource("9")]
 position = Vector2(2050, 223)

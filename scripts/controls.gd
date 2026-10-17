@@ -9,8 +9,11 @@ static func setup() -> void:
 	_act("down",  [_key(KEY_DOWN), _key(KEY_S), _btn(JOY_BUTTON_DPAD_DOWN), _axis(JOY_AXIS_LEFT_Y, 1.0), _axis(JOY_AXIS_RIGHT_Y, 1.0)])
 	_act("jump",  [_key(KEY_SPACE), _key(KEY_K), _btn(JOY_BUTTON_A)])
 	_act("shoot", [_key(KEY_J), _key(KEY_X), _btn(JOY_BUTTON_RIGHT_SHOULDER), _btn(JOY_BUTTON_X)])   # instant shot (RP5 Y or R1)
-	_act("run",   [_key(KEY_SHIFT), _btn(JOY_BUTTON_LEFT_SHOULDER), _axis(JOY_AXIS_TRIGGER_LEFT, 1.0)])   # sprint while held (L1 or L2)
-	_act("slide", [_key(KEY_L), _key(KEY_C), _btn(JOY_BUTTON_B)])
+	_act("sprint_toggle", [_key(KEY_SHIFT), _btn(JOY_BUTTON_LEFT_SHOULDER), _axis(JOY_AXIS_TRIGGER_LEFT, 1.0)])   # tap L1 / L2 / Shift: sprint on, tap again: off
+	_act("swap",  [_key(KEY_TAB), _key(KEY_Q), _btn(JOY_BUTTON_Y)])   # swap to the other crew member (levels with a partner)
+	_act("block", [_key(KEY_L), _key(KEY_C), _btn(JOY_BUTTON_B)])   # Renn: hold to block bolts with the Arc-Blade
+	_act("skip_story", [_key(KEY_TAB), _btn(JOY_BUTTON_Y)])   # story cards and cutscenes: skip them all (RP5 X)
+	_act("run",   [])   # held while the touch pad's RUN toggle is on (touch_controls.gd presses it)
 	_act("pause", [_key(KEY_ESCAPE), _key(KEY_P), _btn(JOY_BUTTON_START)])
 
 static func _act(n: String, evs: Array) -> void:

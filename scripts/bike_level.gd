@@ -33,6 +33,7 @@ var events: Array = [
 	[70.0, "boss", 1]]
 
 func _ready() -> void:
+	physics_interpolation_mode = Node.PHYSICS_INTERPOLATION_MODE_OFF   # everything here moves in _process; interpolation made new foes flash on 120Hz screens
 	Controls.setup()
 	if ResourceLoader.exists("res://data/level_04_events.gd"):
 		events = (load("res://data/level_04_events.gd") as GDScript).new().EVENTS.duplicate()

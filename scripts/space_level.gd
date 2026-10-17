@@ -21,6 +21,7 @@ var stars: StarField
 var events: Array = []
 
 func _ready() -> void:
+	physics_interpolation_mode = Node.PHYSICS_INTERPOLATION_MODE_OFF   # everything here moves in _process; interpolation made new foes flash on 120Hz screens
 	Controls.setup()
 	get_tree().paused = false
 	var bg := CanvasLayer.new(); bg.layer = -10; add_child(bg)
