@@ -28,7 +28,7 @@ func _case(m, label: String, px: float, stack: int, go_back: bool, crouch: bool)
 	w.queue_free()
 	return seen
 func _init() -> void:
-	var m = load("res://scenes/levels/level_01.tscn").instantiate()
+	var m = load("res://scenes/levels/level_1_1.tscn").instantiate()
 	root.add_child(m)
 	await process_frame
 	var r1 = await _case(m, "front_lane_in_cone", 880.0, 1, false, false)

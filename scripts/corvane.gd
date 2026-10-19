@@ -4,6 +4,13 @@ extends Node2D
 signal defeated
 const GROUND_Y := 222.0
 @export var hp := 18
+@export var finale_hp := 0     # > 0: his hp can't drop below this, and he gets faster when it does (3-7: Brix can't beat him)
+@export var finale_at_pip := 0 # > 0: when the player is down to this many pips the fight ends (3-7: the push cutscene plays)
+@export var wait_for_squad := false   # stays hidden until every other enemy is gone, then walks in
+var finale_ready := false
+var waiting := false
+var enraged := false
+var active_t := 0.0
 @export var min_x := 0.0
 @export var max_x := 99999.0
 var player: Player
@@ -24,6 +31,8 @@ var burst_kind := "high"
 
 func _ready() -> void:
 	add_to_group("enemies"); add_to_group("hunters")
+	if wait_for_squad:
+		waiting = true; visible = false; remove_from_group("enemies")   # still a "hunter", so the level isn't cleared while he waits
 	sprite = Sprite2D.new(); sprite.centered = false; sprite.position = Vector2(-18, -56)
 	for n in ["ready", "aim", "fire", "caim", "cfire"]: frames[n] = load("res://assets/warden_%s.png" % n)
 	for i in 8: walk_frames.append(load("res://assets/warden_walk_%d.png" % i))
@@ -35,7 +44,10 @@ func hit_rect() -> Rect2:
 	return Rect2(global_position + Vector2(-16, -62), Vector2(32, 62))
 
 func hurt(d: int) -> void:
+	if finale_ready: return
 	hp -= d; flash = 0.12
+	if finale_hp > 0 and hp <= finale_hp:
+		hp = finale_hp; enraged = true
 	Sfx.play("enemy_die" if hp <= 0 else "enemy_hit", 0.8, 0.06)
 	if hp <= 0:
 		defeated.emit(); queue_free()
@@ -43,6 +55,18 @@ func hurt(d: int) -> void:
 func _physics_process(delta: float) -> void:
 	if player == null: player = get_tree().get_first_node_in_group("player") as Player
 	if player == null or player.hp <= 0: return
+	if waiting:
+		for e in get_tree().get_nodes_in_group("enemies"):
+			if e != self and is_instance_valid(e): return
+		waiting = false; visible = true; add_to_group("enemies")
+		position.x = clampf(player.global_position.x + 300.0, min_x, max_x)
+		cd = 1.2; Sfx.play("slide", 0.8)
+		var cs := get_tree().current_scene
+		if cs != null and cs.has_method("_toast"): cs._toast("HEAD WARDEN CORVANE")
+	active_t += delta
+	if finale_at_pip > 0: player.hp_floor = finale_at_pip   # he can wear Brix down to this many pips, no further
+	if finale_at_pip > 0 and not finale_ready and active_t > 3.0 and player.hp <= finale_at_pip:
+		finale_ready = true; state = "finale"
 	flash = maxf(flash - delta, 0.0)
 	sprite.modulate = Color(3, 3, 3) if flash > 0.0 else (Color(1.0, 0.25, 0.25) if state == "tele" else Color(1.0, 0.55, 0.55))
 	var dx := player.global_position.x - global_position.x
@@ -56,14 +80,16 @@ func _physics_process(delta: float) -> void:
 			var mv := 0.0
 			if absf(dx) > want + 12.0: mv = 1.0 if dx > 0.0 else -1.0
 			elif absf(dx) < want - 30.0: mv = -1.0 if dx > 0.0 else 1.0
-			position.x = clampf(position.x + mv * 70.0 * delta, min_x, max_x)
+			position.x = clampf(position.x + mv * 70.0 * (1.4 if enraged else 1.0) * delta, min_x, max_x)
 			if mv != 0.0:
 				walk_t += delta; sprite.texture = walk_frames[int(walk_t * 8.0) % walk_frames.size()]
 			else: walk_t = 0.0
-			cd -= delta
+			cd -= delta * (1.6 if enraged else 1.0)
 			if cd <= 0.0:
 				if randf() < 0.45 and absf(dx) < 260.0: state = "tele"; st = 0.0
 				else: state = "burst"; st = 0.0; shots_left = 3; shot_t = 0.35; burst_kind = next_kind; next_kind = "low" if next_kind == "high" else "high"   # a burst is three shots of one kind, close together, so one jump (or one duck) beats them all
+		"finale":
+			sprite.texture = frames["ready"]
 		"burst":
 			var low := burst_kind == "low"   # low shots: he kneels
 			sprite.texture = frames["caim" if low else "aim"]

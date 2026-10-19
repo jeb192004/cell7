@@ -1,10 +1,10 @@
 #!/usr/bin/env python3
-"""Writes scenes/levels/level_2_1c.tscn: Fuse plants five charges along the Meridian's deck (existing ship art).
+"""Writes scenes/levels/level_2_2.tscn: Fuse plants five charges along the Meridian's deck (existing ship art).
 Wardens see ~230 px ahead, so each patrol (4 of them) is covered by a chain of crates you walk behind (Up at a crate = back lane),
 with a two-crate gap in the middle where you have to step out. The five ChargeSpots sit in the quiet stretches between the patrols.
 Re-run to regenerate; edit in Godot if you want to tweak by hand (then don't re-run)."""
 import os
-OUT = os.path.join(os.path.dirname(__file__), '..', 'scenes', 'levels', 'level_2_1c.tscn')
+OUT = os.path.join(os.path.dirname(__file__), '..', 'scenes', 'levels', 'level_2_2.tscn')
 W = [(620, -1), (1320, 1), (2020, -1), (2720, 1)]            # (x, start_facing), patrol_range 80
 C = []
 for wx, _ in W:
@@ -21,7 +21,7 @@ ex = [('1', 'res://scripts/level.gd', 'Script'), ('2', 'res://assets/bg_ship_sky
 L = [f'[gd_scene load_steps={len(ex) + 1} format=3]', '']
 L += [f'[ext_resource type="{t}" path="{p}" id="{i}"]' for i, p, t in ex] + ['']
 L += ['[node name="Level2_1c" type="Node2D"]', 'script = ExtResource("1")', f'length = {float(LENGTH)}', 'title = "2-2 THE DETONATORS"',
-      'next_level = "res://scenes/levels/level_2_1b.tscn"', 'tutorial = false', 'stealth_only = true', f'free_required = {len(S)}',
+      'next_level = "res://scenes/levels/level_2_3.tscn"', 'tutorial = false', 'stealth_only = true', f'free_required = {len(S)}',
       'play_as = "fuse"', 'goal_word = "DETONATORS SET"', 'goal_block = "SET ALL THE DETONATORS FIRST"', '']
 L += ['[node name="Sky" type="CanvasLayer" parent="."]', 'layer = -10', '', '[node name="Sprite" type="Sprite2D" parent="Sky"]', 'texture = ExtResource("2")', 'centered = false', '']
 for name, tex, sc, z in (('Far', 3, 0.15, -30), ('Mid', 4, 0.4, -20), ('Ground', 5, 1.0, -5)):

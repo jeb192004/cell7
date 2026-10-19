@@ -57,11 +57,18 @@ func is_flight() -> bool:
 
 const SWAP_BTN := {"id": "swap", "c": Vector2(440, 150), "r": 16.0, "round": true, "label": "SWAP", "acts": ["swap"]}
 const BLOCK_BTN := {"id": "block", "c": Vector2(382, 178), "r": 19.0, "round": true, "label": "BLK", "acts": ["block"]}
+const BOMB_BTN := {"id": "special", "c": Vector2(382, 178), "r": 19.0, "round": true, "label": "BOMB", "acts": ["special"]}
 const FLIGHT_FIRE := {"id": "shoot", "c": Vector2(426, 214), "r": 34.0, "round": true, "label": "FIRE", "acts": ["shoot"]}
 func _btns() -> Array:
 	if not is_flight():
 		var cs := get_tree().current_scene
-		if cs != null and cs is Level and (cs as Level).crew_partner != "": return BUTTONS + [SWAP_BTN, BLOCK_BTN]
+		if cs != null and cs is Level:
+			var lv := cs as Level
+			var ex: Array = []
+			if lv.crew_partner != "": ex.append(SWAP_BTN)
+			if lv.player != null and lv.player.def.can_special: ex.append(BOMB_BTN)
+			elif lv.crew_partner != "": ex.append(BLOCK_BTN)
+			if not ex.is_empty(): return BUTTONS + ex
 		return BUTTONS
 	return [FLIGHT_FIRE, BUTTONS[BUTTONS.size() - 1]]   # FIRE + pause
 

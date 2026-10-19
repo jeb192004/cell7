@@ -1,0 +1,150 @@
+[gd_scene format=3]
+
+[ext_resource type="Script" path="res://scripts/level.gd" id="1"]
+[ext_resource type="Script" path="res://scripts/barrier.gd" id="23"]
+[ext_resource type="Texture2D" path="res://assets/bg_town_sky.png" id="2"]
+[ext_resource type="Texture2D" path="res://assets/bg_town_far.png" id="3"]
+[ext_resource type="Texture2D" path="res://assets/bg_town_mid.png" id="4"]
+[ext_resource type="Texture2D" path="res://assets/town_ground.png" id="5"]
+[ext_resource type="PackedScene" path="res://scenes/warden.tscn" id="7"]
+[ext_resource type="PackedScene" path="res://scenes/cargo.tscn" id="9"]
+[ext_resource type="PackedScene" path="res://scenes/warden_shield.tscn" id="10"]
+[ext_resource type="PackedScene" path="res://scenes/corvane.tscn" id="13"]
+
+[node name="Level3_7" type="Node2D"]
+script = ExtResource("1")
+length = 2500.0
+title = "3-7 CORVANE"
+top = -80.0
+play_as = "brix"
+boss_clear = true
+finale_cutscene = true
+
+[node name="Sky" type="CanvasLayer" parent="."]
+layer = -10
+
+[node name="Sprite" type="Sprite2D" parent="Sky"]
+texture = ExtResource("2")
+centered = false
+
+[node name="Far" type="Parallax2D" parent="."]
+z_index = -30
+scroll_scale = Vector2(0.15, 0)
+repeat_size = Vector2(480, 0)
+repeat_times = 8
+
+[node name="Sprite" type="Sprite2D" parent="Far"]
+texture = ExtResource("3")
+centered = false
+
+[node name="Mid" type="Parallax2D" parent="."]
+z_index = -20
+scroll_scale = Vector2(0.4, 0)
+repeat_size = Vector2(480, 0)
+repeat_times = 8
+
+[node name="Sprite" type="Sprite2D" parent="Mid"]
+texture = ExtResource("4")
+centered = false
+
+[node name="Ground" type="Parallax2D" parent="."]
+z_index = -5
+scroll_scale = Vector2(1, 1)
+repeat_size = Vector2(480, 0)
+repeat_times = 8
+
+[node name="Sprite" type="Sprite2D" parent="Ground"]
+texture = ExtResource("5")
+centered = false
+
+[node name="PlayerStart" type="Marker2D" parent="."]
+position = Vector2(120, 222)
+
+[node name="Checkpoints" type="Node2D" parent="."]
+
+[node name="Checkpoint1" type="Marker2D" parent="Checkpoints" groups=["checkpoint"]]
+position = Vector2(1000, 222)
+
+[node name="Checkpoint2" type="Marker2D" parent="Checkpoints" groups=["checkpoint"]]
+position = Vector2(1700, 222)
+
+[node name="Props" type="Node2D" parent="."]
+
+[node name="Crate1" parent="Props" instance=ExtResource("9")]
+position = Vector2(330, 223)
+stack = 2
+
+[node name="Barrier1" type="Node2D" parent="Props"]
+script = ExtResource("23")
+position = Vector2(520, 222)
+
+[node name="Crate2" parent="Props" instance=ExtResource("9")]
+position = Vector2(760, 223)
+
+[node name="Crate3" parent="Props" instance=ExtResource("9")]
+position = Vector2(1040, 223)
+stack = 2
+
+[node name="Barrier2" type="Node2D" parent="Props"]
+script = ExtResource("23")
+position = Vector2(1220, 222)
+
+[node name="Crate4" parent="Props" instance=ExtResource("9")]
+position = Vector2(1380, 223)
+stack = 2
+
+[node name="Crate5" parent="Props" instance=ExtResource("9")]
+position = Vector2(1850, 223)
+stack = 2
+
+[node name="Crate6" parent="Props" instance=ExtResource("9")]
+position = Vector2(2100, 223)
+stack = 2
+
+[node name="Barrier3" type="Node2D" parent="Props"]
+script = ExtResource("23")
+position = Vector2(1990, 222)
+
+[node name="Crate7" parent="Props" instance=ExtResource("9")]
+position = Vector2(2300, 223)
+stack = 2
+
+[node name="Enemies" type="Node2D" parent="."]
+
+[node name="Warden1" parent="Enemies" instance=ExtResource("7")]
+position = Vector2(600, 224)
+patrol_range = 50.0
+
+[node name="Warden2" parent="Enemies" instance=ExtResource("7")]
+position = Vector2(860, 224)
+patrol_range = 60.0
+
+[node name="ShieldWarden1" parent="Enemies" instance=ExtResource("7")]
+position = Vector2(1000, 224)
+patrol_range = 40.0
+
+[node name="Warden3" parent="Enemies" instance=ExtResource("7")]
+position = Vector2(1150, 224)
+patrol_range = 60.0
+
+[node name="ShieldWarden2" parent="Enemies" instance=ExtResource("7")]
+position = Vector2(1300, 224)
+patrol_range = 40.0
+
+[node name="Warden4" parent="Enemies" instance=ExtResource("7")]
+position = Vector2(1450, 224)
+patrol_range = 60.0
+
+[node name="Warden5" parent="Enemies" instance=ExtResource("7")]
+position = Vector2(1560, 224)
+patrol_range = 50.0
+
+[node name="Corvane" parent="Enemies" instance=ExtResource("13")]
+position = Vector2(2050, 222)
+hp = 40
+finale_hp = 1
+finale_at_pip = 1
+wait_for_squad = true
+min_x = 900.0
+max_x = 2350.0
+

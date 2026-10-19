@@ -43,3 +43,20 @@ All names are original. The arc follows the show's early episodes loosely; the s
 
 ## Weapons
 - **Arc-Blade** - Renn's energy saber. He uses it to deflect Warden fire (not the Current). Kesh earns one later.
+
+## Chapter 3 (in progress)
+The crew is broke: no food, no fuel, no credits. A fence named Orsel offers one job, stealing a shipment of Sovereignty weapons from the port on Halven.
+**3-1 Cargo Bay 7.** Fuse and Brix cross the dock's wires and send the Wardens to the wrong bay. Kesh drops in from the vents, crosses the bay (drops, a sunken pit, a wall climb, a high catwalk) and reaches bay 7. The Wardens are about to work out the mix-up.
+
+**3-2 Hold the Gate.** The Wardens work out the mix-up and a squad runs for bay 7. Brix and Renn (swap) hold the dock while Kesh and Fuse load: gantry, dock floor, a sunken trench, stairs up to a high catwalk, and the gate. Drops and stairs only (Brix jumps about 43 px).
+
+### Chapter 3 plan (from James's episode notes)
+Skip the opening shuttle argument. Heist on Halven: Wardens sent to the wrong dock (3-1 cards), Kesh sneaks in through the vents to bay 7 (3-1), Brix distracts the Wardens when they learn the mix-up (3-2), Kesh gets the crates aboard (3-3).
+Back at Lantern Rest the crew sells to the fence (Orsel) (3-4). Gasket's open comm call is overheard and the Sovereignty shows up. The crew keeps the weapons and destroys them.
+Two-legged walkers touch down: Renn and Val take them on (3-5, boss). Brix fights a squad of Wardens, then Corvane one on one; Corvane beats him and, before the kill, Kesh pushes him away with the Current (3-6, ends in a cutscene; needs Kesh's push sprite).
+**3-3 Loading Up.** Kesh holds bay 7 for 45 s while the loader fills the Vagabond-9; Wardens arrive from both ends (wave_spawn markers, `wave_every` / `wave_max` on the level).
+**3-4 The Sale.** Lantern Rest at night. Gasket leaves the comm open during the sale, so the Wardens come. Kesh runs the market (street plus two raised walkways) back to the Vagabond-9; the crew then blows the weapons. Ends with the walkers touching down.
+**3-5 Titan Strider.** Boss: a walker in Lantern Rest. Renn (blade only) fights it; Val strafes in the Vagabond-9 at 2/3 and 1/3 health. The walker shoots high/low bursts, lobs missiles onto red rings, stomps if you stand under it, and vents steam (hits count double) after a missile volley. Val is not playable (no sprites yet).
+
+**3-6 Strider Trap.** Boss: the second Titan Strider on the landing pad. Fuse has no gun: she plants charges on glowing spots and draws the strider over them. Each blast does 7 and stuns it (strider hp 28). No Val strafes. Afterwards Corvane walks out of the smoke.
+**3-7 Corvane.** Brix cuts through a squad of Wardens, then fights Corvane one on one. Corvane cannot be hurt below 10 hp: reaching it ends the fight and the cutscene plays. Corvane beats Brix, and Kesh throws him back with the Current. (Kesh uses his slingshot pose until assets/kesh_push_0.png, kesh_push_1.png ... exist; the cutscene picks them up automatically.)

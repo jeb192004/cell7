@@ -1,7 +1,7 @@
 extends SceneTree
 ## Headless smoke: run right, jump, shoot, check Kesh moved and a warden died.
 func _init() -> void:
-	var m = load("res://scenes/levels/level_01.tscn").instantiate()
+	var m = load("res://scenes/levels/level_1_1.tscn").instantiate()
 	root.add_child(m)
 	await process_frame
 	await process_frame

@@ -1,0 +1,143 @@
+[gd_scene format=3 uid="uid://b7wcp5lpxgtrh"]
+
+[ext_resource type="Script" uid="uid://bmxaw2w0f42jh" path="res://scripts/level.gd" id="1"]
+[ext_resource type="Texture2D" uid="uid://dwoibj80kuwoa" path="res://assets/bg_ship_sky.png" id="2"]
+[ext_resource type="Texture2D" uid="uid://bhkmfcquomfc5" path="res://assets/bg_ship_far.png" id="3"]
+[ext_resource type="Texture2D" uid="uid://ceg7sy2u8ywy4" path="res://assets/bg_ship_mid.png" id="4"]
+[ext_resource type="PackedScene" path="res://scenes/drone.tscn" id="8"]
+[ext_resource type="PackedScene" path="res://scenes/cargo.tscn" id="9"]
+[ext_resource type="PackedScene" path="res://scenes/bomber.tscn" id="11"]
+[ext_resource type="Script" uid="uid://c346d0gi4vfg5" path="res://scripts/stairs.gd" id="20"]
+[ext_resource type="Script" uid="uid://gdpqy0o1cqor" path="res://scripts/barrier.gd" id="23"]
+[ext_resource type="Script" uid="uid://ey7h54jaso3y" path="res://scripts/catwalk.gd" id="30"]
+[ext_resource type="Script" uid="uid://dh0jxox1603li" path="res://scripts/hull.gd" id="40"]
+
+[node name="Level3_3" type="Node2D" unique_id=706528181]
+script = ExtResource("1")
+length = 1500.0
+title = "3-3 LOADING UP"
+next_level = "res://scenes/levels/level_3_4.tscn"
+top = -60.0
+survive_time = 45.0
+survive_label = "THE LOADER FINISHES IN"
+survive_boss = false
+wave_every = 3.0
+multi_floor = true
+ground = false
+
+[node name="Sky" type="CanvasLayer" parent="." unique_id=940979911]
+layer = -10
+
+[node name="Sprite" type="Sprite2D" parent="Sky" unique_id=1602517731]
+texture = ExtResource("2")
+centered = false
+
+[node name="Far" type="Parallax2D" parent="." unique_id=1239295424]
+z_index = -30
+scroll_scale = Vector2(0.15, 0)
+repeat_size = Vector2(480, 0)
+repeat_times = 14
+
+[node name="Sprite" type="Sprite2D" parent="Far" unique_id=241028432]
+texture = ExtResource("3")
+centered = false
+
+[node name="Mid" type="Parallax2D" parent="." unique_id=1759589528]
+z_index = -20
+scroll_scale = Vector2(0.4, 0)
+repeat_size = Vector2(480, 0)
+repeat_times = 14
+
+[node name="Sprite" type="Sprite2D" parent="Mid" unique_id=66452618]
+texture = ExtResource("4")
+centered = false
+
+[node name="PlayerStart" type="Marker2D" parent="." unique_id=1805060918]
+position = Vector2(750, 222)
+
+[node name="Checkpoints" type="Node2D" parent="." unique_id=1083688065]
+
+[node name="Spawns" type="Node2D" parent="." unique_id=1506027566]
+
+[node name="SpawnL" type="Marker2D" parent="Spawns" unique_id=675028771 groups=["wave_spawn"]]
+position = Vector2(20, 224)
+
+[node name="SpawnR" type="Marker2D" parent="Spawns" unique_id=1143206091 groups=["wave_spawn"]]
+position = Vector2(1480, 224)
+
+[node name="Floors" type="Node2D" parent="." unique_id=429014211]
+
+[node name="CatwalkL" type="Node2D" parent="Floors" unique_id=354789264]
+z_index = -1
+position = Vector2(465, 130)
+script = ExtResource("30")
+width = 470
+legs = false
+skirt = 4
+
+[node name="CatwalkR" type="Node2D" parent="Floors" unique_id=1944138017]
+z_index = -1
+position = Vector2(1035, 130)
+script = ExtResource("30")
+width = 470
+legs = false
+skirt = 4
+
+[node name="StairsL" type="Node2D" parent="Floors" unique_id=770183281]
+z_index = -2
+position = Vector2(115, 222)
+script = ExtResource("20")
+
+[node name="StairsR" type="Node2D" parent="Floors" unique_id=1861973571]
+z_index = -2
+position = Vector2(1385, 222)
+script = ExtResource("20")
+dir = -1
+
+[node name="DockFloor" type="Node2D" parent="Floors" unique_id=757796374]
+z_index = -2
+position = Vector2(750, 222)
+script = ExtResource("40")
+width = 2300
+thick = 260
+
+[node name="Props" type="Node2D" parent="." unique_id=1247502621]
+
+[node name="Crate1" parent="Props" unique_id=701219623 instance=ExtResource("9")]
+position = Vector2(330, 223)
+stack = 2
+
+[node name="Barrier1" type="Node2D" parent="Props" unique_id=733721742]
+position = Vector2(520, 222)
+script = ExtResource("23")
+
+[node name="Crate2" parent="Props" unique_id=1186578560 instance=ExtResource("9")]
+position = Vector2(660, 223)
+
+[node name="Crate3" parent="Props" unique_id=51157456 instance=ExtResource("9")]
+position = Vector2(850, 223)
+
+[node name="Barrier2" type="Node2D" parent="Props" unique_id=473554052]
+position = Vector2(980, 222)
+script = ExtResource("23")
+
+[node name="Crate4" parent="Props" unique_id=491979221 instance=ExtResource("9")]
+position = Vector2(1170, 223)
+stack = 2
+
+[node name="Crate5" parent="Props" unique_id=1601018418 instance=ExtResource("9")]
+position = Vector2(400, 131)
+
+[node name="Crate6" parent="Props" unique_id=1458409891 instance=ExtResource("9")]
+position = Vector2(1100, 131)
+
+[node name="Enemies" type="Node2D" parent="." unique_id=2118325941]
+
+[node name="Drone1" parent="Enemies" unique_id=633762199 instance=ExtResource("8")]
+position = Vector2(450, 90)
+
+[node name="Drone2" parent="Enemies" unique_id=1362170110 instance=ExtResource("8")]
+position = Vector2(1050, 90)
+
+[node name="Bomber1" parent="Enemies" unique_id=980033287 instance=ExtResource("11")]
+position = Vector2(750, 40)

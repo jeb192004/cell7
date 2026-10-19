@@ -25,7 +25,7 @@ Bindings live in `scripts/controls.gd`.
 **Touch:** on phones/tablets an on-screen pad (d-pad, RUN on/off toggle above it, JUMP, FIRE, pause) appears automatically and hides when a gamepad is used. The pad hides on the title and on any paused screen (pause menu, story cards, tips); taps work there instead, and card prompts change to NEXT / TAP TO CONTINUE. Title > Settings > TOUCH PAD cycles AUTO / ON / OFF (F2 toggles it on PC for testing).
 
 ## Project layout
-- `scenes/` and `scenes/levels/`: scenes and levels (chapter 1: `level_01`-`level_05`, chapter 2: `level_2_1`-`level_2_4`).
+- `scenes/` and `scenes/levels/`: scenes and levels (chapter 1: `level_1_1`-`level_1_5`, chapter 2: `level_2_1`-`level_2_6`).
 - `scripts/`: game code. `data/`: data-driven event lists for the bike and space levels.
 - `assets/`: art and audio. `docs/`: story and art briefs.
 - `tools/`: Python scripts that build sprites and levels from source sheets (`tools/src/`). Some of them regenerate scenes, so don't re-run a level generator after you've edited its scene by hand.
@@ -61,16 +61,16 @@ Crate tops: jump onto a single crate (a 2-high stack is too tall from the ground
   On top, hold Down to drop behind the crate into the back lane, or Down + jump to drop off the front.
 
 ### Building levels (in the Godot editor)
-- Open `scenes/levels/level_01.tscn`. Press F6 to play just that scene, F5 to play the main scene.
+- Open `scenes/levels/level_1_1.tscn`. Press F6 to play just that scene, F5 to play the main scene.
 - Drag `scenes/warden.tscn`, `scenes/drone.tscn`, `scenes/crate.tscn` into the scene (put them under Enemies / Props to keep it tidy) and move them with the mouse.
   - Crate: set `Stack` in the Inspector (1 = crouch to hide, 2-3 = can stand). The editor shows the stack as you change it.
   - Warden: `Patrol Range` (how far he walks each side) and `Start Facing`. Drone: just place it in the air.
 - `PlayerStart`, `Exit` (crossing it clears the level) and the `Checkpoint` markers are Marker2D nodes. A new checkpoint is any Marker2D put in the group `checkpoint` (Node tab > Groups).
 - On the Level01 root node: `Length` (how far the world runs) and `Next Level` (scene to load after Exit).
 - Ground is at y = 222. Place feet/bottom of things there (crates at y = 223).
-- To make level 2: Scene > Save As `level_02.tscn`, edit, then point level 1's `Next Level` at it.
+- To make level 2: Scene > Save As `level_1_2.tscn`, edit, then point level 1's `Next Level` at it.
 - `tools/gen_level01.py` only regenerates the starter layout. Don't run it after you've edited the scene, it would overwrite your work.
 
 ### Level 2 / Shield Warden
-- `scenes/levels/level_02.tscn` (made by `tools/gen_level02.py`); level 1's `Next Level` now points to it, so the clear card shows NEXT LEVEL.
+- `scenes/levels/level_1_2.tscn` (made by `tools/gen_level02.py`); level 1's `Next Level` now points to it, so the clear card shows NEXT LEVEL.
 - `scenes/warden_shield.tscn`: riot shield blocks bolts from the front and he turns slowly (0.8s). Shoot his back (jump over him, or lure him past a crate).

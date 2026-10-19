@@ -1,79 +1,255 @@
-[gd_scene format=3 uid="uid://pecn6m7cghh7"]
+[gd_scene format=3 uid="uid://3ibqv5jrmteb"]
 
 [ext_resource type="Script" uid="uid://bmxaw2w0f42jh" path="res://scripts/level.gd" id="1"]
-[ext_resource type="Texture2D" uid="uid://dm3o3gsf1dm2p" path="res://assets/bg_cat_sky.png" id="2"]
-[ext_resource type="Texture2D" uid="uid://bpcskxjbvx43o" path="res://assets/bg_cat_far.png" id="3"]
-[ext_resource type="Texture2D" uid="uid://cbj0mb4pkwh5t" path="res://assets/bg_cat_mid.png" id="4"]
-[ext_resource type="Texture2D" uid="uid://cckvqdy002wxl" path="res://assets/cat_ground.png" id="5"]
-[ext_resource type="PackedScene" path="res://scenes/crate.tscn" id="9"]
-[ext_resource type="PackedScene" path="res://scenes/corvane.tscn" id="12"]
+[ext_resource type="Texture2D" uid="uid://bs8tsinbrchko" path="res://assets/bg_bay_sky.png" id="2"]
+[ext_resource type="Texture2D" uid="uid://ohnhfre6oed4" path="res://assets/bg_bay_far.png" id="3"]
+[ext_resource type="Texture2D" uid="uid://cmbinloasihje" path="res://assets/bg_bay_mid.png" id="4"]
+[ext_resource type="Texture2D" uid="uid://cquic06qpcn1y" path="res://assets/bay_ground.png" id="5"]
+[ext_resource type="PackedScene" path="res://scenes/warden.tscn" id="7"]
+[ext_resource type="PackedScene" path="res://scenes/drone.tscn" id="8"]
+[ext_resource type="PackedScene" path="res://scenes/cargo.tscn" id="9"]
+[ext_resource type="PackedScene" path="res://scenes/warden_shield.tscn" id="10"]
+[ext_resource type="PackedScene" path="res://scenes/vent.tscn" id="13"]
+[ext_resource type="PackedScene" path="res://scenes/grate.tscn" id="14"]
 
-[node name="Level2_4" type="Node2D" unique_id=1057598637]
+[node name="Level2_2" type="Node2D" unique_id=162818566]
 script = ExtResource("1")
-length = 1200.0
-title = "2-6 THE CATWALK"
-survive_time = 50.0
-survive_label = "THE VAGABOND ARRIVES IN"
-pickup_cutscene = true
-ursk_pal = true
+length = 4200.0
+title = "2-4 THE VENTS"
+next_level = "res://scenes/levels/level_2_5.tscn"
+stealth_only = true
+blast_cutscene = true
 
-[node name="Sky" type="CanvasLayer" parent="." unique_id=1354905984]
+[node name="Sky" type="CanvasLayer" parent="." unique_id=1898195363]
 layer = -10
 
-[node name="Sprite" type="Sprite2D" parent="Sky" unique_id=892147268]
+[node name="Sprite" type="Sprite2D" parent="Sky" unique_id=144357142]
 texture = ExtResource("2")
 centered = false
 
-[node name="Far" type="Parallax2D" parent="." unique_id=1595662822]
+[node name="Far" type="Parallax2D" parent="." unique_id=734131889]
 z_index = -30
 scroll_scale = Vector2(0.15, 0)
 repeat_size = Vector2(480, 0)
 repeat_times = 12
 
-[node name="Sprite" type="Sprite2D" parent="Far" unique_id=1490624798]
+[node name="Sprite" type="Sprite2D" parent="Far" unique_id=1301100126]
 texture = ExtResource("3")
 centered = false
 
-[node name="Mid" type="Parallax2D" parent="." unique_id=874324567]
+[node name="Mid" type="Parallax2D" parent="." unique_id=282104378]
 z_index = -20
 scroll_scale = Vector2(0.4, 0)
 repeat_size = Vector2(480, 0)
 repeat_times = 12
 
-[node name="Sprite" type="Sprite2D" parent="Mid" unique_id=1861871375]
+[node name="Sprite" type="Sprite2D" parent="Mid" unique_id=126598921]
 texture = ExtResource("4")
 centered = false
 
-[node name="Ground" type="Parallax2D" parent="." unique_id=1004093901]
+[node name="Ground" type="Parallax2D" parent="." unique_id=119523351]
 z_index = -5
 scroll_scale = Vector2(1, 0)
 repeat_size = Vector2(480, 0)
 repeat_times = 12
 
-[node name="Sprite" type="Sprite2D" parent="Ground" unique_id=632264131]
+[node name="Sprite" type="Sprite2D" parent="Ground" unique_id=1817206481]
 texture = ExtResource("5")
 centered = false
 
-[node name="PlayerStart" type="Marker2D" parent="." unique_id=705982226]
+[node name="PlayerStart" type="Marker2D" parent="." unique_id=2086112118]
 position = Vector2(100, 222)
 
-[node name="Checkpoints" type="Node2D" parent="." unique_id=2083449405]
+[node name="Exit" type="Marker2D" parent="." unique_id=1295837079]
+position = Vector2(4080, 222)
 
-[node name="Props" type="Node2D" parent="." unique_id=53669069]
+[node name="Checkpoints" type="Node2D" parent="." unique_id=1880710496]
 
-[node name="Crate1" parent="Props" unique_id=554125938 instance=ExtResource("9")]
-position = Vector2(300, 223)
+[node name="Checkpoint1" type="Marker2D" parent="Checkpoints" unique_id=1048686411 groups=["checkpoint"]]
+position = Vector2(1680, 222)
 
-[node name="Crate2" parent="Props" unique_id=649468608 instance=ExtResource("9")]
-position = Vector2(820, 223)
+[node name="Checkpoint2" type="Marker2D" parent="Checkpoints" unique_id=663652884 groups=["checkpoint"]]
+position = Vector2(2758, 132)
+
+[node name="Checkpoint3" type="Marker2D" parent="Checkpoints" unique_id=773590711 groups=["checkpoint"]]
+position = Vector2(3760, 222)
+
+[node name="Props" type="Node2D" parent="." unique_id=210166594]
+
+[node name="Crate1" parent="Props" unique_id=1773826183 instance=ExtResource("9")]
+position = Vector2(320, 223)
+
+[node name="Crate2" parent="Props" unique_id=1581345173 instance=ExtResource("9")]
+position = Vector2(480, 223)
 stack = 2
 
-[node name="Crate3" parent="Props" unique_id=1736111688 instance=ExtResource("9")]
-position = Vector2(1060, 223)
+[node name="Crate3" parent="Props" unique_id=1513873856 instance=ExtResource("9")]
+position = Vector2(1700, 223)
 
-[node name="Enemies" type="Node2D" parent="." unique_id=860695648]
+[node name="Crate4" parent="Props" unique_id=545188524 instance=ExtResource("9")]
+position = Vector2(1734, 223)
+stack = 2
 
-[node name="Corvane" parent="Enemies" unique_id=1684659577 instance=ExtResource("12")]
-position = Vector2(520, 222)
-min_x = 60.0
-max_x = 1140.0
+[node name="Crate5" parent="Props" unique_id=1535356844 instance=ExtResource("9")]
+position = Vector2(1768, 223)
+stack = 3
+
+[node name="Crate6" parent="Props" unique_id=306841571 instance=ExtResource("9")]
+position = Vector2(2766, 223)
+stack = 3
+
+[node name="Crate7" parent="Props" unique_id=97119421 instance=ExtResource("9")]
+position = Vector2(2800, 223)
+stack = 2
+
+[node name="Crate8" parent="Props" unique_id=1757973035 instance=ExtResource("9")]
+position = Vector2(2834, 223)
+
+[node name="Crate9" parent="Props" unique_id=2054607690 instance=ExtResource("9")]
+position = Vector2(3000, 223)
+stack = 2
+
+[node name="Crate10" parent="Props" unique_id=1475112631 instance=ExtResource("9")]
+position = Vector2(3200, 223)
+
+[node name="Crate11" parent="Props" unique_id=963481644 instance=ExtResource("9")]
+position = Vector2(3375, 223)
+stack = 2
+
+[node name="Crate12" parent="Props" unique_id=190017720 instance=ExtResource("9")]
+position = Vector2(3800, 223)
+
+[node name="Crate13" parent="Props" unique_id=684973722 instance=ExtResource("9")]
+position = Vector2(3953, 223)
+stack = 2
+
+[node name="Enemies" type="Node2D" parent="." unique_id=953447127]
+
+[node name="Warden1" parent="Enemies" unique_id=884741255 instance=ExtResource("7")]
+position = Vector2(682, 222)
+patrol_range = 40.0
+
+[node name="Warden4" parent="Enemies" unique_id=1157391804 instance=ExtResource("7")]
+position = Vector2(1442, 224)
+patrol_range = 40.0
+
+[node name="Warden2" parent="Enemies" unique_id=554843244 instance=ExtResource("7")]
+position = Vector2(1879, 223)
+patrol_range = 60.0
+start_facing = 1
+
+[node name="Warden7" parent="Enemies" unique_id=1837920490 instance=ExtResource("7")]
+position = Vector2(2757, 222)
+patrol_range = 60.0
+start_facing = 1
+
+[node name="Warden3" parent="Enemies" unique_id=802396345 instance=ExtResource("7")]
+position = Vector2(3035, 222)
+patrol_range = 60.0
+
+[node name="ShieldWarden4" parent="Enemies" unique_id=1326433902 instance=ExtResource("10")]
+position = Vector2(3300, 222)
+patrol_range = 40.0
+start_facing = 1
+
+[node name="Warden5" parent="Enemies" unique_id=1064175060 instance=ExtResource("7")]
+position = Vector2(3950, 222)
+patrol_range = 50.0
+
+[node name="Warden6" parent="Enemies" unique_id=904967444 instance=ExtResource("7")]
+position = Vector2(3528, 230)
+patrol_range = 50.0
+
+[node name="Drone1" parent="Enemies" unique_id=1897315124 instance=ExtResource("8")]
+position = Vector2(2081, 148)
+
+[node name="Drone5" parent="Enemies" unique_id=1945747831 instance=ExtResource("8")]
+position = Vector2(2543, 77)
+
+[node name="Drone6" parent="Enemies" unique_id=1214512784 instance=ExtResource("8")]
+position = Vector2(2294, 171)
+
+[node name="Drone3" parent="Enemies" unique_id=50000131 instance=ExtResource("8")]
+position = Vector2(1265, 166)
+
+[node name="Drone4" parent="Enemies" unique_id=634415223 instance=ExtResource("8")]
+position = Vector2(852, 158)
+
+[node name="Drone2" parent="Enemies" unique_id=1371962974 instance=ExtResource("8")]
+position = Vector2(3450, 135)
+
+[node name="Drone7" parent="Enemies" unique_id=967941469 instance=ExtResource("8")]
+position = Vector2(3147, 161)
+
+[node name="Vents" type="Node2D" parent="." unique_id=2014764753]
+
+[node name="VentA" parent="Vents" unique_id=66291016 instance=ExtResource("13")]
+position = Vector2(580, 222)
+width = 1000.0
+height = 40.0
+
+[node name="VentB" parent="Vents" unique_id=456227931 instance=ExtResource("13")]
+position = Vector2(1749, 117)
+width = 1035.0
+height = 40.0
+
+[node name="VentC" parent="Vents" unique_id=1871216348 instance=ExtResource("13")]
+position = Vector2(2911, 268)
+width = 830.0
+height = 40.0
+
+[node name="Grates" type="Node2D" parent="." unique_id=1834128608]
+
+[node name="GrateA1" parent="Grates" unique_id=1108619704 instance=ExtResource("14")]
+position = Vector2(596, 208)
+link = NodePath("../GrateA2")
+
+[node name="GrateA2" parent="Grates" unique_id=43368605 instance=ExtResource("14")]
+position = Vector2(596, 208)
+link = NodePath("../GrateA1")
+inside = true
+
+[node name="GrateA3" parent="Grates" unique_id=838958233 instance=ExtResource("14")]
+position = Vector2(1564, 208)
+link = NodePath("../GrateA4")
+inside = true
+
+[node name="GrateA4" parent="Grates" unique_id=2117170492 instance=ExtResource("14")]
+position = Vector2(1564, 209)
+link = NodePath("../GrateA3")
+
+[node name="GrateB1" parent="Grates" unique_id=894170811 instance=ExtResource("14")]
+position = Vector2(1768, 101)
+link = NodePath("../GrateB2")
+
+[node name="GrateB2" parent="Grates" unique_id=1493116701 instance=ExtResource("14")]
+position = Vector2(1768, 102)
+link = NodePath("../GrateB1")
+inside = true
+
+[node name="GrateB3" parent="Grates" unique_id=1033848512 instance=ExtResource("14")]
+position = Vector2(2766, 101)
+link = NodePath("../GrateB4")
+inside = true
+
+[node name="GrateB4" parent="Grates" unique_id=1127968290 instance=ExtResource("14")]
+position = Vector2(2766, 101)
+link = NodePath("../GrateB3")
+
+[node name="GrateC1" parent="Grates" unique_id=1211870369 instance=ExtResource("14")]
+position = Vector2(2950, 208)
+link = NodePath("../GrateC2")
+
+[node name="GrateC2" parent="Grates" unique_id=397402110 instance=ExtResource("14")]
+position = Vector2(2951, 249)
+link = NodePath("../GrateC1")
+inside = true
+
+[node name="GrateC3" parent="Grates" unique_id=1187168730 instance=ExtResource("14")]
+position = Vector2(3720, 248)
+link = NodePath("../GrateC4")
+inside = true
+
+[node name="GrateC4" parent="Grates" unique_id=2100648196 instance=ExtResource("14")]
+position = Vector2(3720, 208)
+link = NodePath("../GrateC3")

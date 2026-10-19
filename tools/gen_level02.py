@@ -1,7 +1,7 @@
 #!/usr/bin/env python3
-"""Writes scenes/levels/level_02.tscn (1-2 Highway Run: cargo-container cover, regular then shield Wardens). Edit the scene in Godot afterwards."""
+"""Writes scenes/levels/level_1_2.tscn (1-2 Highway Run: cargo-container cover, regular then shield Wardens). Edit the scene in Godot afterwards."""
 import os
-out = os.path.join(os.path.dirname(__file__), '..', 'scenes', 'levels', 'level_02.tscn')
+out = os.path.join(os.path.dirname(__file__), '..', 'scenes', 'levels', 'level_1_2.tscn')
 W = [  # x, facing, patrol, shield  (regular Wardens first, shields introduced mid-level, mixed at the end)
     (760, -1, 50, 0), (1150, -1, 40, 0), (1500, -1, 60, 0), (1840, -1, 40, 1), (2250, -1, 50, 0),
     (2560, -1, 40, 1), (2980, -1, 60, 0), (3200, 1, 30, 1), (3430, -1, 40, 1)]
@@ -20,7 +20,7 @@ lines = ['[gd_scene load_steps=12 format=3]', '',
  '[ext_resource type="PackedScene" path="res://scenes/drone.tscn" id="8"]',
  '[ext_resource type="PackedScene" path="res://scenes/cargo.tscn" id="9"]',
  '[ext_resource type="PackedScene" path="res://scenes/warden_shield.tscn" id="10"]', '',
- '[node name="Level02" type="Node2D"]', 'script = ExtResource("1")', 'length = 3900.0', 'title = "1-2 HIGHWAY RUN"', 'next_level = "res://scenes/levels/level_03.tscn"', '']
+ '[node name="Level02" type="Node2D"]', 'script = ExtResource("1")', 'length = 3900.0', 'title = "1-2 HIGHWAY RUN"', 'next_level = "res://scenes/levels/level_1_3.tscn"', '']
 lines += ['[node name="Sky" type="CanvasLayer" parent="."]', 'layer = -10', '',
           '[node name="Sprite" type="Sprite2D" parent="Sky"]', 'texture = ExtResource("2")', 'centered = false', '']
 for name, tex, sc, z in (('Far', 3, 0.15, -30), ('Mid', 4, 0.35, -20), ('Dunes', 5, 0.6, -10), ('Ground', 6, 1.0, -5)):

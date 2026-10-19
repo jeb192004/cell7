@@ -33,3 +33,4 @@ __pycache__/
 *.keystore
 *.jks
 export_credentials.cfg
+_to_delete/

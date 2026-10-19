@@ -1,8 +1,8 @@
 #!/usr/bin/env python3
-"""Writes scenes/levels/level_03.tscn (1-3 Town Rooftops). After this, edit the scene in Godot.
+"""Writes scenes/levels/level_1_3.tscn (1-3 Town Rooftops). After this, edit the scene in Godot.
 Roof heights step by <= 40 and gaps are <= 80 px so Kesh can always make the jump; falling just drops you to the street."""
 import os
-out = os.path.join(os.path.dirname(__file__), '..', 'scenes', 'levels', 'level_03.tscn')
+out = os.path.join(os.path.dirname(__file__), '..', 'scenes', 'levels', 'level_1_3.tscn')
 GY = 222
 R = [  # centre x, width, height above the street line.  A climb: each step up <= 40 px, gaps <= 80 px.  No street: it is all rooftops.
     (360, 220, 40), (620, 160, 40), (810, 110, 80), (1000, 150, 120), (1180, 110, 160), (1330, 150, 200), (1560, 260, 200),
@@ -32,7 +32,7 @@ lines = ['[gd_scene load_steps=13 format=3]', '',
  '[ext_resource type="PackedScene" path="res://scenes/warden_shield.tscn" id="10"]',
  '[ext_resource type="PackedScene" path="res://scenes/roof.tscn" id="11"]',
  '[ext_resource type="PackedScene" path="res://scenes/pip.tscn" id="12"]', '',
- '[node name="Level03" type="Node2D"]', 'script = ExtResource("1")', 'length = 4000.0', 'title = "1-3 TOWN ROOFTOPS"', 'next_level = "res://scenes/levels/level_04.tscn"', 'top = -340.0', 'kill_y = 300.0', 'ground = false', '']
+ '[node name="Level03" type="Node2D"]', 'script = ExtResource("1")', 'length = 4000.0', 'title = "1-3 TOWN ROOFTOPS"', 'next_level = "res://scenes/levels/level_1_4.tscn"', 'top = -340.0', 'kill_y = 300.0', 'ground = false', '']
 lines += ['[node name="Sky" type="CanvasLayer" parent="."]', 'layer = -10', '',
           '[node name="Sprite" type="Sprite2D" parent="Sky"]', 'texture = ExtResource("2")', 'centered = false', '']
 for name, tex, sc, sy, z in (('Far', 3, 0.15, 0.15, -30), ('Mid', 4, 0.35, 0.35, -20)):

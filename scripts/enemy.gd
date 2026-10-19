@@ -3,14 +3,15 @@ extends Node2D
 ## Warden: patrols, sees in a cone in front of him. Spotted -> "!" then he fires slugs (high = duck, low = jump
 ## or take cover). Lose him behind a crate for a few seconds and he goes back to patrolling.
 ## Drone: hovers, shakes, then dives at where Kesh was. Can't see a concealed Kesh.
+## Bomber: a drone that blinks a warning, then dives at you and blows itself up (one pip, small blast). One shot brings it down.
 signal defeated
 const GROUND_Y := 222.0
 const SIGHT := 230.0   # how far a Warden sees (the cone). Kesh's shots reach less than this, so you have to step into his sight to hit him
 const LOSE_TIME := 2.5
 const SHIELD_HITS := 6   # shots the shield soaks before it breaks
 const TURN_TIME := 0.2   # shield Warden needs this long to turn around
-const SPOT_TIME := 0.2   # how long he has to see you before he reacts
-@export var kind := "warden"               # "warden" or "drone" (set by the scene)
+const SPOT_TIME := 0.1   # how long he has to see you before he reacts
+@export var kind := "warden"               # "warden", "drone" or "bomber" (set by the scene)
 @export var shield := false               # riot shield: blocks bolts from the front, turns slowly -- get behind him
 @export var patrol_range := 70.0           # how far a Warden walks either side of where you placed him
 @export_enum("Left:-1", "Right:1") var start_facing := -1
@@ -97,6 +98,7 @@ func hurt(d: int) -> void:
 		_spot(player.global_position.x - global_position.x)   # getting shot wakes him up
 	if hp <= 0:
 		defeated.emit()
+		if kind == "bomber": _detonate(22.0)   # shot down: a small blast, so don't shoot it point blank
 		queue_free()
 
 ## True when a bolt travelling in `bdir` runs into the shield (it's coming at his front).
@@ -148,7 +150,7 @@ func _sees(dx: float) -> bool:
 	if player.concealed: return false
 	if absf(dx) > SIGHT: return false
 	if (1 if dx >= 0.0 else -1) != facing: return false
-	if Barrier.blocks_line(get_tree(), global_position - Vector2(0, 20), player.global_position - Vector2(0, 20)): return false
+	if Barrier.blocks_line(get_tree(), global_position - Vector2(0, 38), player.global_position + Vector2(0, player.shape.position.y - (player.shape.shape as RectangleShape2D).size.y / 2.0 + 5.0)): return false
 	return absf(player.global_position.y - global_position.y) < 70.0
 
 func _find_roof() -> void:
@@ -182,12 +184,14 @@ func _physics_process(delta: float) -> void:
 		position.x = clampf(position.x, bound_min, bound_max)
 	else:
 		sprite.flip_h = dx < 0.0
-		_drone(delta, dx)
+		if kind == "bomber": _bomber(delta, dx)
+		else: _drone(delta, dx)
 	var tint := Color.WHITE
 	if flash > 0.0: tint = Color(3, 3, 3)
+	elif kind == "bomber" and wind >= 0.0: tint = Color(3, 0.5, 0.4) if int(wind * 14.0) % 2 == 0 else Color(1, 1, 1)   # blinking red: it is about to go
 	elif wind >= 0.0: tint = Color(1.6, 1.25, 0.8)
 	sprite.modulate = tint
-	if hit_rect().grow(-6).intersects(player.hurtbox()):
+	if kind != "bomber" and hit_rect().grow(-6).intersects(player.hurtbox()):
 		player.take_hit(global_position.x)
 	queue_redraw()
 
@@ -301,6 +305,45 @@ func _drone(delta: float, dx: float) -> void:
 			position.y = move_toward(position.y, base_y, 90.0 * delta)
 			if absf(position.y - base_y) < 2.0:
 				state = "hover"; st = 0.0
+
+var blasted := false
+## Blow up: a fireball, and one pip off Kesh (with the usual knock) if he is inside `radius`. Cover (hiding behind a crate) protects him.
+func _detonate(radius: float) -> void:
+	if blasted: return
+	blasted = true
+	var fx := BlastFx.new(); fx.radius = radius * 1.4; fx.global_position = global_position
+	get_parent().add_child(fx)
+	Sfx.play("explode", 1.3 if radius < 30.0 else 1.0, 0.1)
+	var c := global_position
+	if player != null and Rect2(c - Vector2(radius, radius), Vector2(radius, radius) * 2.0).intersects(player.hurtbox()):
+		player.take_hit(c.x)
+
+## Bomber: hovers like a drone, blinks a warning, then dives at where you were (steering a little at first) and goes off.
+func _bomber(delta: float, dx: float) -> void:
+	st += delta
+	var sees := not player.concealed
+	match state:
+		"hover":
+			position.y = base_y + sin(t * 2.0) * 5.0
+			if sees and absf(dx) < 260.0 and absf(dx) > 90.0:
+				position.x += signf(dx) * 34.0 * delta
+			if sees and absf(dx) < 190.0 and st > 0.8:
+				state = "wind"; st = 0.0; Sfx.play("blip", 1.4)
+		"wind":
+			position.x += sin(st * 70.0) * 0.5
+			wind = st
+			if int(st * 7.0) != int((st - delta) * 7.0): Sfx.play("blip", 1.4 + st)
+			if st > 0.7:
+				state = "dive"; st = 0.0; wind = -1.0
+				dive_to = player.global_position + Vector2(0, -16)
+		"dive":
+			if st < 0.45: dive_to = dive_to.lerp(player.global_position + Vector2(0, -16), 0.06)   # steers a little, then it is committed
+			var dir := (dive_to - global_position).normalized()
+			global_position += dir * 150.0 * delta
+			if global_position.distance_to(dive_to) < 8.0 or hit_rect().grow(-4).intersects(player.hurtbox()) or st > 2.0:
+				defeated.emit()
+				_detonate(40.0)
+				queue_free()
 
 func _draw() -> void:
 	if kind != "warden": return

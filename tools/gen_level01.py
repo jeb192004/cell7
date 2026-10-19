@@ -1,7 +1,7 @@
 #!/usr/bin/env python3
-"""Writes scenes/levels/level_01.tscn. Run it once to regenerate the starter layout; after that, edit the scene in Godot."""
+"""Writes scenes/levels/level_1_1.tscn. Run it once to regenerate the starter layout; after that, edit the scene in Godot."""
 import os
-out = os.path.join(os.path.dirname(__file__), '..', 'scenes', 'levels', 'level_01.tscn')
+out = os.path.join(os.path.dirname(__file__), '..', 'scenes', 'levels', 'level_1_1.tscn')
 W = [  # x, facing, patrol
     (780, -1, 40), (1230, -1, 70), (1700, -1, 50), (1900, 1, 50), (2520, -1, 60), (3020, -1, 40), (3170, 1, 40)]
 D = [(520, 150), (1360, 140), (2260, 150), (2380, 135)]
@@ -17,7 +17,7 @@ lines = ['[gd_scene load_steps=11 format=3]', '',
  '[ext_resource type="PackedScene" path="res://scenes/warden.tscn" id="7"]',
  '[ext_resource type="PackedScene" path="res://scenes/drone.tscn" id="8"]',
  '[ext_resource type="PackedScene" path="res://scenes/crate.tscn" id="9"]', '',
- '[node name="Level01" type="Node2D"]', 'script = ExtResource("1")', 'length = 3700.0', 'title = "1-1 SALT FLATS"', 'next_level = "res://scenes/levels/level_02.tscn"', '']
+ '[node name="Level01" type="Node2D"]', 'script = ExtResource("1")', 'length = 3700.0', 'title = "1-1 SALT FLATS"', 'next_level = "res://scenes/levels/level_1_2.tscn"', '']
 lines += ['[node name="Sky" type="CanvasLayer" parent="."]', 'layer = -10', '',
           '[node name="Sprite" type="Sprite2D" parent="Sky"]', 'texture = ExtResource("2")', 'centered = false', '']
 for name, tex, sc, z in (('Far', 3, 0.15, -30), ('Mid', 4, 0.35, -20), ('Dunes', 5, 0.6, -10), ('Ground', 6, 1.0, -5)):

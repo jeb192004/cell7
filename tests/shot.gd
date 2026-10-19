@@ -1,6 +1,6 @@
 extends SceneTree
 func _init() -> void:
-	var m = load("res://scenes/levels/level_04.tscn").instantiate()
+	var m = load("res://scenes/levels/level_1_4.tscn").instantiate()
 	root.add_child(m)
 	await process_frame
 	m.t = 18.9

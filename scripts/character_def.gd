@@ -20,6 +20,8 @@ extends Resource
 @export var ammo_max := 5                      # shot charges (Brix carries more)
 @export var burst := 1                         # bolts fired per trigger pull (Brix: 3)
 @export var can_block := false                 # Renn: holding the shoot button raises the Arc-Blade and deflects blaster bolts from the front
+@export var can_special := false               # Fuse: the special button tosses a bomb, then she shoots it
+@export var special_cd := 6.0                  # seconds before the special can be used again
 @export var can_plant := false                 # the shoot button plants a charge at a ChargeSpot
 @export var muzzle := Vector2(26, -33)         # where shots leave, ahead of the feet and up (crouching uses y -23)
 ## Nudge one animation up or down in game pixels: animation name -> Vector2 (negative y = up). Use it when a pose's feet sit too low / high.
@@ -115,20 +117,24 @@ static func renn() -> CharacterDef:
 	}
 	return d
 
-## Fuse: a demolitions specialist. Always low (crouch-walk only, no jump, no gun). The shoot button plants a charge at a ChargeSpot.
+## Fuse: a demolitions specialist. Pistol, a bomb special (toss it, then shoot it out of the air), and the shoot button plants a charge at a ChargeSpot.
 static func fuse() -> CharacterDef:
 	var d := CharacterDef.new()
 	d.key = "fuse"; d.display_name = "FUSE"
-	d.hp = 5; d.run_speed = 105.0; d.sprint_speed = 105.0; d.jump_v = 0.0
-	d.sprite_offset = Vector2(0, -32); d.body = Vector2(12, 30); d.crouch_body = Vector2(12, 30)
-	d.can_shoot = false; d.crouch_only = true; d.can_plant = true
+	d.hp = 5; d.run_speed = 105.0; d.sprint_speed = 165.0; d.jump_v = -285.0
+	d.sprite_offset = Vector2(0, -32); d.body = Vector2(12, 46); d.crouch_body = Vector2(12, 32)
+	d.muzzle = Vector2(32, -30)
+	d.can_plant = true; d.can_special = true
 	var cw := [["cwalk_0", "cwalk_1", "cwalk_2", "cwalk_3", "cwalk_4", "cwalk_5", "cwalk_6", "cwalk_7"], 8.0, true]
 	d.anims = {
-		"idle": [["crouch_0"], 1.0, false],
-		"walk": cw, "run": cw,
-		"jump": [["crouch_0"], 1.0, false], "fall": [["crouch_0"], 1.0, false],
-		"shoot": [["crouch_0"], 1.0, false], "cshoot": [["crouch_0"], 1.0, false],
+		"idle": [["idle_0", "idle_1", "idle_2", "idle_3"], 4.0, true],
+		"walk": [["walk_0", "walk_1", "walk_2", "walk_3", "walk_4", "walk_5", "walk_6", "walk_7"], 9.0, true],
+		"run": [["run_0", "run_1", "run_2", "run_3", "run_4", "run_5", "run_6", "run_7"], 12.0, true],
+		"jump": [["jump_0", "jump_1"], 8.0, false], "fall": [["jump_3", "jump_4"], 6.0, true],
+		"shoot": [["shoot_0", "shoot_1", "shoot_2", "shoot_3", "shoot_4"], SHOOT_FPS, false],
+		"cshoot": [["cshoot_0", "cshoot_1", "cshoot_2", "cshoot_3", "cshoot_4"], SHOOT_FPS, false],
 		"crouch": [["crouch_0"], 1.0, false], "cwalk": cw,
+		"special": [["special_0", "special_1", "special_2", "special_3", "special_4", "special_5", "special_6", "special_7", "special_8", "special_9", "special_10", "special_11", "special_12", "special_13"], 11.0, false],
 		"hit": [["hit_0", "hit_1", "hit_2", "hit_3"], 8.0, false],
 		"plant_ground": [["plant_ground_0", "plant_ground_1", "plant_ground_2", "plant_ground_3", "plant_ground_4", "plant_ground_5", "plant_ground_6", "plant_ground_7", "plant_ground_8", "plant_ground_9"], 8.0, false],
 		"plant_wall": [["plant_wall_0", "plant_wall_1", "plant_wall_2", "plant_wall_3", "plant_wall_4", "plant_wall_5"], 8.0, false],

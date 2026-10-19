@@ -2,6 +2,7 @@
 Cuts the 4x4 sheets in tools/src/brix/ into assets/brix_<anim>_<n>.png, all on one canvas with the feet on the bottom edge
 (like Kesh's frames), so Player can swap animations without the feet jumping. Frames face RIGHT.
 Edit SPEC to change which sheet frames an animation uses."""
+import sys
 import numpy as np
 from PIL import Image
 SRC = 'tools/src/brix/Brix-%s.png'
@@ -13,7 +14,7 @@ SPEC = {
 	'run':    ('run',             [0, 2, 4, 6, 8, 10, 12, 14], 128, 1.0, None),
 	'jump':   ('jump',            [5, 6, 7],                 128, 1.0, None),
 	'crouch': ('crouch',          [0],                       128, 1.0, None),
-	'cwalk':  ('walking_crouch',  [0, 2, 4, 6, 8, 10, 12, 14], 128, 1.0, None),
+	'cwalk':  ('walking_crouch',  [0, 2, 4, 6, 8, 10, 12, 14], 128, 1.2, None),   # that sheet was drawn smaller: x1.2 brings him to the same height as the standing crouch
 	'hit':    ('hit_react',       [1, 2, 3],                 128, 1.0, None),
 	'shoot':  ('asm_custom_attack', [3, 4, 5, 6, 7],         256, 1.3, 215),
 }
@@ -27,6 +28,7 @@ def cells(path, cw, cut):
 		out.append(Image.fromarray(cell))
 	return out
 for anim, (sheet, idx, cw, mul, cut) in SPEC.items():
+	if len(sys.argv) > 1 and anim not in sys.argv[1:]: continue   # python3 tools/import_brix.py cwalk  redoes just that animation
 	allc = cells(SRC % sheet, cw, cut)
 	boxes = [allc[i].getbbox() for i in range(16)]
 	x0 = min(b[0] for b in boxes); x1 = max(b[2] for b in boxes); y1 = max(b[3] for b in boxes); y0 = min(b[1] for b in boxes)

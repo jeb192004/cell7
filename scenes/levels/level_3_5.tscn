@@ -1,0 +1,95 @@
+[gd_scene format=3 uid="uid://bkk7n4k0l122o"]
+
+[ext_resource type="Script" uid="uid://bmxaw2w0f42jh" path="res://scripts/level.gd" id="1"]
+[ext_resource type="Texture2D" uid="uid://dhijn7c4lg1e6" path="res://assets/bg_town_sky.png" id="2"]
+[ext_resource type="Texture2D" uid="uid://bhfiyieb5ibet" path="res://assets/bg_town_far.png" id="3"]
+[ext_resource type="Texture2D" uid="uid://6pxsgfqv4ov0" path="res://assets/bg_town_mid.png" id="4"]
+[ext_resource type="Texture2D" uid="uid://l8hm10qphqjn" path="res://assets/town_ground.png" id="5"]
+[ext_resource type="PackedScene" path="res://scenes/cargo.tscn" id="9"]
+[ext_resource type="PackedScene" path="res://scenes/pip.tscn" id="12"]
+[ext_resource type="Script" uid="uid://c3t3a1txfvo8b" path="res://scripts/walker.gd" id="50"]
+
+[node name="Level3_5" type="Node2D" unique_id=837830496]
+script = ExtResource("1")
+length = 1500.0
+title = "3-5 TITAN STRIDER"
+next_level = "res://scenes/levels/level_3_6.tscn"
+top = -80.0
+boss_clear = true
+play_as = "renn"
+
+[node name="Sky" type="CanvasLayer" parent="." unique_id=1344375867]
+layer = -10
+
+[node name="Sprite" type="Sprite2D" parent="Sky" unique_id=566869839]
+texture = ExtResource("2")
+centered = false
+
+[node name="Far" type="Parallax2D" parent="." unique_id=626563796]
+z_index = -30
+scroll_scale = Vector2(0.15, 0)
+repeat_size = Vector2(480, 0)
+repeat_times = 6
+
+[node name="Sprite" type="Sprite2D" parent="Far" unique_id=1119272502]
+texture = ExtResource("3")
+centered = false
+
+[node name="Mid" type="Parallax2D" parent="." unique_id=1867046883]
+z_index = -20
+scroll_scale = Vector2(0.4, 0)
+repeat_size = Vector2(480, 0)
+repeat_times = 6
+
+[node name="Sprite" type="Sprite2D" parent="Mid" unique_id=2060389327]
+texture = ExtResource("4")
+centered = false
+
+[node name="Ground" type="Parallax2D" parent="." unique_id=1739886144]
+z_index = -5
+repeat_size = Vector2(480, 0)
+repeat_times = 6
+
+[node name="Sprite" type="Sprite2D" parent="Ground" unique_id=1035412268]
+texture = ExtResource("5")
+centered = false
+
+[node name="PlayerStart" type="Marker2D" parent="." unique_id=509349813]
+position = Vector2(130, 222)
+
+[node name="Checkpoints" type="Node2D" parent="." unique_id=1077564800]
+
+[node name="Props" type="Node2D" parent="." unique_id=262016551]
+
+[node name="Crate1" parent="Props" unique_id=1243171657 instance=ExtResource("9")]
+position = Vector2(300, 223)
+stack = 2
+
+[node name="Crate2" parent="Props" unique_id=775980234 instance=ExtResource("9")]
+position = Vector2(900, 223)
+
+[node name="Crate4" parent="Props" unique_id=1351270630 instance=ExtResource("9")]
+position = Vector2(899, 191)
+
+[node name="Crate5" parent="Props" unique_id=374126654 instance=ExtResource("9")]
+position = Vector2(874, 222)
+
+[node name="Crate3" parent="Props" unique_id=1512850752 instance=ExtResource("9")]
+position = Vector2(1250, 223)
+stack = 2
+
+[node name="Pickups" type="Node2D" parent="." unique_id=837038555]
+
+[node name="Pip1" parent="Pickups" unique_id=1881330224 instance=ExtResource("12")]
+position = Vector2(250, 208)
+
+[node name="Pip2" parent="Pickups" unique_id=1251968853 instance=ExtResource("12")]
+position = Vector2(1320, 208)
+
+[node name="Enemies" type="Node2D" parent="." unique_id=1160539011]
+
+[node name="Walker" type="Node2D" parent="Enemies" unique_id=1124281442]
+position = Vector2(520, 222)
+script = ExtResource("50")
+min_x = 300.0
+max_x = 1440.0

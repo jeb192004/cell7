@@ -1,0 +1,128 @@
+[gd_scene format=3 uid="uid://l8gbfc3qtkyi"]
+
+[ext_resource type="Script" uid="uid://bmxaw2w0f42jh" path="res://scripts/level.gd" id="1"]
+[ext_resource type="Texture2D" uid="uid://dhijn7c4lg1e6" path="res://assets/bg_town_sky.png" id="2"]
+[ext_resource type="Texture2D" uid="uid://bhfiyieb5ibet" path="res://assets/bg_town_far.png" id="3"]
+[ext_resource type="Texture2D" uid="uid://6pxsgfqv4ov0" path="res://assets/bg_town_mid.png" id="4"]
+[ext_resource type="Texture2D" uid="uid://l8hm10qphqjn" path="res://assets/town_ground.png" id="5"]
+[ext_resource type="PackedScene" path="res://scenes/cargo.tscn" id="9"]
+[ext_resource type="Script" uid="uid://bfruotrumcjcw" path="res://scripts/charge_spot.gd" id="10"]
+[ext_resource type="PackedScene" path="res://scenes/pip.tscn" id="12"]
+[ext_resource type="Script" uid="uid://c3t3a1txfvo8b" path="res://scripts/walker.gd" id="50"]
+
+[node name="Level3_6" type="Node2D" unique_id=1360128834]
+script = ExtResource("1")
+length = 2000.0
+title = "3-6 STRIDER TRAP"
+next_level = "res://scenes/levels/level_3_7.tscn"
+top = -80.0
+boss_clear = true
+corvane_cutscene = true
+play_as = "fuse"
+
+[node name="Sky" type="CanvasLayer" parent="." unique_id=1315827565]
+layer = -10
+
+[node name="Sprite" type="Sprite2D" parent="Sky" unique_id=1505638594]
+texture = ExtResource("2")
+centered = false
+
+[node name="Far" type="Parallax2D" parent="." unique_id=1111183317]
+z_index = -30
+scroll_scale = Vector2(0.15, 0)
+repeat_size = Vector2(480, 0)
+repeat_times = 6
+
+[node name="Sprite" type="Sprite2D" parent="Far" unique_id=817138217]
+texture = ExtResource("3")
+centered = false
+
+[node name="Mid" type="Parallax2D" parent="." unique_id=426352364]
+z_index = -20
+scroll_scale = Vector2(0.4, 0)
+repeat_size = Vector2(480, 0)
+repeat_times = 6
+
+[node name="Sprite" type="Sprite2D" parent="Mid" unique_id=17486098]
+texture = ExtResource("4")
+centered = false
+
+[node name="Ground" type="Parallax2D" parent="." unique_id=2137797376]
+z_index = -5
+scroll_scale = Vector2(1, 1)
+repeat_size = Vector2(480, 0)
+repeat_times = 6
+
+[node name="Sprite" type="Sprite2D" parent="Ground" unique_id=1321479279]
+texture = ExtResource("5")
+centered = false
+
+[node name="PlayerStart" type="Marker2D" parent="." unique_id=305461439]
+position = Vector2(560, 222)
+
+[node name="Checkpoints" type="Node2D" parent="." unique_id=2020986604]
+
+[node name="Props" type="Node2D" parent="." unique_id=1041321110]
+
+[node name="Crate1" parent="Props" unique_id=1255203138 instance=ExtResource("9")]
+position = Vector2(480, 223)
+stack = 2
+
+[node name="Crate2" parent="Props" unique_id=438665416 instance=ExtResource("9")]
+position = Vector2(840, 223)
+
+[node name="Crate3" parent="Props" unique_id=68490548 instance=ExtResource("9")]
+position = Vector2(1100, 223)
+stack = 2
+
+[node name="Crate4" parent="Props" unique_id=1549428699 instance=ExtResource("9")]
+position = Vector2(1380, 223)
+
+[node name="Crate5" parent="Props" unique_id=385889485 instance=ExtResource("9")]
+position = Vector2(1640, 223)
+stack = 2
+
+[node name="ChargeSpots" type="Node2D" parent="." unique_id=1254128916]
+
+[node name="Spot1" type="Node2D" parent="ChargeSpots" unique_id=335776209]
+z_index = -1
+position = Vector2(720, 222)
+script = ExtResource("10")
+
+[node name="Spot2" type="Node2D" parent="ChargeSpots" unique_id=577321325]
+z_index = -1
+position = Vector2(960, 222)
+script = ExtResource("10")
+
+[node name="Spot3" type="Node2D" parent="ChargeSpots" unique_id=1625812321]
+z_index = -1
+position = Vector2(1210, 222)
+script = ExtResource("10")
+
+[node name="Spot4" type="Node2D" parent="ChargeSpots" unique_id=2114817502]
+z_index = -1
+position = Vector2(1450, 222)
+script = ExtResource("10")
+
+[node name="Pickups" type="Node2D" parent="." unique_id=1597074893]
+
+[node name="Pip1" parent="Pickups" unique_id=1143206494 instance=ExtResource("12")]
+position = Vector2(600, 208)
+
+[node name="Pip2" parent="Pickups" unique_id=913287303 instance=ExtResource("12")]
+position = Vector2(1050, 208)
+
+[node name="Pip3" parent="Pickups" unique_id=289894929 instance=ExtResource("12")]
+position = Vector2(1560, 208)
+
+[node name="Enemies" type="Node2D" parent="." unique_id=329478905]
+
+[node name="Walker" type="Node2D" parent="Enemies" unique_id=1218830579]
+position = Vector2(1750, 222)
+script = ExtResource("50")
+hp = 28
+min_x = 450.0
+max_x = 1900.0
+keep_dist = 150.0
+stomp_dist = 85.0
+fuse_mode = true

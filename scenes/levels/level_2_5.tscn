@@ -1,0 +1,214 @@
+[gd_scene load_steps=12 format=3]
+
+[ext_resource type="Script" path="res://scripts/level.gd" id="1"]
+[ext_resource type="Texture2D" path="res://assets/bg_mines_sky.png" id="2"]
+[ext_resource type="Texture2D" path="res://assets/bg_mines_far.png" id="3"]
+[ext_resource type="Texture2D" path="res://assets/bg_mines_mid.png" id="4"]
+[ext_resource type="Texture2D" path="res://assets/mines_ground.png" id="5"]
+[ext_resource type="PackedScene" path="res://scenes/warden.tscn" id="7"]
+[ext_resource type="PackedScene" path="res://scenes/drone.tscn" id="8"]
+[ext_resource type="PackedScene" path="res://scenes/crate.tscn" id="9"]
+[ext_resource type="PackedScene" path="res://scenes/warden_shield.tscn" id="10"]
+[ext_resource type="PackedScene" path="res://scenes/cage.tscn" id="11"]
+[ext_resource type="PackedScene" path="res://scenes/corvane.tscn" id="12"]
+
+[node name="Level2_3" type="Node2D"]
+script = ExtResource("1")
+length = 4600.0
+title = "2-5 THE CINDER MINES"
+next_level = "res://scenes/levels/level_2_6.tscn"
+free_required = 4
+block_cutscene = true
+
+[node name="Sky" type="CanvasLayer" parent="."]
+layer = -10
+
+[node name="Sprite" type="Sprite2D" parent="Sky"]
+texture = ExtResource("2")
+centered = false
+
+[node name="Far" type="Parallax2D" parent="."]
+scroll_scale = Vector2(0.15, 0)
+repeat_size = Vector2(480, 0)
+repeat_times = 12
+z_index = -30
+
+[node name="Sprite" type="Sprite2D" parent="Far"]
+texture = ExtResource("3")
+centered = false
+
+[node name="Mid" type="Parallax2D" parent="."]
+scroll_scale = Vector2(0.4, 0)
+repeat_size = Vector2(480, 0)
+repeat_times = 12
+z_index = -20
+
+[node name="Sprite" type="Sprite2D" parent="Mid"]
+texture = ExtResource("4")
+centered = false
+
+[node name="Ground" type="Parallax2D" parent="."]
+scroll_scale = Vector2(1.0, 0)
+repeat_size = Vector2(480, 0)
+repeat_times = 12
+z_index = -5
+
+[node name="Sprite" type="Sprite2D" parent="Ground"]
+texture = ExtResource("5")
+centered = false
+
+[node name="PlayerStart" type="Marker2D" parent="."]
+position = Vector2(100, 222)
+
+[node name="Exit" type="Marker2D" parent="."]
+position = Vector2(4480, 222)
+
+[node name="Checkpoints" type="Node2D" parent="."]
+
+[node name="Checkpoint1" type="Marker2D" parent="Checkpoints" groups=["checkpoint"]]
+position = Vector2(1200, 222)
+
+[node name="Checkpoint2" type="Marker2D" parent="Checkpoints" groups=["checkpoint"]]
+position = Vector2(2300, 222)
+
+[node name="Checkpoint3" type="Marker2D" parent="Checkpoints" groups=["checkpoint"]]
+position = Vector2(3400, 222)
+
+[node name="Props" type="Node2D" parent="."]
+
+[node name="Crate1" parent="Props" instance=ExtResource("9")]
+position = Vector2(320, 223)
+
+[node name="Crate2" parent="Props" instance=ExtResource("9")]
+position = Vector2(560, 223)
+stack = 2
+
+[node name="Crate3" parent="Props" instance=ExtResource("9")]
+position = Vector2(850, 223)
+
+[node name="Crate4" parent="Props" instance=ExtResource("9")]
+position = Vector2(1000, 223)
+stack = 2
+
+[node name="Crate5" parent="Props" instance=ExtResource("9")]
+position = Vector2(1300, 223)
+
+[node name="Crate6" parent="Props" instance=ExtResource("9")]
+position = Vector2(1650, 223)
+stack = 2
+
+[node name="Crate7" parent="Props" instance=ExtResource("9")]
+position = Vector2(1700, 223)
+
+[node name="Crate8" parent="Props" instance=ExtResource("9")]
+position = Vector2(2050, 223)
+
+[node name="Crate9" parent="Props" instance=ExtResource("9")]
+position = Vector2(2400, 223)
+stack = 2
+
+[node name="Crate10" parent="Props" instance=ExtResource("9")]
+position = Vector2(2800, 223)
+
+[node name="Crate11" parent="Props" instance=ExtResource("9")]
+position = Vector2(3150, 223)
+stack = 2
+
+[node name="Crate12" parent="Props" instance=ExtResource("9")]
+position = Vector2(3250, 223)
+
+[node name="Crate13" parent="Props" instance=ExtResource("9")]
+position = Vector2(3550, 223)
+stack = 2
+
+[node name="Crate14" parent="Props" instance=ExtResource("9")]
+position = Vector2(3900, 223)
+
+[node name="Crate15" parent="Props" instance=ExtResource("9")]
+position = Vector2(4250, 223)
+stack = 2
+
+[node name="Cage1" parent="Props" instance=ExtResource("11")]
+position = Vector2(900, 223)
+
+[node name="Cage2" parent="Props" instance=ExtResource("11")]
+position = Vector2(1750, 223)
+
+[node name="Cage3" parent="Props" instance=ExtResource("11")]
+position = Vector2(2650, 223)
+
+[node name="Cage4" parent="Props" instance=ExtResource("11")]
+position = Vector2(3450, 223)
+
+[node name="Cage5" parent="Props" instance=ExtResource("11")]
+position = Vector2(4200, 223)
+
+[node name="Enemies" type="Node2D" parent="."]
+
+[node name="Warden1" parent="Enemies" instance=ExtResource("7")]
+position = Vector2(700, 222)
+patrol_range = 50.0
+start_facing = -1
+
+[node name="Warden2" parent="Enemies" instance=ExtResource("7")]
+position = Vector2(1120, 222)
+patrol_range = 40.0
+start_facing = -1
+
+[node name="ShieldWarden3" parent="Enemies" instance=ExtResource("10")]
+position = Vector2(1480, 222)
+patrol_range = 50.0
+start_facing = -1
+
+[node name="Warden4" parent="Enemies" instance=ExtResource("7")]
+position = Vector2(1860, 222)
+patrol_range = 40.0
+start_facing = -1
+
+[node name="Warden5" parent="Enemies" instance=ExtResource("7")]
+position = Vector2(2240, 222)
+patrol_range = 60.0
+start_facing = -1
+
+[node name="ShieldWarden6" parent="Enemies" instance=ExtResource("10")]
+position = Vector2(2600, 222)
+patrol_range = 40.0
+start_facing = -1
+
+[node name="Warden7" parent="Enemies" instance=ExtResource("7")]
+position = Vector2(2980, 222)
+patrol_range = 40.0
+start_facing = -1
+
+[node name="Warden8" parent="Enemies" instance=ExtResource("7")]
+position = Vector2(3340, 222)
+patrol_range = 50.0
+start_facing = -1
+
+[node name="ShieldWarden9" parent="Enemies" instance=ExtResource("10")]
+position = Vector2(3700, 222)
+patrol_range = 40.0
+start_facing = -1
+
+[node name="Warden10" parent="Enemies" instance=ExtResource("7")]
+position = Vector2(4100, 222)
+patrol_range = 50.0
+start_facing = -1
+
+[node name="Drone1" parent="Enemies" instance=ExtResource("8")]
+position = Vector2(520, 150)
+
+[node name="Drone2" parent="Enemies" instance=ExtResource("8")]
+position = Vector2(1300, 140)
+
+[node name="Drone3" parent="Enemies" instance=ExtResource("8")]
+position = Vector2(2100, 150)
+
+[node name="Drone4" parent="Enemies" instance=ExtResource("8")]
+position = Vector2(2800, 135)
+
+[node name="Drone5" parent="Enemies" instance=ExtResource("8")]
+position = Vector2(3500, 145)
+
+[node name="Drone6" parent="Enemies" instance=ExtResource("8")]
+position = Vector2(4000, 140)

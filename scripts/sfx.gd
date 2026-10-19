@@ -2,7 +2,7 @@ class_name Sfx
 extends Node
 ## Sound effects + music. Everything is called statically: Sfx.play("shoot"), Sfx.music("desert").
 ## Files: assets/sfx/NAME.wav, assets/music/NAME.ogg (made by tools/make_audio.py). Volumes (0-10) are saved in Prefs.
-const LEVEL_MUSIC := {"level_01": "desert", "level_02": "highway", "level_03": "town", "level_04": "bike", "level_05": "space", "level_2_1": "town", "level_2_1a": "town", "level_2_1b": "town", "level_2_1c": "town", "level_2_2": "highway", "level_2_3": "desert", "level_2_4": "bike", "title": "title"}
+const LEVEL_MUSIC := {"level_1_1": "desert", "level_1_2": "highway", "level_1_3": "town", "level_1_4": "bike", "level_1_5": "space", "level_2_1": "town", "level_2_3": "town", "level_2_2": "town", "level_2_4": "highway", "level_2_5": "desert", "level_2_6": "bike", "level_3_1": "town", "level_3_2": "town", "level_3_3": "town", "level_3_4": "town", "level_3_5": "bike", "level_3_6": "bike", "level_3_7": "bike", "title": "title"}
 const GAIN_DB := {"shoot": -7.0, "enemy_shoot": -9.0, "enemy_hit": -6.0, "blip": -10.0, "menu_move": -8.0, "shield_block": -5.0}
 static var inst: Sfx
 static var cache := {}

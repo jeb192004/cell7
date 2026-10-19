@@ -7,7 +7,7 @@ func _init() -> void:
 	root.add_child(m)
 	for i in 30: await process_frame
 	var ens := get_nodes_in_group("enemies")
-	if lv == "level_01" and ens.size() > 0 and m.get("player") != null:
+	if lv == "level_1_1" and ens.size() > 0 and m.get("player") != null:
 		var e: Node2D = ens[0]; m.player.position = Vector2(e.position.x - 90.0, e.position.y)
 	if OS.get_environment("X") != "" and m.get("player") != null: m.player.position = Vector2(float(OS.get_environment("X")), 222.0)
 	var n := int(OS.get_environment("N")) if OS.get_environment("N") != "" else 120

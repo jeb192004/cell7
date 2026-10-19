@@ -49,9 +49,11 @@ func _draw() -> void:
 		draw_rect(rect, Color(0.2, 0.22, 0.29))
 		draw_rect(Rect2(rect.position.x, top, sw, 2), Color(0.45, 0.48, 0.6))           # tread
 		draw_rect(Rect2(rect.position.x, top + 2, sw, 1), Color(0.07, 0.08, 0.11))
-	# handrail along the slope
+	# handrail along the slope (2 px, bright, so it still reads on a small screen)
 	var a := Vector2(0, -26); var b := Vector2(dir * r, -rise - 26)
-	draw_line(a, b, Color(0.85, 0.7, 0.25), 1.0)
-	for t in [0.0, 0.5, 1.0]:
-		var p := a.lerp(b, t)
-		draw_line(p, p + Vector2(0, 26), Color(0.55, 0.45, 0.2), 1.0)
+	var posts := maxi(int(r / 28.0), 2)
+	for i in posts + 1:
+		var p := a.lerp(b, float(i) / posts)
+		draw_line(p, p + Vector2(0, 26), Color(0.62, 0.5, 0.22), 2.0)
+	draw_line(a + Vector2(0, 1), b + Vector2(0, 1), Color(0.3, 0.24, 0.1), 3.0)
+	draw_line(a, b, Color(1.0, 0.85, 0.3), 2.0)

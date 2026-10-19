@@ -26,6 +26,15 @@ var concealed := false
 var blocking := false        # Renn: blade up, holding the shoot button
 var planting := -1.0         # Fuse: seconds into planting a charge (-1 = not planting)
 var plant_spot: ChargeSpot = null
+var hp_floor := 0           # hits can't take hp below this (3-7: Corvane can wear Brix down to 1 pip but not kill him)
+var special_t := -1.0       # Fuse: seconds into the bomb toss (-1 = not throwing)
+var special_cd := 0.0
+var special_bomb: FuseBomb = null
+var special_shot := false
+const SPECIAL_FPS := 11.0
+const SPECIAL_THROW := 4    # frame where the bomb leaves her hand
+const SPECIAL_SHOT := 9     # frame where she fires at it
+const SPECIAL_END := 14
 var vent: Vent = null        # the crawl space Kesh is inside (set by grates)
 var in_vent: bool:
 	get: return vent != null
@@ -102,7 +111,7 @@ func _physics_process(delta: float) -> void:
 		velocity.y += GRAV * delta
 	var crawl := forced_crouch or def.crouch_only
 	blocking = def.can_block and on_floor and not is_back and not in_vent and hurt_t < 0.4 and Input.is_action_pressed("block")
-	if buffer > 0.0 and coyote > 0.0 and not crawl and planting < 0.0:
+	if buffer > 0.0 and coyote > 0.0 and not crawl and planting < 0.0 and special_t < 0.0:
 		velocity.y = def.jump_v; buffer = 0.0; coyote = 0.0
 		Sfx.play("jump")
 	if Input.is_action_just_released("jump") and velocity.y < -110.0 and not leaving:
@@ -113,16 +122,17 @@ func _physics_process(delta: float) -> void:
 		(shape.shape as RectangleShape2D).size = def.crouch_body; shape.position = Vector2(0, -def.crouch_body.y / 2.0)
 	else:
 		(shape.shape as RectangleShape2D).size = def.body; shape.position = Vector2(0, -def.body.y / 2.0)
-	var target := (0.0 if (crouching and not crawl) or planting >= 0.0 else dir) * (def.sprint_speed if sprinting and not crawl else def.run_speed) * (0.45 if (shoot_t >= 0.0 and on_floor) or forced_crouch else (0.4 if blocking else (0.5 if slash_t >= 0.0 and on_floor else 1.0)))
+	var target := (0.0 if (crouching and not crawl) or planting >= 0.0 or special_t >= 0.0 else dir) * (def.sprint_speed if sprinting and not crawl else def.run_speed) * (0.45 if (shoot_t >= 0.0 and on_floor) or forced_crouch else (0.4 if blocking else (0.5 if slash_t >= 0.0 and on_floor else 1.0)))
 	velocity.x = move_toward(velocity.x, target, ACCEL * delta)
-	if dir != 0.0 and shoot_t < 0.0 and planting < 0.0: facing = 1 if dir > 0.0 else -1
+	if dir != 0.0 and shoot_t < 0.0 and planting < 0.0 and special_t < 0.0: facing = 1 if dir > 0.0 else -1
 
-	if Input.is_action_just_pressed("shoot") and shoot_t < 0.0 and not is_back and not in_vent and def.can_shoot and (def.can_crouch_shoot or not crouching):
+	if Input.is_action_just_pressed("shoot") and shoot_t < 0.0 and special_t < 0.0 and not is_back and not in_vent and def.can_shoot and (def.can_crouch_shoot or not crouching) and not (def.can_plant and on_floor and _spot_near() != null):
 		if ammo >= 1.0:
 			shoot_t = 0.0; fired = false
 		else:
 			dry_t = 0.25   # out of charges: HUD flashes
 	_plant(delta, on_floor)
+	_special(delta, on_floor)
 	_melee_and_burst(delta)
 	if shoot_t >= 0.0:
 		shoot_t += delta
@@ -145,12 +155,11 @@ func _physics_process(delta: float) -> void:
 ## Fuse: shoot at a ChargeSpot kneels and sets a charge (the spot is armed when the last frame is reached).
 func _plant(delta: float, on_floor: bool) -> void:
 	if planting < 0.0:
-		if def.can_plant and on_floor and not is_back and not in_vent and Input.is_action_just_pressed("shoot"):
-			for sp in get_tree().get_nodes_in_group("charge_spots"):
-				if sp.can_plant(global_position):
-					plant_spot = sp; planting = 0.0; velocity.x = 0.0
-					if sp.kind == "wall": facing = sp.face
-					return
+		if def.can_plant and on_floor and not is_back and not in_vent and special_t < 0.0 and shoot_t < 0.0 and Input.is_action_just_pressed("shoot"):
+			var sp := _spot_near()
+			if sp != null:
+				plant_spot = sp; planting = 0.0; velocity.x = 0.0
+				if sp.kind == "wall": facing = sp.face
 		return
 	planting += delta
 	var anim := "plant_wall" if plant_spot.kind == "wall" else "plant_ground"
@@ -158,6 +167,34 @@ func _plant(delta: float, on_floor: bool) -> void:
 	if planting >= n / def.anims[anim][1]:
 		plant_spot.plant()
 		planting = -1.0; plant_spot = null
+
+func _spot_near() -> ChargeSpot:
+	for sp in get_tree().get_nodes_in_group("charge_spots"):
+		if sp.can_plant(global_position): return sp
+	return null
+
+## Fuse's special: wind up, toss the bomb, then draw and shoot it out of the air. Cooldown def.special_cd.
+func _special(delta: float, on_floor: bool) -> void:
+	special_cd = maxf(special_cd - delta, 0.0)
+	if special_t < 0.0:
+		if def.can_special and on_floor and not is_back and not in_vent and not crouching and planting < 0.0 and shoot_t < 0.0 and hurt_t < 0.4 and Input.is_action_just_pressed("special") and special_cd <= 0.0:
+			special_t = 0.0; special_bomb = null; special_shot = false; velocity.x = 0.0
+		return
+	special_t += delta
+	var f := int(special_t * SPECIAL_FPS)
+	if special_bomb == null and f >= SPECIAL_THROW:
+		special_bomb = FuseBomb.new()
+		special_bomb.global_position = global_position + Vector2(facing * 12.0, -34.0)
+		special_bomb.vel = Vector2(facing * 210.0, -200.0)
+		get_parent().add_child(special_bomb)
+		Sfx.play("jump", 1.4, 0.05)
+	if special_bomb != null and not special_shot and f >= SPECIAL_SHOT:
+		special_shot = true; reveal_t = 1.0
+		Sfx.play("shoot", 1.0, 0.05)
+		var fl := BlastFx.new(); fl.radius = 7.0; fl.global_position = global_position + Vector2(facing * 26.0, -28.0); get_parent().add_child(fl)
+		if is_instance_valid(special_bomb): special_bomb.detonate_in(0.07)
+	if f >= SPECIAL_END or hurt_t > 0.55:
+		special_t = -1.0; special_cd = def.special_cd
 
 ## True when a bolt travelling in direction `shot_dir` hits the raised blade (it has to come at Renn's front).
 func blocks_shot(shot_dir: float) -> bool:
@@ -173,7 +210,7 @@ func set_def(d: CharacterDef, new_hp: int) -> void:
 	sprite.sprite_frames = d.make_frames()
 	sprite.position = d.sprite_offset
 	sprite.play("idle")
-	shoot_t = -1.0; blocking = false; slash_t = -1.0; burst_left = 0
+	shoot_t = -1.0; special_t = -1.0; planting = -1.0; blocking = false; slash_t = -1.0; burst_left = 0
 	max_ammo = float(d.ammo_max); ammo = max_ammo
 
 ## Renn's Arc-Blade swing, and the rest of Brix's burst.
@@ -282,7 +319,7 @@ func hurtbox() -> Rect2:
 
 func take_hit(from_x: float) -> void:
 	if hurt_t > 0.0: return
-	hp -= 1; hurt_t = 0.8
+	hp = maxi(hp - 1, hp_floor); hurt_t = 0.8
 	Sfx.play("hurt")
 	velocity = Vector2(-sign(from_x - global_position.x) * 120.0, -150.0)
 
@@ -295,6 +332,10 @@ func _animate() -> void:
 	sprite.scale = Vector2(sc, sc)
 	sprite.position.y = def.sprite_offset.y + def.nudge(sprite.animation).y + half * (1.0 - sc)   # scaled around the feet
 	var n := "idle"
+	if special_t >= 0.0 and hurt_t <= 0.0:
+		sprite.animation = "special"; sprite.frame = clampi(int(special_t * SPECIAL_FPS), 0, SPECIAL_END - 1); sprite.pause()
+		sprite.modulate = Color.WHITE
+		return
 	if planting >= 0.0:
 		var pa := "plant_wall" if plant_spot.kind == "wall" else "plant_ground"
 		sprite.animation = pa

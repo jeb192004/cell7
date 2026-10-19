@@ -8,7 +8,7 @@ func _crate(m, stack: int) -> Cover:
 	await physics_frame
 	return c
 func _init() -> void:
-	var m = load("res://scenes/levels/level_01.tscn").instantiate()
+	var m = load("res://scenes/levels/level_1_1.tscn").instantiate()
 	root.add_child(m)
 	await process_frame
 	var p: Player = m.player

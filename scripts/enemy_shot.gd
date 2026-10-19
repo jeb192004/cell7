@@ -8,6 +8,7 @@ var player: Player
 var life := 3.0
 
 func _ready() -> void:
+	add_to_group("enemy_shots")
 	var s := Sprite2D.new()
 	s.texture = load("res://assets/shot_%s.png" % kind)
 	s.flip_h = dir < 0.0

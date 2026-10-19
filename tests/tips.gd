@@ -5,7 +5,7 @@ func _press(a: String) -> void:
 	var r := InputEventAction.new(); r.action = a; r.pressed = false; Input.parse_input_event(r)
 func _init() -> void:
 	Prefs.reset_tips()
-	var m = load("res://scenes/levels/level_01.tscn").instantiate()
+	var m = load("res://scenes/levels/level_1_1.tscn").instantiate()
 	root.add_child(m)
 	for i in 5: await process_frame
 	var tut: Tutorial = null

@@ -12,6 +12,7 @@ static func setup() -> void:
 	_act("sprint_toggle", [_key(KEY_SHIFT), _btn(JOY_BUTTON_LEFT_SHOULDER), _axis(JOY_AXIS_TRIGGER_LEFT, 1.0)])   # tap L1 / L2 / Shift: sprint on, tap again: off
 	_act("swap",  [_key(KEY_TAB), _key(KEY_Q), _btn(JOY_BUTTON_Y)])   # swap to the other crew member (levels with a partner)
 	_act("block", [_key(KEY_L), _key(KEY_C), _btn(JOY_BUTTON_B)])   # Renn: hold to block bolts with the Arc-Blade
+	_act("special", [_key(KEY_E), _key(KEY_I), _btn(JOY_BUTTON_B)])   # Fuse: toss a bomb, then shoot it
 	_act("skip_story", [_key(KEY_TAB), _btn(JOY_BUTTON_Y)])   # story cards and cutscenes: skip them all (RP5 X)
 	_act("run",   [])   # held while the touch pad's RUN toggle is on (touch_controls.gd presses it)
 	_act("pause", [_key(KEY_ESCAPE), _key(KEY_P), _btn(JOY_BUTTON_START)])

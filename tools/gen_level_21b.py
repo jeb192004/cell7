@@ -1,10 +1,10 @@
 #!/usr/bin/env python3
-"""Writes scenes/levels/level_2_1b.tscn: the Kesh high route over the Meridian's cargo bay (existing art only).
+"""Writes scenes/levels/level_2_3.tscn: the Kesh high route over the Meridian's cargo bay (existing art only).
 Wardens only see about 70 px up and down, and a 3-high cargo stack puts Kesh's feet ~92 px above the deck, so he walks the stack
 tops unseen. Gaps between stacks are 42..80 px (walk-jump up to ~77, sprint-jump ~120). Two spots break the chain and you have to
 cross the floor behind cover. Re-run this to regenerate; edit in Godot if you want to tweak by hand (then don't re-run)."""
 import os
-OUT = os.path.join(os.path.dirname(__file__), '..', 'scenes', 'levels', 'level_2_1b.tscn')
+OUT = os.path.join(os.path.dirname(__file__), '..', 'scenes', 'levels', 'level_2_3.tscn')
 # (x, stack) cargo; stack 3 = the safe high route, 1-2 are steps and hides
 STAIRS_UP = lambda x: [(x, 1), (x + 34, 2), (x + 68, 3)]
 STAIRS_DN = lambda x: [(x, 2), (x + 34, 1)]
@@ -29,7 +29,7 @@ ex = [('1', 'res://scripts/level.gd', 'Script'), ('2', 'res://assets/bg_ship_sky
 L = [f'[gd_scene load_steps={len(ex) + 1} format=3]', '']
 L += [f'[ext_resource type="{t}" path="{p}" id="{i}"]' for i, p, t in ex] + ['']
 L += ['[node name="Level2_1b" type="Node2D"]', 'script = ExtResource("1")', f'length = {float(LENGTH)}', 'title = "2-1B THE HIGH ROUTE"',
-      'next_level = "res://scenes/levels/level_2_2.tscn"', 'stealth_only = true', '']
+      'next_level = "res://scenes/levels/level_2_4.tscn"', 'stealth_only = true', '']
 L += ['[node name="Sky" type="CanvasLayer" parent="."]', 'layer = -10', '', '[node name="Sprite" type="Sprite2D" parent="Sky"]', 'texture = ExtResource("2")', 'centered = false', '']
 for name, tex, sc, z in (('Far', 3, 0.15, -30), ('Mid', 4, 0.4, -20), ('Ground', 5, 1.0, -5)):
     L += [f'[node name="{name}" type="Parallax2D" parent="."]', f'scroll_scale = Vector2({sc}, 0)', 'repeat_size = Vector2(480, 0)', 'repeat_times = 12', f'z_index = {z}', '',

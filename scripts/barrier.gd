@@ -37,13 +37,13 @@ func _build() -> void:
 func rect() -> Rect2:
 	return Rect2(global_position + Vector2(-half_w, -tall), Vector2(half_w * 2.0, tall))
 
-## True if this crate blocks a straight line from a to b (both near its height band).
+## True if this crate is in the way of a straight line from a to b (the line really has to pass through the crate's box,
+## so a standing player whose head clears a single crate is still seen; crouching behind it hides you).
 static func blocks_line(tree: SceneTree, a: Vector2, b: Vector2) -> bool:
 	for c in tree.get_nodes_in_group("barriers"):
 		var r: Rect2 = c.rect()
-		var lo := minf(a.x, b.x); var hi := maxf(a.x, b.x)
-		if r.end.x < lo or r.position.x > hi: continue
-		if a.y < r.position.y + 6.0 and b.y < r.position.y + 6.0: continue   # both well above the top: clear shot
 		if absf(a.y - r.end.y) > 60.0 and absf(b.y - r.end.y) > 60.0: continue   # a different floor
-		return true
+		var n := maxi(int(a.distance_to(b) / 3.0), 1)
+		for i in n + 1:
+			if r.has_point(a.lerp(b, float(i) / n)): return true
 	return false

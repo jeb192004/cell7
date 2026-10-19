@@ -14,6 +14,7 @@ var fade_in := 0.5              # 0 = no fade (in-level cutscenes)
 var fade_out := 0.5
 var t := 0.0
 var skipping := false
+var skip_lock := 0.6            # a skip press only counts after this many seconds (a boss cutscene sets it higher so mashing fire doesn't skip it)
 var leaving := false
 var cap: PixLabel
 var fade: ColorRect
@@ -39,7 +40,7 @@ func _skip_all() -> void:
 	Story.skip_all = true; skipping = true
 
 func _skip() -> void:
-	if t > 0.6 and not skipping: skipping = true
+	if t > skip_lock and not skipping: skipping = true
 
 func _input(event: InputEvent) -> void:
 	if event is InputEventMouseButton and event.pressed and event.button_index == MOUSE_BUTTON_LEFT:

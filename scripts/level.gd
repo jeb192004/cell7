@@ -15,10 +15,16 @@ const GROUND_Y := 222.0
 @export var free_required := 0                 # cages that must be opened before the exit works
 @export var survive_time := 0.0                # > 0: boss level, you clear it when the timer runs out (or the boss falls)
 @export var survive_label := "HELP ARRIVES IN"
+@export var survive_boss := true               # true: the level also clears when no "hunters" are left (boss levels). Off for wave levels: only the timer ends them
+@export var boss_clear := false                # true: the level clears when every "hunters" enemy (the boss) is gone
+@export var wave_every := 0.0                  # > 0 with survive_time: a Warden (every third a shield Warden) arrives from a "wave_spawn" marker this often
+@export var wave_max := 6                      # no new Warden while this many are alive
 @export var hero_pick := false                 # 2-1a: choose Renn or Brix at the start; the other follows you
 @export var block_cutscene := false           # at the clear, Renn blocks the soldiers' bolts (2-3)
 @export var ambush_cutscene := false           # at the clear, an alarm trips and Wardens close in on Kesh (2-3)
 @export var blast_cutscene := false           # at the clear, the Vagabond-9 leaves and Fuse's charges blow up the Meridian (2-4)
+@export var finale_cutscene := false           # at the clear, Kesh pushes Corvane away with the Current (3-7; Corvane needs finale_hp)
+@export var corvane_cutscene := false          # at the clear, Corvane walks out of the wrecked Strider (3-6)
 @export var pickup_cutscene := false          # at the clear, the Vagabond-9 lifts Kesh (and the Ursk pal) aboard
 @export var play_as := ""                      # play as this crew member (a CharacterDef key, e.g. "fuse") with nobody following
 @export var crew_partner := ""                 # a second playable crew member who follows you; the SWAP button trades places ("renn" with play_as "brix")
@@ -50,6 +56,9 @@ var freed := 0
 var story_busy := false
 var pal_node: Node2D
 var survive_left := 0.0
+var wave_t := 3.0
+var wave_n := 0
+var boss_gone_t := 0.0
 var goal_label: PixLabel
 var exit_warn := 0.0
 var caught_t := -1.0
@@ -57,6 +66,7 @@ var follower: CrewFollower
 var crew_hp := {}              # crew key -> hp, kept while swapping
 
 func _ready() -> void:
+	Story.skip_all = false   # SKIP ALL only covers one run of cards and cutscenes
 	Controls.setup()
 	if checkpoint_scene != scene_file_path:
 		checkpoint_x = -1.0
@@ -159,6 +169,27 @@ func _hero_picker() -> void:
 		get_tree().paused = false
 		get_tree().reload_current_scene())
 
+## Wave levels: a Warden steps in from one of the "wave_spawn" markers (alternating sides) and already knows where Kesh is.
+func _spawn_wave() -> void:
+	var spots := get_tree().get_nodes_in_group("wave_spawn")
+	if spots.is_empty(): return
+	var alive := 0
+	for e in get_tree().get_nodes_in_group("enemies"):
+		if e.get("kind") == "warden": alive += 1
+	if alive >= wave_max: return
+	var spot: Node2D = spots[wave_n % spots.size()]
+	var shielded := wave_n % 3 == 2
+	wave_n += 1
+	var w: Node2D = load("res://scenes/%s.tscn" % ("warden_shield" if shielded else "warden")).instantiate()
+	w.position = spot.position
+	w.set("player", player)
+	w.set("patrol_range", 700.0)   # keeps sweeping the bay after losing sight of Kesh
+	var host: Node = get_node_or_null("Enemies")
+	if host == null: host = self
+	host.add_child(w)
+	w._spot(player.global_position.x - w.global_position.x)
+	Sfx.play("spot")
+
 ## Title screen > CUTSCENES: stand at the end of this level, play only the cutscene, then return to the title.
 func _preview_run() -> void:
 	var kind := preview_cutscene
@@ -184,12 +215,22 @@ func _preview_run() -> void:
 			cs = BlastCutscene.new()
 		"approach":
 			cs = ApproachCutscene.new()
+		"corvane":
+			var vc := CorvaneCutscene.new(); vc.player = player; cs = vc
+		"push":
+			var fc := PushCutscene.new(); fc.player = player; cs = fc
 		"pickup":
 			var pc := PickupCutscene.new(); pc.player = player; pc.pal = pal_node; cs = pc
 	if cs != null:
 		add_child(cs)
 		await cs.finished
 	get_tree().change_scene_to_file("res://scenes/title.tscn")
+
+## True once Corvane has taken the beating that ends the 3-7 fight (see Corvane.finale_hp).
+func _finale_ready() -> bool:
+	for h in get_tree().get_nodes_in_group("hunters"):
+		if h.get("finale_ready") == true: return true
+	return false
 
 func _input(event: InputEvent) -> void:
 	if crew_partner != "" and event.is_action_pressed("swap") and not get_tree().paused and clear_t < 0.0 and caught_t < 0.0 and player.hp > 0:
@@ -210,6 +251,7 @@ func _swap_crew(auto := false) -> void:
 
 func _story_intro() -> void:
 	await Story.play(self, scene_file_path.get_file().get_basename())
+	Story.skip_all = false
 
 func _cam_y() -> float:
 	if player.vent != null and player.vent.global_position.y > GROUND_Y: return player.position.y - 87.0   # only follow down into below-floor vents
@@ -290,7 +332,7 @@ func _process(d: float) -> void:
 	if stealth_only and clear_t < 0.0:
 		if caught_t < 0.0:
 			for e in get_tree().get_nodes_in_group("enemies"):
-				if e.get("alerted") == true or (e.get("kind") == "drone" and e.get("state") in ["wind", "dive"]):
+				if e.get("alerted") == true or (e.get("kind") in ["drone", "bomber"] and e.get("state") in ["wind", "dive"]):
 					caught_t = 0.0; overlay.show_banner("SPOTTED")
 					player.set_physics_process(false)
 					for x in get_tree().get_nodes_in_group("enemies"): x.set_physics_process(false)
@@ -304,9 +346,19 @@ func _process(d: float) -> void:
 		survive_left -= d
 		goal_label.text = "%s %d" % [survive_label, maxi(ceili(survive_left), 0)]
 		var hunters := get_tree().get_nodes_in_group("hunters")
-		if survive_left <= 0.0 or (hunters.is_empty() and elapsed > 3.0):
+		if survive_left <= 0.0 or (survive_boss and hunters.is_empty() and elapsed > 3.0):
 			clear_t = 0.0
 			for h in get_tree().get_nodes_in_group("enemies"): h.queue_free()
+		elif wave_every > 0.0:
+			wave_t -= d
+			if wave_t <= 0.0:
+				wave_t = wave_every; _spawn_wave()
+	if boss_clear and clear_t < 0.0 and elapsed > 3.0 and (get_tree().get_nodes_in_group("hunters").is_empty() or _finale_ready()):
+		boss_gone_t += d   # let the boss finish exploding before the clear card
+		if boss_gone_t > (0.8 if _finale_ready() else 2.5):
+			clear_t = 0.0
+			for h in get_tree().get_nodes_in_group("enemies"):
+				if h.get("finale_ready") != true: h.queue_free()
 	var ex := get_node_or_null("Exit") as Marker2D
 	if ex != null and clear_t < 0.0 and player.position.x >= ex.position.x and absf(player.position.y - ex.position.y) < 90.0:
 		if freed >= free_required: clear_t = 0.0
@@ -316,6 +368,7 @@ func _process(d: float) -> void:
 		clear_t += d
 		if clear_t > 0.5 and overlay.mode == "" and not story_busy:
 			story_busy = true
+			for n in get_tree().get_nodes_in_group("enemy_shots"): n.queue_free()   # no slugs left hanging over the cutscene
 			if block_cutscene:
 				var bc := BlockCutscene.new(); bc.player = player
 				add_child(bc); await bc.finished
@@ -325,10 +378,17 @@ func _process(d: float) -> void:
 			if blast_cutscene:
 				var xc := BlastCutscene.new()
 				add_child(xc); await xc.finished
+			if finale_cutscene:
+				var fc := PushCutscene.new(); fc.player = player
+				add_child(fc); await fc.finished
+			if corvane_cutscene:
+				var vc := CorvaneCutscene.new(); vc.player = player
+				add_child(vc); await vc.finished
 			if pickup_cutscene:
 				var cs := PickupCutscene.new(); cs.player = player; cs.pal = pal_node
 				add_child(cs); await cs.finished
 			await Story.play(self, "outro_" + scene_file_path.get_file().get_basename())
+			Story.skip_all = false
 			overlay.open_clear(elapsed, kills, total_foes, next_level != "")
 
 

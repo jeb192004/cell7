@@ -19,7 +19,7 @@ func _run(m, p: Player, kind: String, pose: String) -> int:
 		if pose == "jump" and n == 8: Input.action_release("jump")
 	return 5 - p.hp
 func _init() -> void:
-	var m = load("res://scenes/levels/level_01.tscn").instantiate()
+	var m = load("res://scenes/levels/level_1_1.tscn").instantiate()
 	root.add_child(m)
 	await process_frame
 	var p: Player = m.player

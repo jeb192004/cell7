@@ -1,6 +1,6 @@
 extends Node2D
 ## Start screen: drifting salt flats with Kesh running, title, menu, controls page.
-const FIRST_LEVEL := "res://scenes/levels/level_01.tscn"
+const FIRST_LEVEL := "res://scenes/levels/level_1_1.tscn"
 ## Every screen is a node in scenes/title.tscn (edit it in the 2D editor). These are found by unique name (%Name).
 @onready var select_group: Node2D = %SelectGroup
 @onready var level_rows: Control = %Rows
@@ -50,6 +50,7 @@ func _ready() -> void:
 	_setup_settings()
 	crew_back.chosen.connect(func(_i): _show_crew(false))
 	crew_back.process_mode = Node.PROCESS_MODE_DISABLED
+	for m in [crew_back, back_menu]: m.size = Vector2(160, m.row_h)   # the scene gave these no height, so touch taps missed them
 	for g in [select_group, settings_group, controls_group, crew_group, cutscene_group]: g.visible = false
 	_crew_show(0)
 	Sfx.music("title")
@@ -146,17 +147,38 @@ func _show_settings(on: bool) -> void:
 		var rows := _setting_rows()
 		if not rows.is_empty(): (rows[0] as Control).grab_focus()
 
-## The level list is real nodes (UI > SelectGroup > List > Rows). Each LevelRow has a Title and a Scene.
+## Chapter names shown on the first level-select screen (the level rows themselves live in the scene: UI > SelectGroup > List > Rows).
+const CHAPTER_NAMES := {1: "THE SCAVENGER", 2: "THE CURRENT", 3: "THE HEIST"}
+var level_rows_all: Array = []     # the LevelRows from the scene, in order
+var chapter_rows: Array = []       # LevelRows made in code, one per chapter (action = "chapter")
+var select_chapter := 0            # 0 = showing the chapter list, N = showing chapter N's levels
+@onready var select_heading: Node = select_group.get_node("Heading")
+
+func _row_chapter(r: LevelRow) -> int:
+	var f := r.scene.get_file().get_basename()          # level_2_1b -> 2
+	var parts := f.split("_")
+	return int(parts[1]) if parts.size() > 1 else 0
+
+## The level list is real nodes (UI > SelectGroup > List > Rows). Each LevelRow has a Title and a Scene; the chapter comes from the file name (level_C_N).
 func _setup_level_list() -> void:
-	var rows: Array = level_rows.get_children().filter(func(n): return n is LevelRow)
-	for r in rows: r.pressed.connect(_on_level_row.bind(r))
+	level_rows_all = level_rows.get_children().filter(func(n): return n is LevelRow)
+	for r in level_rows_all: r.pressed.connect(_on_level_row.bind(r))
 	select_back.pressed.connect(_on_level_row.bind(select_back))
-	if rows.is_empty(): return
-	var first: LevelRow = rows[0]; var last: LevelRow = rows[rows.size() - 1]
-	first.focus_neighbor_top = first.get_path_to(select_back)
-	last.focus_neighbor_bottom = last.get_path_to(select_back)
-	select_back.focus_neighbor_top = select_back.get_path_to(last)
-	select_back.focus_neighbor_bottom = select_back.get_path_to(first)
+	if level_rows_all.is_empty(): return
+	var chapters: Array = []
+	for r in level_rows_all:
+		var c := _row_chapter(r)
+		if c > 0 and not chapters.has(c): chapters.append(c)
+	chapters.sort()
+	var proto: LevelRow = level_rows_all[0]
+	for c in chapters:
+		var cr: LevelRow = proto.duplicate()
+		cr.name = "Chapter%d" % c
+		cr.title = "CHAPTER %d  %s" % [c, CHAPTER_NAMES.get(c, "")]
+		cr.scene = ""; cr.action = "chapter:%d" % c
+		cr.pressed.connect(_on_level_row.bind(cr))
+		level_rows.add_child(cr); level_rows.move_child(cr, chapter_rows.size())
+		chapter_rows.append(cr)
 	# a thin gold scroll bar instead of arrows
 	var bar := level_list.get_v_scroll_bar()
 	bar.custom_minimum_size.x = 4
@@ -164,19 +186,71 @@ func _setup_level_list() -> void:
 	var grab := StyleBoxFlat.new(); grab.bg_color = Color(1.0, 0.82, 0.35, 0.85)
 	bar.add_theme_stylebox_override("scroll", track)
 	for g in ["grabber", "grabber_highlight", "grabber_pressed"]: bar.add_theme_stylebox_override(g, grab)
+	_refresh_select(0)
+
+## Show the chapter list (ch = 0) or one chapter's levels, and wrap the focus around that set plus BACK.
+func _refresh_select(ch: int, focus_row: Control = null) -> void:
+	select_chapter = ch
+	var vis: Array = []
+	for r in chapter_rows: r.visible = ch == 0; if ch == 0: vis.append(r)
+	for r in level_rows_all:
+		r.visible = ch != 0 and _row_chapter(r) == ch
+		if r.visible: vis.append(r)
+	select_heading.text = "LEVEL SELECT" if ch == 0 else "CHAPTER %d  %s" % [ch, CHAPTER_NAMES.get(ch, "")]
+	for r in chapter_rows + level_rows_all:
+		r.focus_neighbor_top = NodePath(); r.focus_neighbor_bottom = NodePath()
+	if not vis.is_empty():
+		var first: Control = vis[0]; var last: Control = vis[vis.size() - 1]
+		first.focus_neighbor_top = first.get_path_to(select_back)
+		last.focus_neighbor_bottom = last.get_path_to(select_back)
+		select_back.focus_neighbor_top = select_back.get_path_to(last)
+		select_back.focus_neighbor_bottom = select_back.get_path_to(first)
+	level_list.scroll_vertical = 0
+	if select_group.visible:
+		var f: Control = focus_row if focus_row != null else (vis[0] if not vis.is_empty() else select_back)
+		f.grab_focus.call_deferred()
+
+## BACK (button, ESC / B): levels -> chapter list -> title menu.
+func _select_back() -> void:
+	if select_chapter != 0:
+		var cr: Control = null
+		for r in chapter_rows:
+			if r.action == "chapter:%d" % select_chapter: cr = r
+		_refresh_select(0, cr)
+	else:
+		_show_select(false)
 
 var select_armed := 0.0
 func _on_level_row(row: LevelRow) -> void:
 	if select_armed > 0.0 or row.dragged: return
 	Sfx.play("menu_select")
+	if row.action.begins_with("chapter:"):
+		select_armed = 0.15
+		_refresh_select(int(row.action.get_slice(":", 1)))
+		return
 	if row.scene == "":
-		_show_select(false)
+		_select_back()
 		return
 	Level.checkpoint_x = -1.0
 	get_tree().change_scene_to_file(row.scene)
 
 ## Title > CUTSCENES: watch a cutscene without replaying its level. Rows live in the scene (UI > CutsceneGroup > CutsceneRows).
 func _setup_cutscenes() -> void:
+	# the list is longer than the screen: put the rows in a ScrollContainer (drag to scroll on a phone, follows the focus on a pad), like the level list
+	var holder := cutscene_rows.get_parent()
+	var sc := ScrollContainer.new(); sc.name = "CutsceneList"
+	sc.position = Vector2(90, 56); sc.size = Vector2(300, 168)
+	sc.follow_focus = true; sc.horizontal_scroll_mode = ScrollContainer.SCROLL_MODE_DISABLED; sc.scroll_deadzone = 10
+	holder.add_child(sc); holder.move_child(sc, cutscene_rows.get_index())
+	cutscene_rows.reparent(sc, false)
+	cutscene_rows.position = Vector2.ZERO
+	cutscene_rows.custom_minimum_size = Vector2(300, 0); cutscene_rows.size_flags_horizontal = Control.SIZE_EXPAND_FILL
+	var bar := sc.get_v_scroll_bar()
+	bar.custom_minimum_size.x = 4
+	var track := StyleBoxFlat.new(); track.bg_color = Color(1, 1, 1, 0.08)
+	var grab := StyleBoxFlat.new(); grab.bg_color = Color(1.0, 0.82, 0.35, 0.85)
+	bar.add_theme_stylebox_override("scroll", track)
+	for g in ["grabber", "grabber_highlight", "grabber_pressed"]: bar.add_theme_stylebox_override(g, grab)
 	var rows: Array = cutscene_rows.get_children().filter(func(n): return n is LevelRow)
 	for r in rows: r.pressed.connect(_on_cutscene_row.bind(r))
 	cutscene_back.pressed.connect(_on_cutscene_row.bind(cutscene_back))
@@ -215,9 +289,7 @@ func _show_select(on: bool) -> void:
 	_menu_enable(not on)
 	if on:
 		select_armed = 0.3
-		level_list.scroll_vertical = 0
-		var first := level_rows.get_child(0) as Control
-		if first: first.grab_focus()
+		_refresh_select(0)
 
 var crew_idle: Array = []
 func _crew_show(i: int) -> void:
@@ -331,7 +403,7 @@ func _process(d: float) -> void:
 			if cf is LevelRow: (cf as LevelRow).pressed.emit()
 	if select_group.visible:
 		select_armed = maxf(select_armed - d, 0.0)
-		if Input.is_action_just_pressed("ui_cancel"): _show_select(false)
+		if Input.is_action_just_pressed("ui_cancel"): _select_back()
 		elif Input.is_action_just_pressed("jump") and not Input.is_action_just_pressed("ui_accept"):   # Retroid B
 			var f := get_viewport().gui_get_focus_owner()
 			if f is LevelRow: (f as LevelRow).pressed.emit()
